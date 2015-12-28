@@ -3,7 +3,7 @@ package nl.antonsteenvoorden.ikpmd.model;
 import com.google.gson.annotations.SerializedName;
 
 /**
- * Created by Anton on 28/12/2015.
+ * Created by Anton & Daan on 28/12/2015.
  */
 public class Module {
 
