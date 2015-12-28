@@ -9,5 +9,5 @@ import java.util.List;
  */
 public class Modules {
     @SerializedName("modules")
-    public List<Modules> modules;
+    public List<Module> modules;
 }
