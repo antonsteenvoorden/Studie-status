@@ -3,4 +3,13 @@
     <string name="action_settings">Instellingen</string>
     <string name="section_format">Hello World from section: %1$d</string>
     <string name="splashText">Anton Steenvoorden &amp; Daan Rosbergen</string>
+    <string name="who_are_you_title">We willen graag weten hoe je heet</string>
+    <string name="who_are_you_subtitle">Dat maakt het iets persoonlijker ;)</string>
+    <string name="who_are_you_question">Wat is je naam ?</string>
+    <string name="name">Naam</string>
+    <string name="who_are_you_button">Opslaan</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="splashWelcome">Welkom</string>
 </resources>

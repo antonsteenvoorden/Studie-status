@@ -57,6 +57,9 @@ public class SplashScreen extends AppCompatActivity {
                 // This method will be executed once the timer is over
                 // Start your app main activity
                 if (settings.getBoolean("first_run", true)) {
+                    TextView welkom = (TextView) findViewById(R.id.splashScreenWelcome);
+                    welkom.setText(R.string.splashWelcome + " " + String.valueOf(settings.getString("name","")));
+
                     //the app is being launched for first time, do something
                     Log.d("Comments", "First time, opening get to know you screen");
                     Intent i = new Intent(SplashScreen.this, WhoAreYouActivity.class);
@@ -68,6 +71,8 @@ public class SplashScreen extends AppCompatActivity {
                     Intent i = new Intent(SplashScreen.this, MainActivity.class);
                     startActivity(i);
                 }
+
+
                 // close this activity
                 finish();
             }
