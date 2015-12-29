@@ -19,7 +19,7 @@ import nl.antonsteenvoorden.ikpmd.R;
  * A placeholder fragment containing a simple view.
  */
 public class VakkenFragment extends Fragment {
-    @Bind(R.id.section_label)
+    @Bind(R.id.vakken_label)
     TextView textView;
 
     public VakkenFragment() {
