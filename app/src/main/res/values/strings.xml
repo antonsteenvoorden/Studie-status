@@ -3,4 +3,11 @@
     <string name="action_settings">Instellingen</string>
     <string name="section_format">Hello World from section: %1$d</string>
     <string name="splashText">Anton Steenvoorden &amp; Daan Rosbergen</string>
+    <string name="next">Volgende</string>
+
+    <!-- Welcome screen step 1 -->
+    <string name="welcome_title_step1">Welkom bij de Hogeschool Leiden studiegids!</string>
+    <string name="welcome_text_step1">Voor dat we kunnen beginnen hebben we nog wat gegevens nodig.
+        Klik op volgende om te beginnen.</string>
+
 </resources>

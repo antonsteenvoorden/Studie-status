@@ -1,5 +1,6 @@
 package nl.antonsteenvoorden.ikpmd.activity;
 
+import android.content.Intent;
 import android.support.design.widget.TabLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -17,10 +18,12 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
+import android.widget.Button;
 import android.widget.TextView;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import nl.antonsteenvoorden.ikpmd.App;
 import nl.antonsteenvoorden.ikpmd.R;
 
@@ -107,6 +110,12 @@ public class MainActivity extends AppCompatActivity {
             args.putInt(ARG_SECTION_NUMBER, sectionNumber);
             fragment.setArguments(args);
             return fragment;
+        }
+
+        @OnClick(R.id.start_welcome)
+        public void startWelcomScreen(View view) {
+            Intent intent = new Intent(view.getContext(), WelcomeFirstStep.class);
+            startActivity(intent);
         }
 
         @Override
