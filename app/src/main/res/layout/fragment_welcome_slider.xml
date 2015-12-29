@@ -1,0 +1,37 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.WelcomeSliderFragment">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <!-- Active slider icon -->
+        <ImageView
+            android:id="@+id/slider_step1"
+            android:layout_width="10dp"
+            android:layout_height="10dp"
+            android:src="@drawable/slider_progress_active"
+            android:layout_margin="5dp"/>
+
+        <!-- Not active slider icon -->
+        <ImageView
+            android:id="@+id/slider_step2"
+            android:layout_width="8dp"
+            android:layout_height="8dp"
+            android:src="@drawable/slider_progress"
+            android:layout_margin="5dp"/>
+
+        <ImageView
+            android:id="@+id/slider_step3"
+            android:layout_width="8dp"
+            android:layout_height="8dp"
+            android:src="@drawable/slider_progress"
+            android:layout_margin="5dp"/>
+
+    </LinearLayout>
+
+
+</FrameLayout>

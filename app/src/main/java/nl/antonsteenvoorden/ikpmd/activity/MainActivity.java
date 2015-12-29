@@ -25,6 +25,7 @@ import android.widget.TextView;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import nl.antonsteenvoorden.ikpmd.App;
 import nl.antonsteenvoorden.ikpmd.R;
 import nl.antonsteenvoorden.ikpmd.fragment.StandVanZaken;
@@ -62,7 +63,7 @@ public class MainActivity extends AppCompatActivity {
         tabLayout.setupWithViewPager(mViewPager);
 
         // Retrieve modules
-        ((App) getApplication()).getModuleService().findAll();
+//        ((App) getApplication()).getModuleService().findAll();
     }
 
 
@@ -115,7 +116,7 @@ public class MainActivity extends AppCompatActivity {
         }
 
         @OnClick(R.id.start_welcome)
-        public void startWelcomScreen(View view) {
+        public void startWelcomeScreen(View view) {
             Intent intent = new Intent(view.getContext(), WelcomeFirstStep.class);
             startActivity(intent);
         }

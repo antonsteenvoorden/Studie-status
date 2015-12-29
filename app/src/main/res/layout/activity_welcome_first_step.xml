@@ -43,6 +43,13 @@
         android:gravity="center|bottom"
         android:orientation="vertical">
 
+        <fragment
+            android:name="nl.antonsteenvoorden.ikpmd.ui.WelcomeSliderFragment"
+            android:id="@+id/welcome_slider"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"/>
+
         <Button
             style="@style/Widget.AppCompat.Button"
             android:layout_width="wrap_content"
