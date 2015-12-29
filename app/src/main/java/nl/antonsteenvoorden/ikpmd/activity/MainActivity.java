@@ -36,7 +36,7 @@ public class MainActivity extends AppCompatActivity {
     /**
      * The {@link ViewPager} that will host the section contents.
      */
-    private ViewPager mViewPager;
+//    private ViewPager mViewPager;
     SharedPreferences settings;
     @Bind(R.id.container) ViewPager mViewPager;
     @Bind(R.id.tabs) TabLayout tabLayout;

@@ -21,11 +21,16 @@ public class SplashScreen extends AppCompatActivity {
         settings = getSharedPreferences(PREFS_NAME, 0);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash_screen);
+        TextView welkom = (TextView) findViewById(R.id.splashScreenWelcome);
 
-//        if(settings.getBoolean("first_run", true)) {
-//            TextView welkom = (TextView) findViewById(R.id.splashScreenWelcome);
-//            welkom.setText(R.string.splashWelcome + " " + String.valueOf(settings.getString("name","")));
-//        }
+        if (settings.getBoolean("first_run", true)) {
+            welkom.setText("");
+        } else {
+            welkom.setText("Welkom terug " + String.valueOf(settings.getString("name", ""))+ " !");
+        }
+        handleAfterSplash();
+    }
+    private void handleAfterSplash() {
         new Handler().postDelayed(new Runnable() {
 
             /*
@@ -40,9 +45,6 @@ public class SplashScreen extends AppCompatActivity {
                 // This method will be executed once the timer is over
                 // Start your app main activity
                 if (settings.getBoolean("first_run", true)) {
-                    TextView welkom = (TextView) findViewById(R.id.splashScreenWelcome);
-                    welkom.setText(R.string.splashWelcome + " " + String.valueOf(settings.getString("name","")));
-
                     //the app is being launched for first time, do something
                     Log.d("Comments", "First time, opening get to know you screen");
                     Intent i = new Intent(SplashScreen.this, WhoAreYouActivity.class);
@@ -61,5 +63,4 @@ public class SplashScreen extends AppCompatActivity {
             }
         }, SPLASH_TIME_OUT);
     }
-
 }
