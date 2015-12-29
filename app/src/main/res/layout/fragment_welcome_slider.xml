@@ -1,37 +1,49 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+ <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".ui.WelcomeSliderFragment">
+    android:layout_height="0dip"
+    android:layout_weight="1"
+    android:gravity="center|bottom"
+    android:orientation="horizontal"
+    tools:context=".ui.welcome.WelcomeSliderFragment">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+    <!-- Active slider icon -->
+    <ImageView
+        android:id="@+id/slider_step1"
+        android:layout_width="10dp"
+        android:layout_height="10dp"
+        android:src="@drawable/slider_progress_active"
+        android:layout_marginLeft="10dp"
+        android:layout_gravity="center_horizontal" />
 
-        <!-- Active slider icon -->
-        <ImageView
-            android:id="@+id/slider_step1"
-            android:layout_width="10dp"
-            android:layout_height="10dp"
-            android:src="@drawable/slider_progress_active"
-            android:layout_margin="5dp"/>
+    <!-- Not active slider icon -->
+    <ImageView
+        android:id="@+id/slider_step2"
+        android:layout_width="8dp"
+        android:layout_height="8dp"
+        android:src="@drawable/slider_progress"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="2dp"
+        android:layout_gravity="center_horizontal" />
 
-        <!-- Not active slider icon -->
-        <ImageView
-            android:id="@+id/slider_step2"
-            android:layout_width="8dp"
-            android:layout_height="8dp"
-            android:src="@drawable/slider_progress"
-            android:layout_margin="5dp"/>
+    <ImageView
+        android:id="@+id/slider_step3"
+        android:layout_width="8dp"
+        android:layout_height="8dp"
+        android:src="@drawable/slider_progress"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="2dp"
+        android:layout_gravity="center_horizontal" />
 
-        <ImageView
-            android:id="@+id/slider_step3"
-            android:layout_width="8dp"
-            android:layout_height="8dp"
-            android:src="@drawable/slider_progress"
-            android:layout_margin="5dp"/>
+     <!-- Next button -->
+    <Button
+        android:id="@+id/next"
+        style="@style/Widget.AppCompat.Button.Borderless"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/next"
+        android:layout_marginTop="25dp"
+        android:textColor="@color/colorAccent"
+        android:layout_gravity="right" />
 
-    </LinearLayout>
-
-
-</FrameLayout>
+</LinearLayout>
