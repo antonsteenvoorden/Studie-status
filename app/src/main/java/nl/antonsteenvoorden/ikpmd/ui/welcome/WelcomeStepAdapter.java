@@ -37,4 +37,9 @@ public class WelcomeStepAdapter extends FragmentPagerAdapter {
         return stepFragments.size();
     }
 
+    public String getFragmentTag(int viewPagerId, int fragmentPosition)
+    {
+        return "android:switcher:" + viewPagerId + ":" + fragmentPosition;
+    }
+
 }

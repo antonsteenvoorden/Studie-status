@@ -1,14 +1,19 @@
 package nl.antonsteenvoorden.ikpmd.ui.welcome;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 
+import butterknife.Bind;
+import butterknife.ButterKnife;
 import nl.antonsteenvoorden.ikpmd.R;
+import nl.antonsteenvoorden.ikpmd.activity.SplashScreen;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -16,6 +21,8 @@ import nl.antonsteenvoorden.ikpmd.R;
  * create an instance of this fragment.
  */
 public class WelcomeStep2Fragment extends Fragment {
+
+    @Bind(R.id.whoAreYou) EditText input;
 
     public WelcomeStep2Fragment() {
         // Required empty public constructor
@@ -42,7 +49,9 @@ public class WelcomeStep2Fragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_welcome_step2, container, false);
+        View view = inflater.inflate(R.layout.fragment_welcome_step2, container, false);
+        ButterKnife.bind(this, view);
+        return view;
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -57,6 +66,11 @@ public class WelcomeStep2Fragment extends Fragment {
     @Override
     public void onDetach() {
         super.onDetach();
+    }
+
+    public void saveData() {
+        SharedPreferences settings = getActivity().getSharedPreferences(SplashScreen.PREFS_NAME, 0);
+        settings.edit().putString("name", input.getText().toString()).commit();
     }
 
 }

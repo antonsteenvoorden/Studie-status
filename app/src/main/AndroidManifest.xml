@@ -35,8 +35,6 @@
         <activity
             android:name=".activity.WelcomeActivity"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity
-            android:name=".activity.WhoAreYouActivity" />
 
         <!--Active Android ORM -->
         <meta-data android:name="AA_DB_NAME" android:value="Pickrand.db" />

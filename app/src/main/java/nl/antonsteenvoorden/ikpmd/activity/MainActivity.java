@@ -64,9 +64,6 @@ public class MainActivity extends AppCompatActivity {
         // Set up the ViewPager with the sections adapter.
         mViewPager.setAdapter(mSectionsPagerAdapter);
         tabLayout.setupWithViewPager(mViewPager);
-
-        Module module = Module.load(Module.class, 1);
-        Log.d("ORM", module.toString());
     }
 
 

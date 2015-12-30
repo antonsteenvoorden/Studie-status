@@ -3,6 +3,7 @@ package nl.antonsteenvoorden.ikpmd.activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Handler;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -18,7 +19,6 @@ import java.util.List;
 import nl.antonsteenvoorden.ikpmd.App;
 import nl.antonsteenvoorden.ikpmd.R;
 import nl.antonsteenvoorden.ikpmd.model.Module;
-import nl.antonsteenvoorden.ikpmd.model.Modules;
 
 public class SplashScreen extends AppCompatActivity {
     // Splash screen timer
@@ -41,19 +41,22 @@ public class SplashScreen extends AppCompatActivity {
             welkom.setText("Welkom terug " + String.valueOf(settings.getString("name", ""))+ " !");
         }
 
+        // Temporary trigger welcome screen for debug purposes
+        settings.edit().putBoolean("first_run", true).commit();
+
         handleAfterSplash();
     }
 
     private void handleAfterSplash() {
         // Retrieve modules
-        ((App) getApplication()).getModuleService().findAll(successListener(), errorListener());
+//        ((App) getApplication()).getModuleService().findAll(successListener(), errorListener(this));
+
         new Handler().postDelayed(new Runnable() {
 
             /*
              * Showing splash screen with a timer. This will be useful when you
              * want to show case your app logo / company
              */
-
             @Override
             public void run() {
                 // This method will be executed once the timer is over
@@ -90,7 +93,6 @@ public class SplashScreen extends AppCompatActivity {
                         dbModule.setGrade(module.getGrade());
                         dbModule.setPeriod(module.getPeriod());
                         dbModule.save();
-                        Log.d("Volley", module.toString());
                     }
                     ActiveAndroid.setTransactionSuccessful();
                 } finally {
@@ -100,11 +102,11 @@ public class SplashScreen extends AppCompatActivity {
         };
     }
 
-    private Response.ErrorListener errorListener() {
+    private Response.ErrorListener errorListener(final SplashScreen splashScreen) {
         return new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                // Snackbar.make(getCurrentFocus(), "Kan modules niet ophalen", Snackbar.LENGTH_LONG).show();
+                 Snackbar.make(splashScreen.getCurrentFocus(), "Kan modules niet ophalen", Snackbar.LENGTH_LONG).show();
                 Log.e("Volley error", error.getMessage());
             }
         };

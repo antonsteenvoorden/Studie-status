@@ -128,6 +128,5 @@ public class WelcomeSliderFragment extends Fragment {
      */
     public interface OnFragmentInteractionListener {
         int nextStep();
-        void updateSliderIcon(int position);
     }
 }
