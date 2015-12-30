@@ -23,4 +23,5 @@
     <string name="welcome_title_step3">Welke cijfers heb je al gehaald?</string>
     <string name="welcome_text_step3">Deze zorgt voor  een beter inzicht in je cijfers. Daarom willen wij graag weten welke cijfers je al gehaald hebt.</string>
 
+    <string name="splashWelcome">Welkom</string>
 </resources>
