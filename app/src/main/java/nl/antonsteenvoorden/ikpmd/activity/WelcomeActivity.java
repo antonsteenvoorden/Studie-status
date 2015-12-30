@@ -17,8 +17,9 @@ public class WelcomeActivity extends AppCompatActivity implements
         WelcomeSliderFragment.OnFragmentInteractionListener {
 
     private WelcomeStepAdapter welcomeStepAdapter;
+    private WelcomeSliderFragment fragment;
+
     @Bind(R.id.container) ViewPager mViewPager;
-    WelcomeSliderFragment fragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,13 +29,9 @@ public class WelcomeActivity extends AppCompatActivity implements
 
         fragment = (WelcomeSliderFragment) getSupportFragmentManager().findFragmentById(
                 R.id.slider_container);
+
         welcomeStepAdapter = new WelcomeStepAdapter(getSupportFragmentManager(), this);
         mViewPager.setAdapter(welcomeStepAdapter);
-    }
-
-    @Override
-    public void onFragmentInteraction(Uri uri) {
-
     }
 
     @Override

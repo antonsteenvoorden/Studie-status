@@ -27,7 +27,6 @@ public class WelcomeStep3Fragment extends Fragment {
      *
      * @return A new instance of fragment WelcomeStep3Fragment.
      */
-    // TODO: Rename and change types and number of parameters
     public static WelcomeStep3Fragment newInstance() {
         WelcomeStep3Fragment fragment = new WelcomeStep3Fragment();
         return fragment;
@@ -43,10 +42,6 @@ public class WelcomeStep3Fragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_welcome_step3, container, false);
-    }
-
-    // TODO: Rename method, update argument and hook method into UI event
-    public void onButtonPressed(Uri uri) {
     }
 
     @Override

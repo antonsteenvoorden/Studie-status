@@ -2,7 +2,7 @@ apply plugin: 'com.android.application'
 
 android {
     compileSdkVersion 23
-    buildToolsVersion '23.0.2'
+    buildToolsVersion "23.0.2"
 
     defaultConfig {
         applicationId "nl.antonsteenvoorden.ikpmd"
@@ -29,4 +29,5 @@ dependencies {
     compile 'com.google.code.gson:gson:2.5'
     compile 'com.android.support:support-v4:23.1.1'
     compile 'com.jakewharton:butterknife:7.0.1'
+    compile 'com.github.PhilJay:MPAndroidChart:v2.1.5'
 }

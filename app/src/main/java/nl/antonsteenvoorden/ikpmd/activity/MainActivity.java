@@ -1,27 +1,28 @@
 package nl.antonsteenvoorden.ikpmd.activity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
-import android.support.v7.app.AppCompatActivity;
-
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-
 import android.widget.TextView;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import nl.antonsteenvoorden.ikpmd.R;
+import nl.antonsteenvoorden.ikpmd.ui.StandVanZaken;
+import nl.antonsteenvoorden.ikpmd.ui.VakkenFragment;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -38,6 +39,8 @@ public class MainActivity extends AppCompatActivity {
     /**
      * The {@link ViewPager} that will host the section contents.
      */
+//    private ViewPager mViewPager;
+    SharedPreferences settings;
     @Bind(R.id.container) ViewPager mViewPager;
     @Bind(R.id.tabs) TabLayout tabLayout;
     @Bind(R.id.toolbar) Toolbar toolbar;
@@ -46,6 +49,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        settings = getSharedPreferences(SplashScreen.PREFS_NAME, 0);
         ButterKnife.bind(this);
 
         setSupportActionBar(toolbar);
@@ -128,6 +132,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+
     /**
      * A {@link FragmentPagerAdapter} that returns a fragment corresponding to
      * one of the sections/tabs/pages.
@@ -142,7 +147,14 @@ public class MainActivity extends AppCompatActivity {
         public Fragment getItem(int position) {
             // getItem is called to instantiate the fragment for the given page.
             // Return a PlaceholderFragment (defined as a static inner class below).
-            return PlaceholderFragment.newInstance(position + 1);
+            switch(position){
+                case 0:
+                    return StandVanZaken.newInstance();
+
+                case 1:
+                    return VakkenFragment.newInstance();
+            }
+            return null;
         }
 
         @Override
