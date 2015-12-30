@@ -10,6 +10,7 @@ import com.google.gson.reflect.TypeToken;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.List;
 
 import nl.antonsteenvoorden.ikpmd.model.Module;
 import nl.antonsteenvoorden.ikpmd.model.Modules;
@@ -31,14 +32,14 @@ public class ModuleService {
         requestQueue.start();
     }
 
-    public synchronized void findAll(Response.Listener<Modules> listener, Response.ErrorListener errorListener) {
-        Type type = new TypeToken<Modules>(){}.getType();
-        GsonRequest<Modules> findAllMovies = new GsonRequest<>(url, type, null, listener,
+    public void findAll(Response.Listener<List<Module>> listener, Response.ErrorListener errorListener) {
+        Type type = new TypeToken<List<Module>>(){}.getType();
+        GsonRequest<List<Module>> findAllMovies = new GsonRequest<>(url, type, null, listener,
                 errorListener);
         requestQueue.add(findAllMovies);
     }
 
-    public synchronized ArrayList<Module> findAll() {
+    public ArrayList<Module> findAll() {
         GsonRequest<Modules> findAllMovies = new GsonRequest<>(url, Module.class, null, succesListener(),
                 errorListener());
         requestQueue.add(findAllMovies);

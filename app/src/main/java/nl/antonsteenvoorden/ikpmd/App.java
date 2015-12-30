@@ -2,6 +2,8 @@ package nl.antonsteenvoorden.ikpmd;
 
 import android.app.Application;
 
+import com.activeandroid.ActiveAndroid;
+
 import nl.antonsteenvoorden.ikpmd.model.Module;
 import nl.antonsteenvoorden.ikpmd.service.ModuleService;
 
@@ -10,12 +12,13 @@ import nl.antonsteenvoorden.ikpmd.service.ModuleService;
  *
  * @author Daan Rosbergen
  */
-public class App extends Application {
+public class App extends com.activeandroid.app.Application {
     private ModuleService moduleService;
 
     @Override
     public void onCreate() {
         super.onCreate();
+        ActiveAndroid.initialize(this);
         moduleService = new ModuleService(this);
     }
 
