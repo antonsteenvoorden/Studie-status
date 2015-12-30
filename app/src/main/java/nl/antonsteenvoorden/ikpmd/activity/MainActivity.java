@@ -10,6 +10,7 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -23,6 +24,7 @@ import butterknife.OnClick;
 import nl.antonsteenvoorden.ikpmd.R;
 import nl.antonsteenvoorden.ikpmd.ui.StandVanZaken;
 import nl.antonsteenvoorden.ikpmd.ui.VakkenFragment;
+import nl.antonsteenvoorden.ikpmd.orm.Module;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -63,8 +65,8 @@ public class MainActivity extends AppCompatActivity {
         mViewPager.setAdapter(mSectionsPagerAdapter);
         tabLayout.setupWithViewPager(mViewPager);
 
-        // Retrieve modules
-        // ((App) getApplication()).getModuleService().findAll();
+        Module module = Module.load(Module.class, 1);
+        Log.d("ORM", module.toString());
     }
 
 
@@ -131,7 +133,6 @@ public class MainActivity extends AppCompatActivity {
             return rootView;
         }
     }
-
 
     /**
      * A {@link FragmentPagerAdapter} that returns a fragment corresponding to

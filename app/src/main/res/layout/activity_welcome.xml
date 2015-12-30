@@ -18,6 +18,8 @@
             android:layout_height="170dp"
             android:src="@drawable/hsl_logo"
             android:padding="25dp"
+            android:layout_marginTop="32dp"
+            android:layout_marginBottom="16dp"
             android:background="@drawable/logo_container"
             android:layout_gravity="center" />
 

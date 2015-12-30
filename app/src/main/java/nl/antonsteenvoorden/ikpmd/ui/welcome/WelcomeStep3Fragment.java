@@ -8,7 +8,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import java.util.List;
+
 import nl.antonsteenvoorden.ikpmd.R;
+import nl.antonsteenvoorden.ikpmd.orm.Module;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -16,6 +19,8 @@ import nl.antonsteenvoorden.ikpmd.R;
  * create an instance of this fragment.
  */
 public class WelcomeStep3Fragment extends Fragment {
+
+    private List<Module> modules;
 
     public WelcomeStep3Fragment() {
         // Required empty public constructor
@@ -35,6 +40,7 @@ public class WelcomeStep3Fragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        modules = Module.getAll();
     }
 
     @Override

@@ -9,7 +9,16 @@ import android.util.Log;
 import android.widget.TextView;
 
 import butterknife.Bind;
+import com.activeandroid.ActiveAndroid;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+
+import java.util.List;
+
+import nl.antonsteenvoorden.ikpmd.App;
 import nl.antonsteenvoorden.ikpmd.R;
+import nl.antonsteenvoorden.ikpmd.model.Module;
+import nl.antonsteenvoorden.ikpmd.model.Modules;
 
 public class SplashScreen extends AppCompatActivity {
     // Splash screen timer
@@ -31,9 +40,13 @@ public class SplashScreen extends AppCompatActivity {
         } else {
             welkom.setText("Welkom terug " + String.valueOf(settings.getString("name", ""))+ " !");
         }
+
         handleAfterSplash();
     }
+
     private void handleAfterSplash() {
+        // Retrieve modules
+        ((App) getApplication()).getModuleService().findAll(successListener(), errorListener());
         new Handler().postDelayed(new Runnable() {
 
             /*
@@ -61,5 +74,39 @@ public class SplashScreen extends AppCompatActivity {
                 finish();
             }
         }, SPLASH_TIME_OUT);
+    }
+
+    private Response.Listener<List<Module>> successListener() {
+        return new Response.Listener<List<Module>>() {
+            @Override
+            public void onResponse(List<Module> modules) {
+                ActiveAndroid.beginTransaction();
+                try {
+                    for (Module module: modules) {
+                        nl.antonsteenvoorden.ikpmd.orm.Module dbModule =
+                                new nl.antonsteenvoorden.ikpmd.orm.Module();
+                        dbModule.setName(module.getName());
+                        dbModule.setEcts(module.getEcts());
+                        dbModule.setGrade(module.getGrade());
+                        dbModule.setPeriod(module.getPeriod());
+                        dbModule.save();
+                        Log.d("Volley", module.toString());
+                    }
+                    ActiveAndroid.setTransactionSuccessful();
+                } finally {
+                    ActiveAndroid.endTransaction();
+                }
+            }
+        };
+    }
+
+    private Response.ErrorListener errorListener() {
+        return new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                // Snackbar.make(getCurrentFocus(), "Kan modules niet ophalen", Snackbar.LENGTH_LONG).show();
+                Log.e("Volley error", error.getMessage());
+            }
+        };
     }
 }
