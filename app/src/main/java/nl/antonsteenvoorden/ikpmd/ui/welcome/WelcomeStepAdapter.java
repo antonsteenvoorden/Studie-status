@@ -13,9 +13,13 @@ import java.util.List;
 public class WelcomeStepAdapter extends FragmentPagerAdapter {
 
     private List<Fragment> stepFragments;
+    private WelcomeSliderFragment.OnFragmentInteractionListener welcomeSliderFragment;
 
-    public WelcomeStepAdapter(FragmentManager fm) {
+    public WelcomeStepAdapter(FragmentManager fm,
+                              WelcomeSliderFragment.OnFragmentInteractionListener
+                                      welcomeSliderFragment) {
         super(fm);
+        this.welcomeSliderFragment = welcomeSliderFragment;
         stepFragments = new ArrayList<>();
         stepFragments.add(WelcomeStep1Fragment.newInstance());
         stepFragments.add(WelcomeStep2Fragment.newInstance());
@@ -24,6 +28,7 @@ public class WelcomeStepAdapter extends FragmentPagerAdapter {
 
     @Override
     public Fragment getItem(int position) {
+        // welcomeSliderFragment.updateSliderIcon(position);
         return stepFragments.get(position);
     }
 

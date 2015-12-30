@@ -4,11 +4,15 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.DrawerLayout;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.Bind;
@@ -26,7 +30,12 @@ import nl.antonsteenvoorden.ikpmd.R;
  */
 public class WelcomeSliderFragment extends Fragment {
     private OnFragmentInteractionListener mListener;
-    private int count;
+    private int count = 0;
+
+    List<ImageView> steps;
+    @Bind(R.id.slider_step1) ImageView sliderStep1;
+    @Bind(R.id.slider_step2) ImageView sliderStep2;
+    @Bind(R.id.slider_step3) ImageView sliderStep3;
 
     public WelcomeSliderFragment() {
         // Required empty public constructor
@@ -57,6 +66,12 @@ public class WelcomeSliderFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_welcome_slider, container, false);
         ButterKnife.bind(this, view);
+
+        steps = new ArrayList<>();
+        steps.add(sliderStep1);
+        steps.add(sliderStep2);
+        steps.add(sliderStep3);
+
         return view;
     }
 
@@ -79,13 +94,26 @@ public class WelcomeSliderFragment extends Fragment {
 
     @OnClick(R.id.next)
     void nextStep(View view) {
-        mListener.nextStep();
+        count = mListener.nextStep();
         swapSliderIcon();
-        count++;
     }
 
     private void swapSliderIcon() {
+        ImageView oldIcon = steps.get(count-1);
+        ImageView newIcon = steps.get(count);
+        LinearLayout.LayoutParams oldParams = (LinearLayout.LayoutParams) oldIcon.getLayoutParams();
+        LinearLayout.LayoutParams newParams = (LinearLayout.LayoutParams) newIcon.getLayoutParams();
 
+        oldIcon.setImageResource(R.drawable.slider_progress);
+        oldIcon.setLayoutParams(newParams);
+
+        newIcon.setImageResource(R.drawable.slider_progress_active);
+        newIcon.setLayoutParams(oldParams);
+    }
+
+    public void updateSliderIcon(int position) {
+        count = position;
+        swapSliderIcon();
     }
 
     /**
@@ -101,6 +129,7 @@ public class WelcomeSliderFragment extends Fragment {
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
-        void nextStep();
+        int nextStep();
+        void updateSliderIcon(int position);
     }
 }
