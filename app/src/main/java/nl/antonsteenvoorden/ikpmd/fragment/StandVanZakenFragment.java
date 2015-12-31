@@ -14,12 +14,12 @@ import nl.antonsteenvoorden.ikpmd.R;
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link StandVanZaken.OnFragmentInteractionListener} interface
+ * {@link StandVanZakenFragment.OnFragmentInteractionListener} interface
  * to handle interaction events.
- * Use the {@link StandVanZaken#newInstance} factory method to
+ * Use the {@link StandVanZakenFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class StandVanZaken extends Fragment {
+public class StandVanZakenFragment extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -30,7 +30,7 @@ public class StandVanZaken extends Fragment {
 
     private OnFragmentInteractionListener mListener;
 
-    public StandVanZaken() {
+    public StandVanZakenFragment() {
         // Required empty public constructor
     }
 
@@ -40,11 +40,11 @@ public class StandVanZaken extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment StandVanZaken.
+     * @return A new instance of fragment StandVanZakenFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static StandVanZaken newInstance(String param1) {
-        StandVanZaken fragment = new StandVanZaken();
+    public static StandVanZakenFragment newInstance(String param1) {
+        StandVanZakenFragment fragment = new StandVanZakenFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         fragment.setArguments(args);
