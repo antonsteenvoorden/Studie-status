@@ -25,22 +25,22 @@ import butterknife.ButterKnife;
 import nl.antonsteenvoorden.ikpmd.R;
 
 
-public class StandVanZaken extends Fragment {
+public class StandVanZakenFragment extends Fragment {
     @Bind(R.id.stand_van_zaken_label)
     TextView textView;
     private PieChart mChart;
     public static final int MAX_ECTS = 60;
     public static int currentEcts = 0;
 
-    public StandVanZaken() {
+    public StandVanZakenFragment() {
     }
 
     /**
      * Returns a new instance of this fragment for the given section
      * number.
      */
-    public static StandVanZaken newInstance() {
-        StandVanZaken fragment = new StandVanZaken();
+    public static StandVanZakenFragment newInstance() {
+        StandVanZakenFragment fragment = new StandVanZakenFragment();
         Bundle args = new Bundle();
         fragment.setArguments(args);
         return fragment;
