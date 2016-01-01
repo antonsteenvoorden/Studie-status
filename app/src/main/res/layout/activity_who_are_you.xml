@@ -7,6 +7,7 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
+    android:background="@color/colorPrimary"
     tools:context="nl.antonsteenvoorden.ikpmd.activity.WhoAreYouActivity">
 
     <LinearLayout
@@ -32,6 +33,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textColor="@color/text"
             android:text="@string/who_are_you_title"
             android:id="@+id/whoAreYouTitle"
             android:paddingBottom="10dp" />
@@ -39,6 +41,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textColor="@color/text"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:text="@string/who_are_you_subtitle"
             android:id="@+id/whoAreYouSubtitle"
@@ -48,6 +51,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textColor="@color/text"
             android:textAppearance="?android:attr/textAppearanceSmall"
             android:text="@string/who_are_you_question"
             android:id="@+id/textView" />
@@ -60,7 +64,7 @@
             android:ems="10"
             android:id="@+id/whoAreYouInput"
             android:singleLine="true"
-            android:textColor="@color/colorPrimary" />
+            android:textColor="@color/text" />
 
         <Button
             android:layout_width="wrap_content"

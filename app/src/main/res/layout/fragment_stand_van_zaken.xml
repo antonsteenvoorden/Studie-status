@@ -1,28 +1,80 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="nl.antonsteenvoorden.ikpmd.fragment.StandVanZaken">
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:id="@+id/stand_van_zaken_label"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
-
-    <com.github.mikephil.charting.charts.PieChart
+    tools:context="nl.antonsteenvoorden.ikpmd.fragment.StandVanZakenFragment">
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/chart" >
-    </com.github.mikephil.charting.charts.PieChart>
+        android:fillViewport="true"
+        android:background="@color/colorPrimary">
 
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="fill_parent">
 
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/fab"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom|end"
-        android:layout_margin="@dimen/fab_margin"
-        android:text="+2"
-        android:src="@android:drawable/ic_input_add" />
+            <TextView
+                android:id="@+id/stand_van_zaken_label"
+                android:textColor="@color/colorAccent"
+                android:text="@string/stand_van_zaken_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:layout_gravity="center_horizontal" />
 
-</FrameLayout>
+            <com.github.mikephil.charting.charts.PieChart
+                android:padding="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="300dp"
+                android:id="@+id/chart"
+                android:layout_gravity="center">
+            </com.github.mikephil.charting.charts.PieChart>
+
+            <TextView
+                android:id="@+id/stand_van_zaken_label2"
+                android:text="@string/stand_van_zaken_label2"
+                android:textColor="@color/colorAccent"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                android:layout_marginBottom="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_gravity="center_horizontal" />
+
+            <TextView
+                android:text="Voorbeeldje 1 "
+                android:textColor="@color/colorAccent"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                android:layout_marginBottom="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_gravity="center_horizontal" />
+
+            <TextView
+                android:text="Voorbeeldje 1 "
+                android:textColor="@color/colorAccent"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                android:layout_marginBottom="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_gravity="center_horizontal" />
+
+            <TextView
+                android:text="Voorbeeldje 1 "
+                android:textColor="@color/colorAccent"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                android:layout_marginBottom="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_gravity="center_horizontal" />
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

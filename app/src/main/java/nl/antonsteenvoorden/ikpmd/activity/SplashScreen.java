@@ -43,22 +43,19 @@ public class SplashScreen extends AppCompatActivity {
     }
 
     private void handleAfterSplash() {
-        // Retrieve modules
         ((App) getApplication()).getModuleService().findAll(successListener(), errorListener());
-        new Handler().postDelayed(new Runnable() {
 
+        new Handler().postDelayed(new Runnable() {
             /*
              * Showing splash screen with a timer. This will be useful when you
              * want to show case your app logo / company
              */
-
             @Override
             public void run() {
+
                 // This method will be executed once the timer is over
-                // Start your app main activity
                 if (settings.getBoolean("first_run", true)) {
                     TextView welkom = (TextView) findViewById(R.id.splashScreenWelcome);
-                    welkom.setText(R.string.splashWelcome + " " + String.valueOf(settings.getString("name","")));
 
                     //the app is being launched for first time, do something
                     Log.d("Comments", "First time, opening get to know you screen");
@@ -71,11 +68,10 @@ public class SplashScreen extends AppCompatActivity {
                     Intent i = new Intent(SplashScreen.this, MainActivity.class);
                     startActivity(i);
                 }
-
-
                 // close this activity
                 finish();
             }
+
         }, SPLASH_TIME_OUT);
     }
 

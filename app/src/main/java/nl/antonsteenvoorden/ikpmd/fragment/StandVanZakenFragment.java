@@ -32,6 +32,7 @@ public class StandVanZakenFragment extends Fragment {
     public static final int MAX_ECTS = 60;
     public static int currentEcts = 0;
 
+
     public StandVanZakenFragment() {
     }
 
@@ -51,63 +52,58 @@ public class StandVanZakenFragment extends Fragment {
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_stand_van_zaken, container, false);
         ButterKnife.bind(this, rootView);
-        textView.setText("Stand van zaken");
 
         mChart = (PieChart) rootView.findViewById(R.id.chart);
         mChart.setDescription("");
         mChart.setTouchEnabled(false);
         mChart.setDrawSliceText(true);
+        mChart.setDrawHoleEnabled(true);
+        mChart.setHoleColorTransparent(true);
+        mChart.setHoleRadius(85);
+        mChart.setCenterTextColor(Color.rgb(0,188,186));
+        mChart.setCenterText("0/0 \n Studiepunten behaald");
+        mChart.setCenterTextSize(20);
         mChart.getLegend().setEnabled(false);
-        mChart.setTransparentCircleColor(Color.rgb(130, 130, 130));
-        // mChart.animateY(1400, Easing.EasingOption.EaseInOutQuad);
-        mChart.spin(500, 0, -360f, Easing.EasingOption.EaseInOutQuad);
 
-        setData(0);
-
-        FloatingActionButton fab = (FloatingActionButton) rootView.findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (currentEcts < MAX_ECTS) {
-                    setData(currentEcts += 2);
-                } else {
-                    setData(currentEcts = 0);
-                }
-            }
-        });
+        mChart.animateY(1500);
+        setData(5);
 
         return rootView;
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        mChart.spin(1500, 0, 360f, Easing.EasingOption.EaseInOutCirc);
+    }
+
     private void setData(int aantal) {
+        String label = (String) getString(R.string.stand_van_zaken_data);
+        mChart.setCenterText(aantal + " / 60 \n"+ label );
         currentEcts = aantal;
+
         ArrayList<Entry> yValues = new ArrayList<>();
         ArrayList<String> xValues = new ArrayList<>();
 
         yValues.add(new Entry(aantal, 0));
         xValues.add("Behaalde ECTS");
 
-        yValues.add(new Entry(60 - currentEcts, 1));
+        yValues.add(new Entry(60-currentEcts, 1));
         xValues.add("Resterende ECTS");
 
-        //  http://www.materialui.co/colors
         ArrayList<Integer> colors = new ArrayList<>();
-        if (currentEcts <10) {
-            colors.add(Color.rgb(244,81,30));
-        } else if (currentEcts < 40){
-            colors.add(Color.rgb(235,0,0));
-        } else if  (currentEcts < 50) {
-            colors.add(Color.rgb(253,216,53));
-        } else {
-            colors.add(Color.rgb(67,160,71));
-        }
-        colors.add(Color.rgb(255,0,0));
+        colors.add(Color.rgb(0 ,188,186)); // blue
+        colors.add(Color.rgb(35 ,10,78)); // deep purple
 
         PieDataSet dataSet = new PieDataSet(yValues, "ECTS");
         dataSet.setColors(colors);
+        dataSet.setDrawValues(false);
 
         PieData data = new PieData(xValues, dataSet);
+        data.setDrawValues(false);
+        data.setValueTextSize(0.0f);
         mChart.setData(data); // bind dataset aan chart.
+
         mChart.invalidate();  // Aanroepen van een redraw
         Log.d("aantal =", ""+currentEcts);
     }

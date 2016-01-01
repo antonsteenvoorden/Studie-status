@@ -1,15 +1,22 @@
 <resources>
+    <!-- algemeen -->
     <string name="app_name">Studie Status</string>
     <string name="action_settings">Instellingen</string>
-    <string name="section_format">Hello World from section: %1$d</string>
-    <string name="splashText">Anton Steenvoorden &amp; Daan Rosbergen</string>
+
+    <!--get to know you -->
     <string name="who_are_you_title">We willen graag weten hoe je heet</string>
     <string name="who_are_you_subtitle">Dat maakt het iets persoonlijker ;)</string>
     <string name="who_are_you_question">Wat is je naam ?</string>
     <string name="name">Naam</string>
     <string name="who_are_you_button">Opslaan</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <!-- splash screen -->
     <string name="splashWelcome">Welkom</string>
+    <string name="splashText">Anton Steenvoorden &amp; Daan Rosbergen</string>
+
+
+    <!-- stand van zaken -->
+    <string name="stand_van_zaken_label">Huidige status </string>
+    <string name="stand_van_zaken_label2">Vakken die aandacht nodig hebben</string>
+    <string name="stand_van_zaken_data">Studiepunten behaald</string>
 </resources>
