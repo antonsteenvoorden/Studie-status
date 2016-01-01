@@ -67,7 +67,7 @@ public class SplashScreen extends AppCompatActivity {
                     // record the fact that the app has been started at least once
                     //settings.edit().putBoolean("first_run", false).commit();
                 } else {
-                    Log.d("Comments", "Run before");
+                    Log.d("Comments", "Opening main activity");
                     Intent i = new Intent(SplashScreen.this, MainActivity.class);
                     startActivity(i);
                 }
