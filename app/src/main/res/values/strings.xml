@@ -19,4 +19,7 @@
     <string name="stand_van_zaken_label">Huidige status </string>
     <string name="stand_van_zaken_label2">Vakken die aandacht nodig hebben</string>
     <string name="stand_van_zaken_data">Studiepunten behaald</string>
+
+    <!-- vakken -->
+    <string name="vakken_label">Er zijn nog geen vakken opgehaald !</string>
 </resources>

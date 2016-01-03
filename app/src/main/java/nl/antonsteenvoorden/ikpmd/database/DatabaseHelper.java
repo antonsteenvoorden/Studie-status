@@ -35,13 +35,15 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         db.execSQL("CREATE TABLE " +
                 DatabaseInfo.tableName + "(" +
-                DatabaseInfo.columnName + " TEXT PRIMARY KEY, " +
+                BaseColumns._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                DatabaseInfo.columnName + " TEXT," +
                 DatabaseInfo.columnECTS + " INTEGER," +
                 DatabaseInfo.columnGrade + " INTEGER,"+
                 DatabaseInfo.columnPeriod + " INTEGER" +
                 ");"
 
         );
+
     }
 
     public DatabaseHelper(Context context, String name, SQLiteDatabase.CursorFactory factory, int version ){
@@ -56,8 +58,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public void insert(String table, ContentValues contentValues) {
         mSQLDB.insert(table, null, contentValues);
     }
-    public void update(String table, ContentValues values, String where) {
-        mSQLDB.update(table,values, DatabaseInfo.columnName + " LIKE ?", new String[]{where});
+    public void update(String table, ContentValues values, int where) {
+        mSQLDB.update(table,values,BaseColumns._ID + " LIKE ?",new String[]{String.valueOf(where)});
     }
     public Cursor query(String table, String[] columns, String selection, String[] selectArgs, String groupBy, String having, String orderBy){
         return mSQLDB.query(table, columns, selection, selectArgs, groupBy, having, orderBy);
