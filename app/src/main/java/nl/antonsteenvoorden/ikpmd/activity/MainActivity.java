@@ -1,11 +1,16 @@
 package nl.antonsteenvoorden.ikpmd.activity;
 
+<<<<<<< HEAD
 import android.content.ContentValues;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.content.Intent;
+import android.content.SharedPreferences;
+import android.os.Bundle;
+import android.support.design.widget.TabLayout;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -22,6 +27,19 @@ import nl.antonsteenvoorden.ikpmd.database.DatabaseHelper;
 import nl.antonsteenvoorden.ikpmd.database.DatabaseInfo;
 import nl.antonsteenvoorden.ikpmd.fragment.StandVanZakenFragment;
 import nl.antonsteenvoorden.ikpmd.fragment.VakkenFragment;
+import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.TextView;
+
+import butterknife.Bind;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
+import nl.antonsteenvoorden.ikpmd.R;
+import nl.antonsteenvoorden.ikpmd.ui.StandVanZaken;
+import nl.antonsteenvoorden.ikpmd.ui.VakkenFragment;
 import nl.antonsteenvoorden.ikpmd.orm.Module;
 
 public class MainActivity extends AppCompatActivity {
@@ -56,7 +74,6 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        settings = getSharedPreferences(SplashScreen.PREFS_NAME, 0);
         // Create the adapter that will return a fragment for each of the three
         // primary sections of the activity.
         mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
@@ -64,9 +81,6 @@ public class MainActivity extends AppCompatActivity {
         // Set up the ViewPager with the sections adapter.
         mViewPager.setAdapter(mSectionsPagerAdapter);
         tabLayout.setupWithViewPager(mViewPager);
-
-        Module module = Module.load(Module.class, 1);
-        Log.d("ORM", module.toString());
     }
 
 
@@ -103,9 +117,24 @@ public class MainActivity extends AppCompatActivity {
             DatabaseHelper.getInstance(this).insert(DatabaseInfo.tableName,contentValues);
         }
 
-
         return super.onOptionsItemSelected(item);
-    }
+	}
+        @OnClick(R.id.start_welcome)
+        public void startWelcomeScreen(View view) {
+            Intent intent = new Intent(view.getContext(), WelcomeActivity.class);
+            startActivity(intent);
+        }
+
+        @Override
+        public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                                 Bundle savedInstanceState) {
+            View rootView = inflater.inflate(R.layout.fragment_main, container, false);
+            ButterKnife.bind(this, rootView);
+            textView.setText(getString(R.string.section_format, getArguments().getInt(ARG_SECTION_NUMBER)));
+            return rootView;
+        }
+
+ 
 
     /**
      * A {@link FragmentPagerAdapter} that returns a fragment corresponding to
@@ -120,11 +149,12 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public Fragment getItem(int position) {
             // getItem is called to instantiate the fragment for the given page.
-            switch (position) {
+            switch(position){
                 case 0:
-                    return new StandVanZakenFragment().newInstance();
+                    return StandVanZaken.newInstance();
+
                 case 1:
-                    return new VakkenFragment().newInstance();
+                    return VakkenFragment.newInstance();
             }
             return null;
         }

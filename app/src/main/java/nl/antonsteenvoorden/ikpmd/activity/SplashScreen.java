@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.widget.TextView;
 
+import butterknife.Bind;
 import com.activeandroid.ActiveAndroid;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
@@ -24,12 +25,14 @@ public class SplashScreen extends AppCompatActivity {
     public static final String PREFS_NAME = "LaunchPreferences";
     SharedPreferences settings;
 
+    @Bind(R.id.splashScreenWelcome) TextView welkom;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        settings = getSharedPreferences(PREFS_NAME, 0);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash_screen);
-        TextView welkom = (TextView) findViewById(R.id.splashScreenWelcome);
+        settings = getSharedPreferences(PREFS_NAME, 0);
+        welkom = (TextView) findViewById(R.id.splashScreenWelcome);
 
         if (settings.getBoolean("first_run", true)) {
             welkom.setText("");
@@ -37,11 +40,13 @@ public class SplashScreen extends AppCompatActivity {
             welkom.setText("Welkom terug " + String.valueOf(settings.getString("name", ""))+ " !");
         }
 
+        // Temporary trigger welcome screen for debug purposes
+        settings.edit().putBoolean("first_run", true).commit();
+
         handleAfterSplash();
     }
 
     private void handleAfterSplash() {
-
 
         new Handler().postDelayed(new Runnable() {
             /*
@@ -57,10 +62,10 @@ public class SplashScreen extends AppCompatActivity {
 
                     //the app is being launched for first time, do something
                     Log.d("Comments", "First time, opening get to know you screen");
-                    Intent i = new Intent(SplashScreen.this, WhoAreYouActivity.class);
+                    Intent i = new Intent(SplashScreen.this, WelcomeActivity.class);
                     startActivity(i);
                     // record the fact that the app has been started at least once
-                    //settings.edit().putBoolean("first_run", false).commit();
+                    // settings.edit().putBoolean("first_run", false).commit();
                 } else {
                     Log.d("Comments", "Opening main activity");
                     Intent i = new Intent(SplashScreen.this, MainActivity.class);
@@ -87,7 +92,6 @@ public class SplashScreen extends AppCompatActivity {
                         dbModule.setGrade(module.getGrade());
                         dbModule.setPeriod(module.getPeriod());
                         dbModule.save();
-                        Log.d("Volley", module.toString());
                     }
                     ActiveAndroid.setTransactionSuccessful();
                 } finally {
@@ -97,11 +101,11 @@ public class SplashScreen extends AppCompatActivity {
         };
     }
 
-    private Response.ErrorListener errorListener() {
+    private Response.ErrorListener errorListener(final SplashScreen splashScreen) {
         return new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                // Snackbar.make(getCurrentFocus(), "Kan modules niet ophalen", Snackbar.LENGTH_LONG).show();
+                 Snackbar.make(splashScreen.getCurrentFocus(), "Kan modules niet ophalen", Snackbar.LENGTH_LONG).show();
                 Log.e("Volley error", error.getMessage());
             }
         };
