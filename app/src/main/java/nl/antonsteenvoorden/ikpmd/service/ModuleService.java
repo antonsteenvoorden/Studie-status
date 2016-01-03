@@ -13,8 +13,6 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
-import nl.antonsteenvoorden.ikpmd.database.DatabaseHelper;
-import nl.antonsteenvoorden.ikpmd.database.DatabaseInfo;
 import nl.antonsteenvoorden.ikpmd.model.Module;
 import nl.antonsteenvoorden.ikpmd.model.Modules;
 import nl.antonsteenvoorden.ikpmd.request.GsonRequest;
