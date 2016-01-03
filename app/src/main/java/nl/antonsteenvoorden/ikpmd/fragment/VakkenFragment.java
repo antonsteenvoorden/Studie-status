@@ -15,20 +15,19 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import nl.antonsteenvoorden.ikpmd.R;
 import nl.antonsteenvoorden.ikpmd.adapter.VakkenAdapter;
-
 import nl.antonsteenvoorden.ikpmd.orm.Module;
 
 public class VakkenFragment extends Fragment {
     @Bind(R.id.vakken_label)
     TextView textView;
 
-    ArrayList<Module> content;
+    List<Module> content;
     ListView listViewItems;
     VakkenAdapter lcAdapter;
 

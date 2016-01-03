@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.widget.TextView;
@@ -58,7 +59,7 @@ public class SplashScreen extends AppCompatActivity {
 
                 // This method will be executed once the timer is over
                 if (settings.getBoolean("first_run", true)) {
-                   ((App) getApplication()).getModuleService().findAll(successListener(), errorListener());
+                   ((App) getApplication()).getModuleService().findAll(successListener(), errorListener(SplashScreen.this));
 
                     //the app is being launched for first time, do something
                     Log.d("Comments", "First time, opening get to know you screen");
@@ -105,7 +106,7 @@ public class SplashScreen extends AppCompatActivity {
         return new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                 Snackbar.make(splashScreen.getCurrentFocus(), "Kan modules niet ophalen", Snackbar.LENGTH_LONG).show();
+                Snackbar.make(splashScreen.getCurrentFocus(), "Kan modules niet ophalen", Snackbar.LENGTH_LONG).show();
                 Log.e("Volley error", error.getMessage());
             }
         };

@@ -1,38 +1,25 @@
 package nl.antonsteenvoorden.ikpmd.activity;
 
-<<<<<<< HEAD
+
 import android.content.ContentValues;
-import android.content.SharedPreferences;
-import android.os.Bundle;
-import android.support.design.widget.TabLayout;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
-
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
-
-import butterknife.Bind;
-import butterknife.ButterKnife;
-import nl.antonsteenvoorden.ikpmd.R;
-import nl.antonsteenvoorden.ikpmd.database.DatabaseHelper;
-import nl.antonsteenvoorden.ikpmd.database.DatabaseInfo;
-import nl.antonsteenvoorden.ikpmd.fragment.StandVanZakenFragment;
-import nl.antonsteenvoorden.ikpmd.fragment.VakkenFragment;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
+
+import com.activeandroid.DatabaseHelper;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -40,7 +27,6 @@ import butterknife.OnClick;
 import nl.antonsteenvoorden.ikpmd.R;
 import nl.antonsteenvoorden.ikpmd.ui.StandVanZaken;
 import nl.antonsteenvoorden.ikpmd.ui.VakkenFragment;
-import nl.antonsteenvoorden.ikpmd.orm.Module;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -59,9 +45,12 @@ public class MainActivity extends AppCompatActivity {
      */
 //    private ViewPager mViewPager;
     SharedPreferences settings;
-    @Bind(R.id.container) ViewPager mViewPager;
-    @Bind(R.id.tabs) TabLayout tabLayout;
-    @Bind(R.id.toolbar) Toolbar toolbar;
+    @Bind(R.id.container)
+    ViewPager mViewPager;
+    @Bind(R.id.tabs)
+    TabLayout tabLayout;
+    @Bind(R.id.toolbar)
+    Toolbar toolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -109,12 +98,7 @@ public class MainActivity extends AppCompatActivity {
         }
 
         if (id == R.id.menu_dummy) {
-            Log.d("MENU","Dummy data");
-            ContentValues contentValues = new ContentValues();
-            contentValues.put(DatabaseInfo.columnName,"TEST");
-            contentValues.put(DatabaseInfo.columnECTS,"3");
-            contentValues.put(DatabaseInfo.columnGrade,"5,6");
-            DatabaseHelper.getInstance(this).insert(DatabaseInfo.tableName,contentValues);
+
         }
 
         return super.onOptionsItemSelected(item);
@@ -125,16 +109,7 @@ public class MainActivity extends AppCompatActivity {
             startActivity(intent);
         }
 
-        @Override
-        public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                                 Bundle savedInstanceState) {
-            View rootView = inflater.inflate(R.layout.fragment_main, container, false);
-            ButterKnife.bind(this, rootView);
-            textView.setText(getString(R.string.section_format, getArguments().getInt(ARG_SECTION_NUMBER)));
-            return rootView;
-        }
 
- 
 
     /**
      * A {@link FragmentPagerAdapter} that returns a fragment corresponding to
