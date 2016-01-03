@@ -33,7 +33,7 @@ public class VakkenCursorAdapter extends CursorAdapter {
         TextView listGrade = (TextView) view.findViewById(R.id.vakken_list_item_grade);
 
         listName.setText(cursor.getString(cursor.getColumnIndexOrThrow(DatabaseInfo.columnName)));
-        listECTS.setText(String.valueOf(cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseInfo.columnECTS))));
+        listECTS.setText("Ects: " + cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseInfo.columnECTS)));
         listGrade.setText(String.valueOf(cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseInfo.columnGrade))));
     }
 }
