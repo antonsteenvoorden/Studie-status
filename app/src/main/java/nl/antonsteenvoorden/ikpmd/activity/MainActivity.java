@@ -1,5 +1,6 @@
 package nl.antonsteenvoorden.ikpmd.activity;
 
+import android.content.ContentValues;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
@@ -17,6 +18,8 @@ import android.view.MenuItem;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import nl.antonsteenvoorden.ikpmd.R;
+import nl.antonsteenvoorden.ikpmd.database.DatabaseHelper;
+import nl.antonsteenvoorden.ikpmd.database.DatabaseInfo;
 import nl.antonsteenvoorden.ikpmd.fragment.StandVanZakenFragment;
 import nl.antonsteenvoorden.ikpmd.fragment.VakkenFragment;
 import nl.antonsteenvoorden.ikpmd.orm.Module;
@@ -82,9 +85,24 @@ public class MainActivity extends AppCompatActivity {
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+        if (id == R.id.menu_settings) {
+            Log.d("MENU","SETTINGS");
             return true;
         }
+        if (id == R.id.menu_about) {
+            Log.d("MENU","ABOuT");
+            return true;
+        }
+
+        if (id == R.id.menu_dummy) {
+            Log.d("MENU","Dummy data");
+            ContentValues contentValues = new ContentValues();
+            contentValues.put(DatabaseInfo.columnName,"TEST");
+            contentValues.put(DatabaseInfo.columnECTS,"3");
+            contentValues.put(DatabaseInfo.columnGrade,"5,6");
+            DatabaseHelper.getInstance(this).insert(DatabaseInfo.tableName,contentValues);
+        }
+
 
         return super.onOptionsItemSelected(item);
     }
@@ -102,7 +120,6 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public Fragment getItem(int position) {
             // getItem is called to instantiate the fragment for the given page.
-            // Return a PlaceholderFragment (defined as a static inner class below).
             switch (position) {
                 case 0:
                     return new StandVanZakenFragment().newInstance();

@@ -47,6 +47,7 @@ public class VakkenFragment extends Fragment {
      * number.
      */
     public static VakkenFragment newInstance() {
+        Log.d("VAKKENFRAG", "New instance created");
         VakkenFragment fragment = new VakkenFragment();
         Bundle args = new Bundle();
         fragment.setArguments(args);
@@ -66,7 +67,11 @@ public class VakkenFragment extends Fragment {
         return rootView;
     }
 
-
+    @Override
+    public void onResume() {
+        super.onResume();
+        listViewItems.invalidateViews();
+    }
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {

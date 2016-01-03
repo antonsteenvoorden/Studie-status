@@ -3,9 +3,21 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".activity.MainActivity">
     <item
-        android:id="@+id/action_settings"
+        android:id="@+id/menu_settings"
         android:orderInCategory="100"
-        android:name="@string/action_settings"
+        android:name="@string/menu_settings"
         app:showAsAction="never"
-        android:title="Settings" />
+        android:title="@string/menu_settings" />
+    <item
+        android:id="@+id/menu_about"
+        android:orderInCategory="100"
+        android:name="@string/menu_about"
+        app:showAsAction="never"
+        android:title="@string/menu_about" />
+    <item
+        android:id="@+id/menu_dummy"
+        android:orderInCategory="100"
+        android:name="Dummy data"
+        app:showAsAction="never"
+        android:title="Dummy data" />
 </menu>

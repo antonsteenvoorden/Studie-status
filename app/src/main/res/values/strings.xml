@@ -1,7 +1,9 @@
 <resources>
     <!-- algemeen -->
     <string name="app_name">Studie Status</string>
-    <string name="action_settings">Instellingen</string>
+    <string name="menu_settings">Instellingen</string>
+    <string name="menu_about">Over ons</string>
+
 
     <!--get to know you -->
     <string name="who_are_you_title">We willen graag weten hoe je heet</string>
