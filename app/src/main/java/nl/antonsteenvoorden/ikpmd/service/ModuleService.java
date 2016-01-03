@@ -1,5 +1,6 @@
 package nl.antonsteenvoorden.ikpmd.service;
 
+import android.content.ContentValues;
 import android.content.Context;
 
 import com.android.volley.RequestQueue;
@@ -12,6 +13,8 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
+import nl.antonsteenvoorden.ikpmd.database.DatabaseHelper;
+import nl.antonsteenvoorden.ikpmd.database.DatabaseInfo;
 import nl.antonsteenvoorden.ikpmd.model.Module;
 import nl.antonsteenvoorden.ikpmd.model.Modules;
 import nl.antonsteenvoorden.ikpmd.request.GsonRequest;
@@ -32,11 +35,12 @@ public class ModuleService {
         requestQueue.start();
     }
 
-    public void findAll(Response.Listener<List<Module>> listener, Response.ErrorListener errorListener) {
+    public ArrayList<Module> findAll(Response.Listener<List<Module>> listener, Response.ErrorListener errorListener) {
         Type type = new TypeToken<List<Module>>(){}.getType();
         GsonRequest<List<Module>> findAllMovies = new GsonRequest<>(url, type, null, listener,
                 errorListener);
         requestQueue.add(findAllMovies);
+        return modules;
     }
 
     public ArrayList<Module> findAll() {
@@ -45,6 +49,7 @@ public class ModuleService {
         requestQueue.add(findAllMovies);
         return modules;
     }
+
 
     private Response.ErrorListener errorListener() {
         return new Response.ErrorListener() {

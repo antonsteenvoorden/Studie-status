@@ -64,13 +64,7 @@ public class VakkenFragment extends Fragment {
     }
 
     void test() {
-        ContentValues test = new ContentValues();
-        test.put(DatabaseInfo.columnName, "Test");
-        test.put(DatabaseInfo.columnECTS, 1);
-        test.put(DatabaseInfo.columnGrade, 1);
-        test.put(DatabaseInfo.columnPeriod, 1);
 
-        dbHelper.insert(DatabaseInfo.tableName,test);
     }
 
 
@@ -79,7 +73,6 @@ public class VakkenFragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
 
         dbHelper = DatabaseHelper.getInstance(context);
-        //test();
 
         content = dbHelper.query(DatabaseInfo.tableName, new String[]{"*"});
 

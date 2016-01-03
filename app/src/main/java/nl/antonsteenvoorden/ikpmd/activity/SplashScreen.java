@@ -1,5 +1,6 @@
 package nl.antonsteenvoorden.ikpmd.activity;
 
+import android.content.ContentValues;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Handler;
@@ -17,6 +18,8 @@ import java.util.List;
 
 import nl.antonsteenvoorden.ikpmd.App;
 import nl.antonsteenvoorden.ikpmd.R;
+import nl.antonsteenvoorden.ikpmd.database.DatabaseHelper;
+import nl.antonsteenvoorden.ikpmd.database.DatabaseInfo;
 import nl.antonsteenvoorden.ikpmd.model.Module;
 import nl.antonsteenvoorden.ikpmd.model.Modules;
 
@@ -43,7 +46,7 @@ public class SplashScreen extends AppCompatActivity {
     }
 
     private void handleAfterSplash() {
-        ((App) getApplication()).getModuleService().findAll(successListener(), errorListener());
+
 
         new Handler().postDelayed(new Runnable() {
             /*
@@ -55,7 +58,8 @@ public class SplashScreen extends AppCompatActivity {
 
                 // This method will be executed once the timer is over
                 if (settings.getBoolean("first_run", true)) {
-                    TextView welkom = (TextView) findViewById(R.id.splashScreenWelcome);
+                    DatabaseHelper dbHelper = DatabaseHelper.getInstance(getBaseContext());
+                    dbHelper.insertFromJson(((App) getApplication()).getModuleService().findAll(successListener(), errorListener()));
 
                     //the app is being launched for first time, do something
                     Log.d("Comments", "First time, opening get to know you screen");

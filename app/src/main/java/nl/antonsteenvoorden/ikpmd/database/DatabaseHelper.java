@@ -8,12 +8,16 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.provider.BaseColumns;
 import android.util.Log;
 
+import java.util.ArrayList;
+
+import nl.antonsteenvoorden.ikpmd.model.Module;
+
 /**
  * Created by Anton on 01/12/2015.
  */
 public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String dbName = "studiestatus";
-    private static final int version = 1;
+    private static final int version = 2;
     private static DatabaseHelper ourInstance;
     public static SQLiteDatabase mSQLDB;
 
@@ -44,6 +48,18 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         );
 
+    }
+    public void insertFromJson(ArrayList<Module> modules) {
+        Log.d("DBHELPER", "InsertFromJson Called with modules size:" + modules.size());
+        for(Module module : modules) {
+            ContentValues contentValues = new ContentValues();
+            contentValues.put(DatabaseInfo.columnName, module.getName());
+            contentValues.put(DatabaseInfo.columnECTS, module.getEcts());
+            contentValues.put(DatabaseInfo.columnGrade, module.getGrade());
+            contentValues.put(DatabaseInfo.columnPeriod, module.getPeriod());
+            Log.d("DBHELPER","Inserting" + module.toString());
+            insert(DatabaseInfo.tableName, contentValues);
+        }
     }
 
     public DatabaseHelper(Context context, String name, SQLiteDatabase.CursorFactory factory, int version ){
