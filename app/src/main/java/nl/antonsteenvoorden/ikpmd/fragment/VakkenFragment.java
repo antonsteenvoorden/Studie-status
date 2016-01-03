@@ -5,6 +5,7 @@ package nl.antonsteenvoorden.ikpmd.fragment;
  */
 
 import android.content.ContentValues;
+import android.content.Context;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -24,7 +25,7 @@ import nl.antonsteenvoorden.ikpmd.adapter.VakkenCursorAdapter;
 import nl.antonsteenvoorden.ikpmd.database.DatabaseHelper;
 import nl.antonsteenvoorden.ikpmd.database.DatabaseInfo;
 
-public class VakkenFragment extends ListFragment {
+public class VakkenFragment extends Fragment {
     @Bind(R.id.vakken_label)
     TextView textView;
 
@@ -32,7 +33,8 @@ public class VakkenFragment extends ListFragment {
     DatabaseHelper dbHelper;
     ListView listViewItems;
     VakkenCursorAdapter lcAdapter;
-    View rootView;
+
+    Context context;
 
     public VakkenFragment() {
     }
@@ -52,8 +54,11 @@ public class VakkenFragment extends ListFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        rootView = inflater.inflate(R.layout.fragment_vakken, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_vakken, container, false);
         ButterKnife.bind(this, rootView);
+
+        context = rootView.getContext();
+        listViewItems = (ListView) rootView.findViewById(R.id.vakken_list);
 
         return rootView;
     }
@@ -73,14 +78,15 @@ public class VakkenFragment extends ListFragment {
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        dbHelper = DatabaseHelper.getInstance(getActivity());
+        dbHelper = DatabaseHelper.getInstance(context);
+        //test();
+
         content = dbHelper.query(DatabaseInfo.tableName, new String[]{"*"});
 
-        listViewItems = (ListView) rootView.findViewById(R.id.vakken_list);
-        lcAdapter = new VakkenCursorAdapter(getActivity(), content, 0);
+        lcAdapter = new VakkenCursorAdapter(context, content, 0);
+
         listViewItems.setAdapter(lcAdapter);
 
-        test();
 
     }
 }

@@ -7,7 +7,8 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     android:background="@color/colorPrimary"
-    tools:context=".fragment.VakkenFragment">
+    tools:context=".fragment.VakkenFragment"
+    tools:listitem="@layout/vakken_list_item">
 
 
     <ListView
