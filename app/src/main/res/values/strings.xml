@@ -37,4 +37,8 @@
 
     <!-- vakken -->
     <string name="vakken_label">Er zijn nog geen vakken opgehaald !</string>
+
+    <!-- about -->
+    <string name="about_title">Deze applicatie is geschreven door studenten van de Hogeschool Leiden
+        voor de module IKPMD in 2015-2016.</string>
 </resources>

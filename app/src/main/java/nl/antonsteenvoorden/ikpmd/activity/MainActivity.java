@@ -94,20 +94,17 @@ public class MainActivity extends AppCompatActivity {
         }
         if (id == R.id.menu_about) {
             Log.d("MENU","ABOuT");
-            return true;
-        }
-
-        if (id == R.id.menu_dummy) {
-
-        }
-
-        return super.onOptionsItemSelected(item);
-	}
-        @OnClick(R.id.start_welcome)
-        public void startWelcomeScreen(View view) {
-            Intent intent = new Intent(view.getContext(), WelcomeActivity.class);
+            Intent intent = new Intent(MainActivity.this, AboutActivity.class);
             startActivity(intent);
         }
+        
+        return super.onOptionsItemSelected(item);
+	}
+//        @OnClick(R.id.start_welcome)
+//        public void startWelcomeScreen(View view) {
+//            Intent intent = new Intent(view.getContext(), WelcomeActivity.class);
+//            startActivity(intent);
+//        }
 
 
 
