@@ -1,5 +1,6 @@
 package nl.antonsteenvoorden.ikpmd.activity;
 
+import android.os.Handler;
 import android.support.design.widget.Snackbar;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
@@ -37,14 +38,14 @@ public class VakkenDetailActivity extends AppCompatActivity {
                 save();
                 Snackbar snackbar = Snackbar
                         .make((RelativeLayout)findViewById(R.id.vakken_detail_layout), "Opgeslagen", Snackbar.LENGTH_LONG);
-
                 snackbar.show();
-                try {
-                    Thread.sleep(1000);
-                    finish();
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
+                final Handler handler = new Handler();
+                handler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        finish();
+                    }
+                }, 1500);
             }
         });
     }
