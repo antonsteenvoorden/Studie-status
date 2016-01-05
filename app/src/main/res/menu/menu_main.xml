@@ -14,10 +14,5 @@
         android:name="@string/menu_about"
         app:showAsAction="never"
         android:title="@string/menu_about" />
-    <item
-        android:id="@+id/menu_dummy"
-        android:orderInCategory="100"
-        android:name="Dummy data"
-        app:showAsAction="never"
-        android:title="Dummy data" />
+
 </menu>
