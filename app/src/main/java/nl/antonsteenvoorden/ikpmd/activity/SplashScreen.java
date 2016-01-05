@@ -42,7 +42,7 @@ public class SplashScreen extends AppCompatActivity {
         }
 
         // Temporary trigger welcome screen for debug purposes
-        settings.edit().putBoolean("first_run", true).commit();
+        settings.edit().putBoolean("first_run", false).commit();
 
         handleAfterSplash();
     }
@@ -64,7 +64,7 @@ public class SplashScreen extends AppCompatActivity {
                     //the app is being launched for first time, do something
                     Log.d("Comments", "First time, opening get to know you screen");
 
-                    Intent i = new Intent(SplashScreen.this, MainActivity.class);
+                    Intent i = new Intent(SplashScreen.this, WelcomeActivity.class);
                     startActivity(i);
                     // record the fact that the app has been started at least once
                     // settings.edit().putBoolean("first_run", false).commit();
