@@ -63,7 +63,8 @@ public class SplashScreen extends AppCompatActivity {
 
                     //the app is being launched for first time, do something
                     Log.d("Comments", "First time, opening get to know you screen");
-                    Intent i = new Intent(SplashScreen.this, WelcomeActivity.class);
+
+                    Intent i = new Intent(SplashScreen.this, MainActivity.class);
                     startActivity(i);
                     // record the fact that the app has been started at least once
                     // settings.edit().putBoolean("first_run", false).commit();

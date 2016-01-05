@@ -10,7 +10,6 @@
     tools:context=".ui.VakkenFragment"
     tools:listitem="@layout/vakken_list_item">
 
-
     <ListView
         android:id="@+id/vakken_list"
         android:layout_width="wrap_content"

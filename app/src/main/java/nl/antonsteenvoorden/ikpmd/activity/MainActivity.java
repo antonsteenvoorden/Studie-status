@@ -14,13 +14,10 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-
 import butterknife.Bind;
 import butterknife.ButterKnife;
-import butterknife.OnClick;
 import nl.antonsteenvoorden.ikpmd.R;
-import nl.antonsteenvoorden.ikpmd.ui.StandVanZaken;
+import nl.antonsteenvoorden.ikpmd.ui.StandVanZakenFragment;
 import nl.antonsteenvoorden.ikpmd.ui.VakkenFragment;
 
 public class MainActivity extends AppCompatActivity {
@@ -89,16 +86,12 @@ public class MainActivity extends AppCompatActivity {
         }
         if (id == R.id.menu_about) {
             Log.d("MENU","ABOuT");
-            return true;
-        }
-
-        if (id == R.id.menu_dummy) {
-
+            Intent intent = new Intent(MainActivity.this, AboutActivity.class);
+            startActivity(intent);
         }
 
         return super.onOptionsItemSelected(item);
 	}
-
 
     /**
      * A {@link FragmentPagerAdapter} that returns a fragment corresponding to
@@ -115,7 +108,7 @@ public class MainActivity extends AppCompatActivity {
             // getItem is called to instantiate the fragment for the given page.
             switch(position){
                 case 0:
-                    return StandVanZaken.newInstance();
+                    return StandVanZakenFragment.newInstance();
 
                 case 1:
                     return VakkenFragment.newInstance();

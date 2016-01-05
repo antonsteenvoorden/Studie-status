@@ -17,14 +17,13 @@ import android.widget.TextView;
 
 import java.util.List;
 
-import butterknife.Bind;
 import butterknife.ButterKnife;
 import nl.antonsteenvoorden.ikpmd.R;
 import nl.antonsteenvoorden.ikpmd.adapter.VakkenAdapter;
 import nl.antonsteenvoorden.ikpmd.orm.Module;
 
 public class VakkenFragment extends Fragment {
-    @Bind(R.id.vakken_label)
+//    @Bind(R.id.vakken_label)
     TextView textView;
 
     List<Module> content;
