@@ -1,5 +1,6 @@
 package nl.antonsteenvoorden.ikpmd.ui;
 
+import android.content.Context;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -7,6 +8,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import com.github.mikephil.charting.animation.Easing;
@@ -21,12 +23,16 @@ import java.util.List;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import nl.antonsteenvoorden.ikpmd.R;
+import nl.antonsteenvoorden.ikpmd.adapter.VakkenAdapter;
 import nl.antonsteenvoorden.ikpmd.model.Module;
 
 
 public class StandVanZakenFragment extends Fragment {
-    @Bind(R.id.stand_van_zaken_label)
-    TextView textView;
+    View rootView;
+    Context context;
+    ListView listViewItems;
+    VakkenAdapter vakkenAdapter;
+
     private PieChart mChart;
     public static final int MAX_ECTS = 60;
 
@@ -54,9 +60,27 @@ public class StandVanZakenFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_stand_van_zaken, container, false);
+        rootView = inflater.inflate(R.layout.fragment_stand_van_zaken, container, false);
         ButterKnife.bind(this, rootView);
+        initChart();
 
+        context = rootView.getContext();
+        listViewItems = (ListView) rootView.findViewById(R.id.stand_van_zaken_list);
+
+        getData();
+
+        vakkenAdapter = new VakkenAdapter(context, R.layout.vakken_list_item, vakkenAandacht);
+
+        return rootView;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        getData();
+        mChart.animateY(1500);
+    }
+    public void initChart() {
         mChart = (PieChart) rootView.findViewById(R.id.chart);
         mChart.setDescription("");
         mChart.setTouchEnabled(false);
@@ -70,18 +94,7 @@ public class StandVanZakenFragment extends Fragment {
         mChart.getLegend().setEnabled(false);
 
         mChart.animateY(1500);
-        getData();
-
-        return rootView;
     }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-        getData();
-        mChart.animateY(1500);
-    }
-
     public void getData() {
         int tmpEcts = 0;
         for(Module module : Module.getAll()) {
@@ -92,6 +105,7 @@ public class StandVanZakenFragment extends Fragment {
                 vakkenAandacht.add(module);
             }
         }
+        listViewItems.invalidateViews();
         setData(tmpEcts);
     }
 
