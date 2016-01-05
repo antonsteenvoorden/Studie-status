@@ -12,8 +12,7 @@ import android.widget.TextView;
 import java.util.List;
 
 import nl.antonsteenvoorden.ikpmd.R;
-import nl.antonsteenvoorden.ikpmd.orm.Module;
-
+import nl.antonsteenvoorden.ikpmd.model.Module;
 
 /**
  * Created by Anton on 03/01/2016.

@@ -19,7 +19,7 @@ import java.util.List;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import nl.antonsteenvoorden.ikpmd.R;
-import nl.antonsteenvoorden.ikpmd.orm.Module;
+import nl.antonsteenvoorden.ikpmd.model.Module;
 
 /**
  * A simple {@link Fragment} subclass.
