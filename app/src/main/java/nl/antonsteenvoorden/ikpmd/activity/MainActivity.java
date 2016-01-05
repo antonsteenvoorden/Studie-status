@@ -61,7 +61,7 @@ public class MainActivity extends AppCompatActivity {
         ButterKnife.bind(this);
 
         setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(false);
 
         // Create the adapter that will return a fragment for each of the three
         // primary sections of the activity.
@@ -103,13 +103,6 @@ public class MainActivity extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
 	}
-        @OnClick(R.id.start_welcome)
-        public void startWelcomeScreen(View view) {
-            Intent intent = new Intent(view.getContext(), WelcomeActivity.class);
-            startActivity(intent);
-        }
-
-
 
     /**
      * A {@link FragmentPagerAdapter} that returns a fragment corresponding to
