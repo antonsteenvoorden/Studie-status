@@ -7,19 +7,18 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import butterknife.ButterKnife;
 import nl.antonsteenvoorden.ikpmd.R;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link StandVanZaken#newInstance} factory method to
+ * Use the {@link StandVanZakenFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class StandVanZaken extends Fragment {
+public class StandVanZakenFragment extends Fragment {
 
-    public StandVanZaken() {
+    public StandVanZakenFragment() {
         // Required empty public constructor
     }
 
@@ -27,11 +26,11 @@ public class StandVanZaken extends Fragment {
      * Use this factory method to create a new instance of
      * this fragment using the provided parameters.
      *
-     * @return A new instance of fragment StandVanZaken.
+     * @return A new instance of fragment StandVanZakenFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static StandVanZaken newInstance() {
-        StandVanZaken fragment = new StandVanZaken();
+    public static StandVanZakenFragment newInstance() {
+        StandVanZakenFragment fragment = new StandVanZakenFragment();
         return fragment;
     }
 
