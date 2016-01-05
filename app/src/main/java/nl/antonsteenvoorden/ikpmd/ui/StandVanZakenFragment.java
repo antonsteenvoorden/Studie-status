@@ -16,10 +16,12 @@ import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import nl.antonsteenvoorden.ikpmd.R;
+import nl.antonsteenvoorden.ikpmd.model.Module;
 
 
 public class StandVanZakenFragment extends Fragment {
@@ -27,10 +29,15 @@ public class StandVanZakenFragment extends Fragment {
     TextView textView;
     private PieChart mChart;
     public static final int MAX_ECTS = 60;
-    public static int currentEcts = 0;
 
+    ArrayList<Entry> yValues;
+    ArrayList<String> xValues;
+    List<Module> vakkenAandacht;
 
     public StandVanZakenFragment() {
+        yValues = new ArrayList<>();
+        xValues = new ArrayList<>();
+        vakkenAandacht = new ArrayList<Module>();
     }
 
     /**
@@ -63,7 +70,7 @@ public class StandVanZakenFragment extends Fragment {
         mChart.getLegend().setEnabled(false);
 
         mChart.animateY(1500);
-        setData(5);
+        getData();
 
         return rootView;
     }
@@ -71,21 +78,31 @@ public class StandVanZakenFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        mChart.spin(1500, 0, 360f, Easing.EasingOption.EaseInOutCirc);
+        getData();
+        mChart.animateY(1500);
+    }
+
+    public void getData() {
+        int tmpEcts = 0;
+        for(Module module : Module.getAll()) {
+            if(module.getGrade() >= 5.5) {
+                tmpEcts += module.getEcts();
+            }
+            else {
+                vakkenAandacht.add(module);
+            }
+        }
+        setData(tmpEcts);
     }
 
     private void setData(int aantal) {
         String label = (String) getString(R.string.stand_van_zaken_data);
         mChart.setCenterText(aantal + " / 60 \n"+ label );
-        currentEcts = aantal;
 
-        ArrayList<Entry> yValues = new ArrayList<>();
-        ArrayList<String> xValues = new ArrayList<>();
-
-        yValues.add(new Entry(aantal, 0));
+         yValues.add(new Entry(aantal, 0));
         xValues.add("Behaalde ECTS");
 
-        yValues.add(new Entry(60-currentEcts, 1));
+        yValues.add(new Entry(60-aantal, 1));
         xValues.add("Resterende ECTS");
 
         ArrayList<Integer> colors = new ArrayList<>();
@@ -102,7 +119,7 @@ public class StandVanZakenFragment extends Fragment {
         mChart.setData(data); // bind dataset aan chart.
 
         mChart.invalidate();  // Aanroepen van een redraw
-        Log.d("aantal =", ""+currentEcts);
+        Log.d("aantal ects ", Integer.toString(aantal));
     }
 
 }
