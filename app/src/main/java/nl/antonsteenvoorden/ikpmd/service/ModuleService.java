@@ -40,7 +40,7 @@ public class ModuleService {
     }
 
     public ArrayList<Module> findAll() {
-        GsonRequest<Modules> findAllMovies = new GsonRequest<>(url, Module.class, null, succesListener(),
+        GsonRequest<List<Module>> findAllMovies = new GsonRequest<>(url, Module.class, null, succesListener(),
                 errorListener());
         requestQueue.add(findAllMovies);
         return modules;
@@ -56,11 +56,11 @@ public class ModuleService {
         };
     }
 
-    private Response.Listener<Modules> succesListener() {
-        return new Response.Listener<Modules>() {
+    private Response.Listener<List<Module>> succesListener() {
+        return new Response.Listener<List<Module>>() {
             @Override
-            public void onResponse(Modules response) {
-                for (Module module: response.modules) {
+            public void onResponse(List<Module> response) {
+                for (Module module: response) {
                     System.out.println(module);
                 }
             }
