@@ -31,7 +31,8 @@ public class ModuleService {
         requestQueue.start();
     }
 
-    public ArrayList<Module> findAll(Response.Listener<List<Module>> listener, Response.ErrorListener errorListener) {
+    public ArrayList<Module> findAll(Response.Listener<List<Module>> listener,
+                                     Response.ErrorListener errorListener) {
         Type type = new TypeToken<List<Module>>(){}.getType();
         GsonRequest<List<Module>> findAllMovies = new GsonRequest<>(url, type, null, listener,
                 errorListener);
@@ -40,8 +41,8 @@ public class ModuleService {
     }
 
     public ArrayList<Module> findAll() {
-        GsonRequest<List<Module>> findAllMovies = new GsonRequest<>(url, Module.class, null, succesListener(),
-                errorListener());
+        GsonRequest<List<Module>> findAllMovies = new GsonRequest<>(url, Module.class, null,
+                successListener(), errorListener());
         requestQueue.add(findAllMovies);
         return modules;
     }
@@ -56,7 +57,7 @@ public class ModuleService {
         };
     }
 
-    private Response.Listener<List<Module>> succesListener() {
+    private Response.Listener<List<Module>> successListener() {
         return new Response.Listener<List<Module>>() {
             @Override
             public void onResponse(List<Module> response) {

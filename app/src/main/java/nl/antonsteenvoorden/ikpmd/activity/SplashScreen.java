@@ -42,7 +42,7 @@ public class SplashScreen extends AppCompatActivity {
         }
 
         // Temporary trigger welcome screen for debug purposes
-        // settings.edit().putBoolean("first_run", true).commit();
+         settings.edit().putBoolean("first_run", true).commit();
 
         handleAfterSplash();
     }
@@ -86,13 +86,7 @@ public class SplashScreen extends AppCompatActivity {
                 ActiveAndroid.beginTransaction();
                 try {
                     for (Module module: modules) {
-                        nl.antonsteenvoorden.ikpmd.orm.Module dbModule =
-                                new nl.antonsteenvoorden.ikpmd.orm.Module();
-                        dbModule.setName(module.getName());
-                        dbModule.setEcts(module.getEcts());
-                        dbModule.setGrade(module.getGrade());
-                        dbModule.setPeriod(module.getPeriod());
-                        dbModule.save();
+                        module.save();
                     }
                     ActiveAndroid.setTransactionSuccessful();
                 } finally {
