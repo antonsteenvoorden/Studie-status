@@ -7,7 +7,7 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     android:background="@color/colorPrimary"
-    tools:context=".fragment.VakkenFragment"
+    tools:context=".ui.VakkenFragment"
     tools:listitem="@layout/vakken_list_item">
 
 
@@ -23,7 +23,7 @@
         android:layout_height="wrap_content" />
 
     <TextView
-        android:id="@+id/vakken_label"
+        android:id="@+id/vakken_label2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 

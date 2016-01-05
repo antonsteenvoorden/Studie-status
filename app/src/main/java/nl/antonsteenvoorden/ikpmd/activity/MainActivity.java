@@ -1,7 +1,6 @@
 package nl.antonsteenvoorden.ikpmd.activity;
 
 
-import android.content.ContentValues;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -13,13 +12,9 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
-
-import com.activeandroid.DatabaseHelper;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -61,7 +56,7 @@ public class MainActivity extends AppCompatActivity {
         ButterKnife.bind(this);
 
         setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(false);
 
         // Create the adapter that will return a fragment for each of the three
         // primary sections of the activity.
@@ -103,12 +98,6 @@ public class MainActivity extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
 	}
-        @OnClick(R.id.start_welcome)
-        public void startWelcomeScreen(View view) {
-            Intent intent = new Intent(view.getContext(), WelcomeActivity.class);
-            startActivity(intent);
-        }
-
 
 
     /**
