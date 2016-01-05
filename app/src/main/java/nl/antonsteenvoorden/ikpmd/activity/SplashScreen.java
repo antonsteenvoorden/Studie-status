@@ -42,7 +42,7 @@ public class SplashScreen extends AppCompatActivity {
         }
 
         // Temporary trigger welcome screen for debug purposes
-        settings.edit().putBoolean("first_run", true).commit();
+        // settings.edit().putBoolean("first_run", true).commit();
 
         handleAfterSplash();
     }

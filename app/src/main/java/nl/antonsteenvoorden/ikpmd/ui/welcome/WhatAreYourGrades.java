@@ -3,7 +3,6 @@ package nl.antonsteenvoorden.ikpmd.ui.welcome;
 import android.content.Context;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.AppCompatEditText;
@@ -24,17 +23,17 @@ import nl.antonsteenvoorden.ikpmd.orm.Module;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link WelcomeStep3Fragment#newInstance} factory method to
+ * Use the {@link WhatAreYourGrades#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class WelcomeStep3Fragment extends Fragment {
+public class WhatAreYourGrades extends Fragment implements SliderFragment.Saveable {
 
     private List<Module> modules;
     private List<EditText> textFields;
 
     @Bind(R.id.scrollContainer) LinearLayout scrollContainer;
 
-    public WelcomeStep3Fragment() {
+    public WhatAreYourGrades() {
         // Required empty public constructor
         textFields = new ArrayList<>();
     }
@@ -43,10 +42,10 @@ public class WelcomeStep3Fragment extends Fragment {
      * Use this factory method to create a new instance of
      * this fragment using the provided parameters.
      *
-     * @return A new instance of fragment WelcomeStep3Fragment.
+     * @return A new instance of fragment WhatAreYourGrades.
      */
-    public static WelcomeStep3Fragment newInstance() {
-        WelcomeStep3Fragment fragment = new WelcomeStep3Fragment();
+    public static WhatAreYourGrades newInstance() {
+        WhatAreYourGrades fragment = new WhatAreYourGrades();
         return fragment;
     }
 
@@ -60,7 +59,7 @@ public class WelcomeStep3Fragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = getActivity().getLayoutInflater().inflate(R.layout.fragment_welcome_step3, container, false);
+        View view = getActivity().getLayoutInflater().inflate(R.layout.fragment_welcome_what_are_your_grades, container, false);
         ButterKnife.bind(this, view);
 
         for (Module module: modules)
@@ -102,13 +101,17 @@ public class WelcomeStep3Fragment extends Fragment {
         super.onDetach();
     }
 
-    public void saveData() {
+    @Override
+    public void save() {
         int i = 0;
         for (Module module: modules) {
             EditText text = textFields.get(i);
-            module.setGrade(Integer.parseInt(text.getText().toString()));
+            String grade = text.getText().toString().trim();
+            if (grade.equals(""))
+                grade = "0";
+            // TODO: This should be a double.
+            module.setGrade(Integer.parseInt(grade));
             i++;
         }
     }
-
 }

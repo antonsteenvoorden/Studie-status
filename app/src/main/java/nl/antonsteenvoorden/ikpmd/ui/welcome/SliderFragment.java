@@ -1,11 +1,8 @@
 package nl.antonsteenvoorden.ikpmd.ui.welcome;
 
 import android.content.Context;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.widget.DrawerLayout;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,13 +20,14 @@ import nl.antonsteenvoorden.ikpmd.R;
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link WelcomeSliderFragment.OnFragmentInteractionListener} interface
+ * {@link Slideable} interface
  * to handle interaction events.
- * Use the {@link WelcomeSliderFragment#newInstance} factory method to
+ * Use the {@link SliderFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class WelcomeSliderFragment extends Fragment {
-    private OnFragmentInteractionListener mListener;
+public class SliderFragment extends Fragment {
+    private Slideable slideableFragment;
+    private Saveable saveableFragment;
     private int count = 0;
 
     List<ImageView> steps;
@@ -37,7 +35,7 @@ public class WelcomeSliderFragment extends Fragment {
     @Bind(R.id.slider_step2) ImageView sliderStep2;
     @Bind(R.id.slider_step3) ImageView sliderStep3;
 
-    public WelcomeSliderFragment() {
+    public SliderFragment() {
         // Required empty public constructor
     }
 
@@ -45,13 +43,11 @@ public class WelcomeSliderFragment extends Fragment {
      * Use this factory method to create a new instance of
      * this fragment using the provided parameters.
      *
-     * @return A new instance of fragment WelcomeSliderFragment.
+     * @return A new instance of fragment SliderFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static WelcomeSliderFragment newInstance() {
-        WelcomeSliderFragment fragment = new WelcomeSliderFragment();
-        Bundle args = new Bundle();
-        fragment.setArguments(args);
+    public static SliderFragment newInstance() {
+        SliderFragment fragment = new SliderFragment();
         return fragment;
     }
 
@@ -78,23 +74,34 @@ public class WelcomeSliderFragment extends Fragment {
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        if (context instanceof OnFragmentInteractionListener) {
-            mListener = (OnFragmentInteractionListener) context;
-        } else {
+
+        try {
+            slideableFragment = (Slideable) context;
+        } catch (ClassCastException e) {
             throw new RuntimeException(context.toString()
-                    + " must implement OnFragmentInteractionListener");
+                    + " must implement Slideable");
+        }
+
+        try {
+            saveableFragment = (Saveable) context;
+        } catch (ClassCastException e) {
+            throw new RuntimeException(context.toString()
+                    + " must implement Saveable");
         }
     }
 
     @Override
     public void onDetach() {
         super.onDetach();
-        mListener = null;
+        slideableFragment = null;
     }
 
     @OnClick(R.id.next)
     void nextStep(View view) {
-        count = mListener.nextStep();
+        if (saveableFragment != null) {
+            saveableFragment.save();
+        }
+        count = slideableFragment.nextStep();
         swapSliderIcon();
     }
 
@@ -126,7 +133,11 @@ public class WelcomeSliderFragment extends Fragment {
      * "http://developer.android.com/training/basics/fragments/communicating.html"
      * >Communicating with Other Fragments</a> for more information.
      */
-    public interface OnFragmentInteractionListener {
+    public interface Slideable {
         int nextStep();
+    }
+
+    public interface Saveable {
+        void save();
     }
 }

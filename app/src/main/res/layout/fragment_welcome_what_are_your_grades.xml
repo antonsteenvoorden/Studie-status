@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".ui.welcome.WelcomeStep3Fragment"
+    tools:context=".ui.welcome.WhatAreYourGrades"
     android:id="@+id/step_3">
 
     <ScrollView
