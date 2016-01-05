@@ -1,6 +1,5 @@
 package nl.antonsteenvoorden.ikpmd.service;
 
-import android.content.ContentValues;
 import android.content.Context;
 
 import com.android.volley.RequestQueue;
@@ -14,7 +13,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import nl.antonsteenvoorden.ikpmd.model.Module;
-import nl.antonsteenvoorden.ikpmd.model.Modules;
 import nl.antonsteenvoorden.ikpmd.request.GsonRequest;
 
 /**

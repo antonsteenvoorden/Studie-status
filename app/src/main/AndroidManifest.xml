@@ -28,8 +28,6 @@
             android:theme="@style/AppTheme.NoActionBar"
             android:name=".activity.MainActivity"
             android:label="@string/app_name" />
-        <activity
-            android:name=".activity.WhoAreYouActivity" />
 
         <!-- Setup slider -->
         <activity
