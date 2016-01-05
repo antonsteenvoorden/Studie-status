@@ -41,9 +41,6 @@ public class SplashScreen extends AppCompatActivity {
             welkom.setText("Welkom terug " + String.valueOf(settings.getString("name", ""))+ " !");
         }
 
-        // Temporary trigger welcome screen for debug purposes
-         settings.edit().putBoolean("first_run", true).commit();
-
         handleAfterSplash();
     }
 
@@ -66,7 +63,7 @@ public class SplashScreen extends AppCompatActivity {
                     Intent i = new Intent(SplashScreen.this, WelcomeActivity.class);
                     startActivity(i);
                     // record the fact that the app has been started at least once
-                    // settings.edit().putBoolean("first_run", false).commit();
+                     settings.edit().putBoolean("first_run", false).commit();
                 } else {
                     Log.d("Comments", "Opening main activity");
                     Intent i = new Intent(SplashScreen.this, MainActivity.class);
