@@ -20,7 +20,7 @@ import java.util.List;
 import butterknife.ButterKnife;
 import nl.antonsteenvoorden.ikpmd.R;
 import nl.antonsteenvoorden.ikpmd.adapter.VakkenAdapter;
-import nl.antonsteenvoorden.ikpmd.orm.Module;
+import nl.antonsteenvoorden.ikpmd.model.Module;
 
 public class VakkenFragment extends Fragment {
 //    @Bind(R.id.vakken_label)

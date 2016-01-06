@@ -7,13 +7,14 @@ import com.activeandroid.query.Select;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
  * Created by Anton & Daan on 28/12/2015.
  */
 @Table(name = "module")
-public class Module extends Model {
+public class Module extends Model implements Serializable {
 
     @Expose
     @Column(name = "name")
