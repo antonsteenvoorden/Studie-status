@@ -111,6 +111,7 @@ public class WhatAreYourGrades extends Fragment implements SliderFragment.Saveab
                 grade = "0";
             // TODO: This should be a double.
             module.setGrade(Integer.parseInt(grade));
+            module.save();
             i++;
         }
     }
