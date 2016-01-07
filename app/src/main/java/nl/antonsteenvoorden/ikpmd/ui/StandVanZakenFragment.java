@@ -9,9 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
-import android.widget.TextView;
 
-import com.github.mikephil.charting.animation.Easing;
 import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.PieData;
@@ -20,7 +18,6 @@ import com.github.mikephil.charting.data.PieDataSet;
 import java.util.ArrayList;
 import java.util.List;
 
-import butterknife.Bind;
 import butterknife.ButterKnife;
 import nl.antonsteenvoorden.ikpmd.R;
 import nl.antonsteenvoorden.ikpmd.adapter.VakkenAdapter;
@@ -30,7 +27,7 @@ import nl.antonsteenvoorden.ikpmd.model.Module;
 public class StandVanZakenFragment extends Fragment {
     View rootView;
     Context context;
-    ListView listViewItems;
+    ListView listAandacht;
     VakkenAdapter vakkenAdapter;
 
     private PieChart mChart;
@@ -65,7 +62,7 @@ public class StandVanZakenFragment extends Fragment {
         initChart();
 
         context = rootView.getContext();
-        listViewItems = (ListView) rootView.findViewById(R.id.stand_van_zaken_list);
+        listAandacht = (ListView) rootView.findViewById(R.id.stand_van_zaken_list);
 
         getData();
 
@@ -105,7 +102,7 @@ public class StandVanZakenFragment extends Fragment {
                 vakkenAandacht.add(module);
             }
         }
-        listViewItems.invalidateViews();
+        listAandacht.invalidateViews();
         setData(tmpEcts);
     }
 

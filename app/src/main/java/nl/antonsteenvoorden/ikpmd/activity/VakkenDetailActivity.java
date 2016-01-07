@@ -55,6 +55,7 @@ public class VakkenDetailActivity extends AppCompatActivity {
         if (grade.equals(""))
             grade = "0";
         module.setGrade(Integer.parseInt(grade));
+        module.save();
     }
 }
 
