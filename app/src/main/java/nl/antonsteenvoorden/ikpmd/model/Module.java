@@ -29,14 +29,14 @@ public class Module extends Model implements Serializable {
     @Expose
     @SerializedName("grade")
     @Column(name = "grade")
-    private int grade;
+    private double grade;
 
     @Expose
     @SerializedName("period")
     @Column(name = "period")
     private int period;
 
-    public Module(String name, int ects, int grade, int period) {
+    public Module(String name, int ects, double grade, int period) {
         super();
         this.name = name;
         this.ects = ects;
@@ -64,11 +64,11 @@ public class Module extends Model implements Serializable {
         this.ects = ects;
     }
 
-    public int getGrade() {
+    public double getGrade() {
         return grade;
     }
 
-    public void setGrade(int grade) {
+    public void setGrade(double grade) {
         this.grade = grade;
     }
 

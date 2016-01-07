@@ -7,10 +7,12 @@ import android.os.Handler;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import butterknife.Bind;
 import com.activeandroid.ActiveAndroid;
+import com.android.volley.NetworkError;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 
@@ -56,8 +58,17 @@ public class SplashScreen extends AppCompatActivity {
 
                 // This method will be executed once the timer is over
                 if (settings.getBoolean("first_run", true)) {
-                   ((App) getApplication()).getModuleService().findAll(successListener(), errorListener(SplashScreen.this));
+                    try {
+                        ((App) getApplication()).getModuleService().findAll(successListener(), errorListener(SplashScreen.this));
+                    } catch(Exception e) {
+                        Log.d("TRY CATCH BLOCK", e.toString());
+                        Snackbar snackbar = Snackbar
+                                .make((RelativeLayout) findViewById(R.id.splashScreenLayout),
+                                        "Bij de eerste keer opstarten is een internet verbinding nodig!",
+                                        Snackbar.LENGTH_LONG);
 
+                        snackbar.show();
+                    }
                     //the app is being launched for first time, do something
                     Log.d("Comments", "First time, opening get to know you screen");
 

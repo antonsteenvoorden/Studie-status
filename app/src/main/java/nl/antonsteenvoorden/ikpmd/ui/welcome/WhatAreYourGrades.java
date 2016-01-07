@@ -3,6 +3,7 @@ package nl.antonsteenvoorden.ikpmd.ui.welcome;
 import android.content.Context;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.AppCompatEditText;
@@ -12,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -109,10 +111,15 @@ public class WhatAreYourGrades extends Fragment implements SliderFragment.Saveab
             String grade = text.getText().toString().trim();
             if (grade.equals(""))
                 grade = "0";
-            // TODO: This should be a double.
-            module.setGrade(Integer.parseInt(grade));
-            module.save();
-            i++;
+            //this includes the dot
+            else if (grade.length() <=3) {
+                module.setGrade(Double.parseDouble(grade));
+                module.save();
+                i++;
+            }
+            else {
+            //TODO DO NOTHING BUT GIVE SOME ERROR MESSAGE
+            }
         }
     }
 }

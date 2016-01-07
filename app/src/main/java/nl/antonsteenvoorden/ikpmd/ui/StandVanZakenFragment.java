@@ -77,6 +77,7 @@ public class StandVanZakenFragment extends Fragment {
         getData();
         mChart.animateY(1500);
     }
+
     public void initChart() {
         mChart = (PieChart) rootView.findViewById(R.id.chart);
         mChart.setDescription("");
@@ -110,7 +111,7 @@ public class StandVanZakenFragment extends Fragment {
         String label = (String) getString(R.string.stand_van_zaken_data);
         mChart.setCenterText(aantal + " / 60 \n"+ label );
 
-         yValues.add(new Entry(aantal, 0));
+        yValues.add(new Entry(aantal, 0));
         xValues.add("Behaalde ECTS");
 
         yValues.add(new Entry(60-aantal, 1));
