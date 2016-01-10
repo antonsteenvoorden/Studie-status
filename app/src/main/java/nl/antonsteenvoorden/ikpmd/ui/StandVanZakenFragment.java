@@ -117,6 +117,12 @@ public class StandVanZakenFragment extends Fragment {
         yValues.add(new Entry(60-aantal, 1));
         xValues.add("Resterende ECTS");
 
+        if(xValues.size() > 2 && yValues.size() > 2) {
+            yValues.remove(0);
+            yValues.remove(1);
+            xValues.remove(0);
+            xValues.remove(1);
+        }
         ArrayList<Integer> colors = new ArrayList<>();
         colors.add(Color.rgb(0 ,188,186)); // blue
         colors.add(Color.rgb(35 ,10,78)); // deep purple
