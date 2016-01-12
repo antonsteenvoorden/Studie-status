@@ -111,17 +111,14 @@ public class StandVanZakenFragment extends Fragment {
         String label = (String) getString(R.string.stand_van_zaken_data);
         mChart.setCenterText(aantal + " / 60 \n"+ label );
 
-        yValues.add(new Entry(aantal, 0));
-        xValues.add("Behaalde ECTS");
-
-        yValues.add(new Entry(60-aantal, 1));
-        xValues.add("Resterende ECTS");
-
-        if(xValues.size() > 2 && yValues.size() > 2) {
-            yValues.remove(0);
-            yValues.remove(1);
-            xValues.remove(0);
-            xValues.remove(1);
+        if(xValues.size() >= 2 && yValues.size() >= 2) {
+            yValues.set(0, new Entry(aantal, 0));
+            yValues.set(1, new Entry(60-aantal, 1));
+        } else {
+            yValues.add(new Entry(aantal, 0));
+            yValues.add(new Entry(60 - aantal, 1));
+            xValues.add("Behaalde ECTS");
+            xValues.add("Resterende ECTS");
         }
         ArrayList<Integer> colors = new ArrayList<>();
         colors.add(Color.rgb(0 ,188,186)); // blue
