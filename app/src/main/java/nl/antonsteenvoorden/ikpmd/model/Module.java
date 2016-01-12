@@ -14,7 +14,7 @@ import java.util.List;
  * Created by Anton & Daan on 28/12/2015.
  */
 @Table(name = "module")
-public class Module extends Model implements Serializable {
+public class Module extends Model {
 
     @Expose
     @Column(name = "name")
@@ -95,5 +95,9 @@ public class Module extends Model implements Serializable {
                 .from(Module.class)
                 .orderBy("period ASC")
                 .execute();
+    }
+
+    public static Module find(int id) {
+        return (Module) new Select().from(Module.class).where("id", id).limit(1).execute().get(0);
     }
 }

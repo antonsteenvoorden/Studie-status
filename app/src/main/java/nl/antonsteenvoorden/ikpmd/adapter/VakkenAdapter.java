@@ -47,7 +47,7 @@ public class VakkenAdapter extends ArrayAdapter {
             public void onClick(View v) {
                 Log.d("Vak selected", module.toString());
                 Intent intent = new Intent(context, VakkenDetailActivity.class);
-                intent.putExtra("module", module);
+                intent.putExtra("module_id",module.getId());
                 context.startActivity(intent);
             }
         });

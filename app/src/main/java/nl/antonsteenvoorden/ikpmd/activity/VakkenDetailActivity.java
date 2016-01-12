@@ -26,7 +26,7 @@ public class VakkenDetailActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_vakken_detail);
 
-        module = (Module) getIntent().getSerializableExtra("module");
+        module = Module.find(getIntent().getIntExtra("module_id",0));
 
         TextView title = (TextView) findViewById(R.id.vakken_detail_title);
         title.setText(module.getName());
