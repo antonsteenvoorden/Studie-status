@@ -26,7 +26,7 @@ public class VakkenDetailActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_vakken_detail);
 
-        module = Module.find(getIntent().getIntExtra("module_id",0));
+        module = Module.find(getIntent().getLongExtra("module_id",0));
 
         TextView title = (TextView) findViewById(R.id.vakken_detail_title);
         title.setText(module.getName());
@@ -56,11 +56,13 @@ public class VakkenDetailActivity extends AppCompatActivity {
     }
 
     public void save() {
-        String grade = editText.getText().toString().trim();
-        if (grade.equals("")) {
-            grade = "0";
-        } else if (grade.length() <= 2) {
-            module.setGrade(Double.parseDouble(grade));
+        String gradeText = editText.getText().toString().trim();
+        if (gradeText.equals("")) {
+            module.setGrade(0);
+            module.update();
+        } else if (gradeText.length() <= 2) {
+            module.setGrade(Double.parseDouble(gradeText));
+            module.update();
         } else {
             Snackbar snackbar = Snackbar
                     .make((RelativeLayout) findViewById(R.id.vakken_detail_layout),

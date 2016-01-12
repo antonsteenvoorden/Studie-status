@@ -4,6 +4,7 @@ import com.activeandroid.Model;
 import com.activeandroid.annotation.Column;
 import com.activeandroid.annotation.Table;
 import com.activeandroid.query.Select;
+import com.activeandroid.query.Update;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
@@ -97,7 +98,15 @@ public class Module extends Model {
                 .execute();
     }
 
-    public static Module find(int id) {
-        return (Module) new Select().from(Module.class).where("id", id).limit(1).execute().get(0);
+
+    public static Module find(long id) {
+        return Module.load(Module.class, id);
+
+    }
+    public void update() {
+        new Update(Module.class)
+                .set("grade = ?", getGrade())
+                .where("id = ?",getId())
+                .execute();
     }
 }

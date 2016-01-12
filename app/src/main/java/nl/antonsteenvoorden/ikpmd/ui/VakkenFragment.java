@@ -75,13 +75,13 @@ public class VakkenFragment extends Fragment {
 
         listViewItems.setAdapter(lcAdapter);
 
-        listViewItems.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Log.d("ITEM CLICKED", String.valueOf(parent.getItemAtPosition(position)));
-
-            }
-        });
+//        listViewItems.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+//            @Override
+//            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+//                Log.d("ITEM CLICKED", String.valueOf(parent.getItemAtPosition(position)));
+//
+//            }
+//        });
 
 
     }
