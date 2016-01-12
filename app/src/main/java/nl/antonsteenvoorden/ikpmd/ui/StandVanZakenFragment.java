@@ -60,7 +60,7 @@ public class StandVanZakenFragment extends Fragment {
         rootView = inflater.inflate(R.layout.fragment_stand_van_zaken, container, false);
         ButterKnife.bind(this, rootView);
         calculateECTS();
-        
+
         initChart();
 
         context = rootView.getContext();

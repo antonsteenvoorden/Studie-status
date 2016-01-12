@@ -56,17 +56,18 @@ public class VakkenDetailActivity extends AppCompatActivity {
     }
 
     public void save() {
-        String gradeText = editText.getText().toString().trim();
+        String gradeText = editText.getText().toString();
+        double grade = Double.parseDouble(gradeText);
         if (gradeText.equals("")) {
             module.setGrade(0);
             module.update();
-        } else if (gradeText.length() <= 2) {
-            module.setGrade(Double.parseDouble(gradeText));
+        } else if (gradeText.length() < 4 && grade <= 10) {
+            module.setGrade(grade);
             module.update();
         } else {
             Snackbar snackbar = Snackbar
                     .make((RelativeLayout) findViewById(R.id.vakken_detail_layout),
-                            "Het ingevoerde cijfer is niet het goede formaat!",
+                            "Het ingevoerde cijfer is niet goed gekeurd!",
                             Snackbar.LENGTH_LONG);
 
             snackbar.show();

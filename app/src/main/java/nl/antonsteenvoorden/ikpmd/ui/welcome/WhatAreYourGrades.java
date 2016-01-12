@@ -108,14 +108,14 @@ public class WhatAreYourGrades extends Fragment implements SliderFragment.Saveab
         int i = 0;
         for (Module module: modules) {
             EditText text = textFields.get(i);
-            String grade = text.getText().toString().trim();
-            if (grade.equals("")) {
+            String gradeText = text.getText().toString();
+            double grade = Double.parseDouble(gradeText);
+            if (gradeText.equals("")) {
                 module.setGrade(0);
-                module.save();
-            }
-            //this includes the dot
-            else if (grade.length() <=3) {
-                module.setGrade(Double.parseDouble(grade));
+                module.update();
+            } else if (gradeText.length() < 4 && grade <= 10) {
+                module.setGrade(grade);
+                module.update();
                 module.save();
                 i++;
             }
