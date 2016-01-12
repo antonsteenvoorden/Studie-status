@@ -31,7 +31,7 @@ public class StandVanZakenFragment extends Fragment {
     VakkenAdapter vakkenAdapter;
 
     private PieChart mChart;
-    public static final int MAX_ECTS = 60;
+    private int maxECTS;
 
     ArrayList<Entry> yValues;
     ArrayList<String> xValues;
@@ -59,6 +59,8 @@ public class StandVanZakenFragment extends Fragment {
                              Bundle savedInstanceState) {
         rootView = inflater.inflate(R.layout.fragment_stand_van_zaken, container, false);
         ButterKnife.bind(this, rootView);
+        calculateECTS();
+        
         initChart();
 
         context = rootView.getContext();
@@ -92,6 +94,11 @@ public class StandVanZakenFragment extends Fragment {
         mChart.getLegend().setEnabled(false);
 
         mChart.animateY(1500);
+    }
+    public void calculateECTS() {
+        for(Module module : Module.getAll()) {
+            maxECTS+= module.getEcts();
+        }
     }
     public void getData() {
         int tmpEcts = 0;
