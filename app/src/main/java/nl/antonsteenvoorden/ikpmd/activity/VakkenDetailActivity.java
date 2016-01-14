@@ -51,19 +51,18 @@ public class VakkenDetailActivity extends AppCompatActivity {
                     public void run() {
                         finish();
                     }
-                }, 1500);
+                }, 750);
             }
         });
     }
 
     public void save() {
         String gradeText = editText.getText().toString();
-        double grade = Double.parseDouble(gradeText);
         if (gradeText.equals("") || gradeText.isEmpty() || gradeText == null) {
-            module.setGrade(0);
+            module.setGrade(1);
             module.update();
-        } else if (gradeText.length() < 4 && grade <= 10) {
-            module.setGrade(grade);
+        } else if (gradeText.length() < 4 && Double.parseDouble(gradeText) <= 10) {
+            module.setGrade(Double.parseDouble(gradeText));
             module.update();
         } else {
             Snackbar snackbar = Snackbar

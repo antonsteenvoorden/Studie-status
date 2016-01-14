@@ -42,7 +42,6 @@ public class StandVanZakenFragment extends Fragment {
     public StandVanZakenFragment() {
         yValues = new ArrayList<>();
         xValues = new ArrayList<>();
-        vakkenAandacht = new ArrayList<Module>();
     }
 
     /**
@@ -60,18 +59,20 @@ public class StandVanZakenFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         rootView = inflater.inflate(R.layout.fragment_stand_van_zaken, container, false);
-        ButterKnife.bind(this, rootView);
-        modules = new ArrayList<>();
-       calculateECTS();
-
-        initChart();
-        vakkenAandacht = new ArrayList<>();
-        context = rootView.getContext();
         listAandacht = (ListView) rootView.findViewById(R.id.stand_van_zaken_list);
+
+        vakkenAandacht = new ArrayList<>();
+        modules = new ArrayList<>();
+
+        calculateECTS();
+        initChart();
         getData();
 
-        vakkenAdapter = new VakkenAdapter(context, R.layout.vakken_list_item, vakkenAandacht);
+        context = rootView.getContext();
 
+        vakkenAdapter = new VakkenAdapter(context, R.layout.vakken_list_item, vakkenAandacht);
+        listAandacht.setAdapter(vakkenAdapter);
+        ButterKnife.bind(this, rootView);
         return rootView;
     }
 
@@ -94,29 +95,29 @@ public class StandVanZakenFragment extends Fragment {
         mChart.setCenterText("0/0 \n Studiepunten behaald");
         mChart.setCenterTextSize(20);
         mChart.getLegend().setEnabled(false);
-
         mChart.animateY(1500);
     }
     public void calculateECTS() {
         modules.clear();
         modules = Module.getAll();
         for(Module module : modules) {
-            maxECTS+= module.getEcts();
+            this.maxECTS += module.getEcts();
         }
     }
     public void getData() {
         int tmpEcts = 0;
         modules.clear();
+        vakkenAandacht.clear();
         modules = Module.getAll();
         for(Module module : modules) {
-            if(module.getGrade() >= 5.5) {
+            double tmpGrade = module.getGrade();
+            if(tmpGrade >= 5.5) {
                 tmpEcts += module.getEcts();
             }
-            else {
+            else if(tmpGrade > 1.0 && tmpGrade <= 5.4){
                 vakkenAandacht.add(module);
             }
         }
-        listAandacht.invalidateViews();
         setData(tmpEcts);
     }
 
@@ -126,10 +127,10 @@ public class StandVanZakenFragment extends Fragment {
 
         if(xValues.size() >= 2 && yValues.size() >= 2) {
             yValues.set(0, new Entry(aantal, 0));
-            yValues.set(1, new Entry(60-aantal, 1));
+            yValues.set(1, new Entry(maxECTS-aantal, 1));
         } else {
             yValues.add(new Entry(aantal, 0));
-            yValues.add(new Entry(60 - aantal, 1));
+            yValues.add(new Entry(maxECTS - aantal, 1));
             xValues.add("Behaalde ECTS");
             xValues.add("Resterende ECTS");
         }
@@ -147,6 +148,8 @@ public class StandVanZakenFragment extends Fragment {
         mChart.setData(data); // bind dataset aan chart.
 
         mChart.invalidate();  // Aanroepen van een redraw
+        //redraw list view
+        listAandacht.invalidate();
         Log.d("aantal ects ", Integer.toString(aantal));
     }
 

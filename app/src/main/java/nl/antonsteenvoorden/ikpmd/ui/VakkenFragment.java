@@ -11,6 +11,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.TranslateAnimation;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -56,7 +57,6 @@ public class VakkenFragment extends Fragment {
 
         context = rootView.getContext();
         listViewItems = (ListView) rootView.findViewById(R.id.vakken_list);
-
         content = Module.getAll();
         lcAdapter = new VakkenAdapter(context, R.layout.vakken_list_item, content);
 

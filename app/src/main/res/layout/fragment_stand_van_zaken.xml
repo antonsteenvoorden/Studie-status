@@ -1,21 +1,18 @@
-<LinearLayout
+<ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorPrimary"
-    tools:context=".ui.StandVanZakenFragment">
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:fillViewport="true"
-       >
+    tools:context=".ui.StandVanZakenFragment"
+    tools:listitem="@layout/vakken_list_item">
 
         <LinearLayout
             android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="match_parent"
+            android:weightSum="1">
 
             <TextView
                 android:id="@+id/stand_van_zaken_label"
@@ -36,23 +33,30 @@
                 android:layout_gravity="center">
             </com.github.mikephil.charting.charts.PieChart>
 
-            <TextView
-                android:id="@+id/stand_van_zaken_label2"
-                android:text="@string/stand_van_zaken_label2"
-                android:textColor="@color/colorAccent"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-                android:layout_marginBottom="10dp"
-                android:layout_marginTop="10dp"
-                android:layout_gravity="center_horizontal" />
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="fill_parent"
+                android:layout_weight="1.73">
 
-            <ListView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/stand_van_zaken_list" />
+                <TextView
+                    android:id="@+id/stand_van_zaken_label2"
+                    android:text="@string/stand_van_zaken_label2"
+                    android:textColor="@color/colorAccent"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_gravity="center_horizontal" />
+
+                <ListView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/stand_van_zaken_list" />
+            </LinearLayout>
 
         </LinearLayout>
-    </ScrollView>
-</LinearLayout>
+
+</ScrollView>
 
