@@ -32,7 +32,8 @@ public class VakkenDetailActivity extends AppCompatActivity {
         title.setText(module.getName());
         TextView period = (TextView) findViewById(R.id.vakken_detail_period);
         period.setText("Periode: " + module.getPeriod());
-
+        TextView ects = (TextView) findViewById(R.id.vakken_detail_ects);
+        ects.setText("ECTS: " +module.getEcts());
         editText = (AppCompatEditText) findViewById(R.id.vakken_detail_edit_text);
         editText.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);
 
@@ -58,7 +59,7 @@ public class VakkenDetailActivity extends AppCompatActivity {
     public void save() {
         String gradeText = editText.getText().toString();
         double grade = Double.parseDouble(gradeText);
-        if (gradeText.equals("")) {
+        if (gradeText.equals("") || gradeText.isEmpty() || gradeText == null) {
             module.setGrade(0);
             module.update();
         } else if (gradeText.length() < 4 && grade <= 10) {

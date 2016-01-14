@@ -39,7 +39,7 @@ public class VakkenAdapter extends ArrayAdapter {
         TextView listECTS = (TextView) view.findViewById(R.id.vakken_list_item_ects);
         TextView listGrade = (TextView) view.findViewById(R.id.vakken_list_item_grade);
         listName.setText(module.getName());
-        listECTS.setText(Integer.toString(module.getEcts()));
+        listECTS.setText("ECTS: " + Integer.toString(module.getEcts()));
         listGrade.setText(Double.toString(module.getGrade()));
 
         view.setOnClickListener(new View.OnClickListener() {

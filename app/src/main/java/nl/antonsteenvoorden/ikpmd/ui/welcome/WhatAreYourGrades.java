@@ -110,9 +110,9 @@ public class WhatAreYourGrades extends Fragment implements SliderFragment.Saveab
             EditText text = textFields.get(i);
             String gradeText = text.getText().toString();
             double grade = Double.parseDouble(gradeText);
-            if (gradeText.equals("")) {
+            if (gradeText.equals("") || gradeText.isEmpty() || gradeText == null) {
                 module.setGrade(0);
-                module.update();
+                module.save();
             } else if (gradeText.length() < 4 && grade <= 10) {
                 module.setGrade(grade);
                 module.update();

@@ -103,6 +103,7 @@ public class Module extends Model {
         return Module.load(Module.class, id);
 
     }
+
     public void update() {
         new Update(Module.class)
                 .set("grade = ?", getGrade())

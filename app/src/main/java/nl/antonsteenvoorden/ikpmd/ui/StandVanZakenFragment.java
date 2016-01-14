@@ -35,6 +35,8 @@ public class StandVanZakenFragment extends Fragment {
 
     ArrayList<Entry> yValues;
     ArrayList<String> xValues;
+
+    List<Module> modules;
     List<Module> vakkenAandacht;
 
     public StandVanZakenFragment() {
@@ -59,13 +61,13 @@ public class StandVanZakenFragment extends Fragment {
                              Bundle savedInstanceState) {
         rootView = inflater.inflate(R.layout.fragment_stand_van_zaken, container, false);
         ButterKnife.bind(this, rootView);
-        calculateECTS();
+        modules = new ArrayList<>();
+       calculateECTS();
 
         initChart();
-
+        vakkenAandacht = new ArrayList<>();
         context = rootView.getContext();
         listAandacht = (ListView) rootView.findViewById(R.id.stand_van_zaken_list);
-
         getData();
 
         vakkenAdapter = new VakkenAdapter(context, R.layout.vakken_list_item, vakkenAandacht);
@@ -96,13 +98,17 @@ public class StandVanZakenFragment extends Fragment {
         mChart.animateY(1500);
     }
     public void calculateECTS() {
-        for(Module module : Module.getAll()) {
+        modules.clear();
+        modules = Module.getAll();
+        for(Module module : modules) {
             maxECTS+= module.getEcts();
         }
     }
     public void getData() {
         int tmpEcts = 0;
-        for(Module module : Module.getAll()) {
+        modules.clear();
+        modules = Module.getAll();
+        for(Module module : modules) {
             if(module.getGrade() >= 5.5) {
                 tmpEcts += module.getEcts();
             }
