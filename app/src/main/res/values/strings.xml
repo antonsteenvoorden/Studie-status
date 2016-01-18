@@ -1,15 +1,45 @@
 <resources>
+    <!-- algemeen -->
     <string name="app_name">Studie Status</string>
-    <string name="action_settings">Instellingen</string>
-    <string name="section_format">Hello World from section: %1$d</string>
-    <string name="splashText">Anton Steenvoorden &amp; Daan Rosbergen</string>
+
+    <string name="menu_settings">Instellingen</string>
+    <string name="menu_about">Over ons</string>
+
+    <string name="next">Volgende</string>
+
+    <!-- Welcome screen step 1 -->
+    <string name="welcome_title_step1">Welkom bij de Hogeschool Leiden studiegids!</string>
+    <string name="welcome_text_step1">Voor dat we kunnen beginnen hebben we nog wat gegevens nodig.
+        Klik op volgende om te beginnen.</string>
+
     <string name="who_are_you_title">We willen graag weten hoe je heet</string>
     <string name="who_are_you_subtitle">Dat maakt het iets persoonlijker ;)</string>
     <string name="who_are_you_question">Wat is je naam ?</string>
     <string name="name">Naam</string>
     <string name="who_are_you_button">Opslaan</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <!-- splash screen -->
+
+    <string name="welcome_text_step2">Dat maakt alles iets persoonlijker ;)</string>
+    <string name="welcome_title_step2">Wij zouden graag weten hoe je heet.</string>
+    <string name="welcome_title_step3">Welke cijfers heb je al gehaald?</string>
+    <string name="welcome_text_step3">Deze app zorgt voor  een beter inzicht in je cijfers. Daarom willen wij graag weten welke cijfers je al gehaald hebt.</string>
+
     <string name="splashWelcome">Welkom</string>
+    <string name="splashText">Anton Steenvoorden &amp; Daan Rosbergen</string>
+
+
+    <!-- stand van zaken -->
+    <string name="stand_van_zaken_label">Huidige status </string>
+    <string name="stand_van_zaken_label2">Vakken die aandacht nodig hebben</string>
+    <string name="stand_van_zaken_data">Studiepunten behaald</string>
+
+    <!-- vakken -->
+    <string name="vakken_label">Er zijn nog geen vakken opgehaald !</string>
+    <string name="vakken_detail_button">Opslaan</string>
+    <string name="vakken_detail_hint">Cijfer</string>
+    <!-- about -->
+    <string name="about_title">Deze applicatie is geschreven door studenten van de Hogeschool Leiden
+        voor de module IKPMD in 2015-2016.</string>
 </resources>

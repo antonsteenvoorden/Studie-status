@@ -1,6 +1,7 @@
 package nl.antonsteenvoorden.ikpmd.request;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.google.gson.JsonSyntaxException;
 
 import com.android.volley.AuthFailureError;
@@ -21,7 +22,7 @@ import java.util.Map;
  * Volley adapter for JSON requests that will be parsed into Java objects by Gson.
  */
 public class GsonRequest<T> extends Request<T> {
-    private final Gson gson = new Gson();
+    private final Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();
     private final Class<T> clazz;
     private final Map<String, String> headers;
     private final Listener<T> listener;

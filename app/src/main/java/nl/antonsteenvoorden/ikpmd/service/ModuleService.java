@@ -13,7 +13,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import nl.antonsteenvoorden.ikpmd.model.Module;
-import nl.antonsteenvoorden.ikpmd.model.Modules;
 import nl.antonsteenvoorden.ikpmd.request.GsonRequest;
 
 /**
@@ -32,19 +31,22 @@ public class ModuleService {
         requestQueue.start();
     }
 
-    public void findAll(Response.Listener<List<Module>> listener, Response.ErrorListener errorListener) {
+    public ArrayList<Module> findAll(Response.Listener<List<Module>> listener,
+                                     Response.ErrorListener errorListener) {
         Type type = new TypeToken<List<Module>>(){}.getType();
         GsonRequest<List<Module>> findAllMovies = new GsonRequest<>(url, type, null, listener,
                 errorListener);
         requestQueue.add(findAllMovies);
+        return modules;
     }
 
     public ArrayList<Module> findAll() {
-        GsonRequest<Modules> findAllMovies = new GsonRequest<>(url, Module.class, null, succesListener(),
-                errorListener());
+        GsonRequest<List<Module>> findAllMovies = new GsonRequest<>(url, Module.class, null,
+                successListener(), errorListener());
         requestQueue.add(findAllMovies);
         return modules;
     }
+
 
     private Response.ErrorListener errorListener() {
         return new Response.ErrorListener() {
@@ -55,11 +57,11 @@ public class ModuleService {
         };
     }
 
-    private Response.Listener<Modules> succesListener() {
-        return new Response.Listener<Modules>() {
+    private Response.Listener<List<Module>> successListener() {
+        return new Response.Listener<List<Module>>() {
             @Override
-            public void onResponse(Modules response) {
-                for (Module module: response.modules) {
+            public void onResponse(List<Module> response) {
+                for (Module module: response) {
                     System.out.println(module);
                 }
             }

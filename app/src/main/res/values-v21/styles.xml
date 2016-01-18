@@ -3,7 +3,8 @@
     <style name="AppTheme.NoActionBar">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
-        <item name="android:windowDrawsSystemBarBackgrounds">true</item>
-        <item name="android:statusBarColor">@android:color/transparent</item>
+        <!--hint color And Label Color in False State-->
+        <item name="android:textColorHint">@color/colorAccent</item>
+        <!--Label color in True State And Bar Color False And True State-->
     </style>
 </resources>
