@@ -116,7 +116,7 @@ public class StandVanZakenFragment extends Fragment {
             if(tmpGrade >= 5.5) {
                 tmpEcts += module.getEcts();
             }
-            else if(tmpGrade > 1.0 && tmpGrade <= 5.4){
+            else if(module.isGradeSet() == 1 && tmpGrade <= 5.4){
                 vakkenAandacht.add(module);
             }
         }
