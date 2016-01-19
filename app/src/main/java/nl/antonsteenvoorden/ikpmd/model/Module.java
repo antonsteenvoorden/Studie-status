@@ -113,6 +113,13 @@ public class Module extends Model {
                 .execute();
     }
 
+    public static List<Module> getPeriod(int period) {
+        return new Select()
+                .from(Module.class)
+                .where("period = ?", period)
+                .execute();
+    }
+
 
     public static Module find(long id) {
         return Module.load(Module.class, id);
