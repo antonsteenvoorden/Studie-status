@@ -30,32 +30,37 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textColor="@color/colorAccent"
+        android:textColor="@color/white"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="@string/about_title"
         android:id="@+id/about_title" />
 
-    <LinearLayout
+        <LinearLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp">
 
-        <TextView
+            <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@color/colorAccent"
             android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="Anton Steenvoorden"
+            android:text="@string/anton_steenvoorden"
             android:id="@+id/about_text" />
 
         <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/about_image" />
-    </LinearLayout>
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:id="@+id/about_image"
+            android:src="@drawable/anton"
+            android:cropToPadding="false"
+            android:focusableInTouchMode="false"
+            android:layout_marginLeft="20dp" />
 
-    <LinearLayout
+        </LinearLayout>
+
+        <LinearLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -66,13 +71,15 @@
             android:layout_height="wrap_content"
             android:textColor="@color/colorAccent"
             android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="Daan Rosbergen"
+            android:text="@string/daan_rosbergen"
             android:id="@+id/about_text2" />
 
         <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/about_image2" />
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:id="@+id/about_image2"
+            android:src="@drawable/daan"
+            android:layout_marginLeft="50dp" />
     </LinearLayout>
 
     </LinearLayout>

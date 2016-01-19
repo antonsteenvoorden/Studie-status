@@ -4,10 +4,13 @@ import android.content.Context;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
+import android.widget.ListAdapter;
 import android.widget.ListView;
 
 import com.github.mikephil.charting.charts.PieChart;
@@ -29,7 +32,6 @@ public class StandVanZakenFragment extends Fragment {
     Context context;
     ListView listAandacht;
     VakkenAdapter vakkenAdapter;
-
     private PieChart mChart;
     private int maxECTS;
 
@@ -63,12 +65,12 @@ public class StandVanZakenFragment extends Fragment {
 
         vakkenAandacht = new ArrayList<>();
         modules = new ArrayList<>();
+        modules = Module.getAll();
+        context = rootView.getContext();
 
         calculateECTS();
         initChart();
         getData();
-
-        context = rootView.getContext();
 
         vakkenAdapter = new VakkenAdapter(context, R.layout.vakken_list_item, vakkenAandacht);
         listAandacht.setAdapter(vakkenAdapter);
@@ -120,6 +122,7 @@ public class StandVanZakenFragment extends Fragment {
         }
         setData(tmpEcts);
     }
+
 
     private void setData(int aantal) {
         String label = (String) getString(R.string.stand_van_zaken_data);
