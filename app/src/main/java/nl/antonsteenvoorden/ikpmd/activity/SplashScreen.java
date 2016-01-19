@@ -65,7 +65,7 @@ public class SplashScreen extends AppCompatActivity {
                 if (settings.getBoolean("first_run", true) && isNetworkConnected()) {
                     ((App) getApplication()).getModuleService().findAll(successListener(),
                             errorListener());
-                } else if (!isNetworkConnected()) {
+                } else if (settings.getBoolean("first_run", true) && !isNetworkConnected()) {
                     error = "Er is geen internetverbinding";
                     showError();
                 } else {
