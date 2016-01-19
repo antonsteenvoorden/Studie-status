@@ -114,6 +114,7 @@ public class WhatAreYourGrades extends Fragment implements SliderFragment.Saveab
                 module.save();
             } else if (gradeText.length() < 4 && Double.parseDouble(gradeText) <= 10) {
                 module.setGrade(Double.parseDouble(gradeText));
+                module.setGradeSet(1);
                 module.update();
                 module.save();
                 i++;
