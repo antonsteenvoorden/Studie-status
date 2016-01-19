@@ -1,21 +1,26 @@
 package nl.antonsteenvoorden.ikpmd.activity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import butterknife.Bind;
 import com.activeandroid.ActiveAndroid;
 import com.android.volley.NetworkError;
+import com.android.volley.NoConnectionError;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 
+import java.net.UnknownHostException;
 import java.util.List;
 
 import nl.antonsteenvoorden.ikpmd.App;
@@ -26,6 +31,7 @@ public class SplashScreen extends AppCompatActivity {
     // Splash screen timer
     private static int SPLASH_TIME_OUT = 3000;
     public static final String PREFS_NAME = "LaunchPreferences";
+    public String error;
     SharedPreferences settings;
 
     @Bind(R.id.splashScreenWelcome) TextView welkom;
@@ -55,34 +61,20 @@ public class SplashScreen extends AppCompatActivity {
              */
             @Override
             public void run() {
-
                 // This method will be executed once the timer is over
-                if (settings.getBoolean("first_run", true)) {
-                    try {
-                        ((App) getApplication()).getModuleService().findAll(successListener(), errorListener(SplashScreen.this));
-                    } catch(Exception e) {
-                        Log.d("TRY CATCH BLOCK", e.toString());
-                        Snackbar snackbar = Snackbar
-                                .make((RelativeLayout) findViewById(R.id.splashScreenLayout),
-                                        "Bij de eerste keer opstarten is een internet verbinding nodig!",
-                                        Snackbar.LENGTH_LONG);
-
-                        snackbar.show();
-                    }
-                    //the app is being launched for first time, do something
-                    Log.d("Comments", "First time, opening get to know you screen");
-
-                    Intent i = new Intent(SplashScreen.this, WelcomeActivity.class);
-                    startActivity(i);
-                    // record the fact that the app has been started at least once
-                     settings.edit().putBoolean("first_run", false).commit();
+                if (settings.getBoolean("first_run", true) && isNetworkConnected()) {
+                    ((App) getApplication()).getModuleService().findAll(successListener(),
+                            errorListener());
+                } else if (!isNetworkConnected()) {
+                    error = "Er is geen internetverbinding";
+                    showError();
                 } else {
                     Log.d("Comments", "Opening main activity");
                     Intent i = new Intent(SplashScreen.this, MainActivity.class);
                     startActivity(i);
+                    // close this activity
+                    finish();
                 }
-                // close this activity
-                finish();
             }
 
         }, SPLASH_TIME_OUT);
@@ -100,18 +92,47 @@ public class SplashScreen extends AppCompatActivity {
                     ActiveAndroid.setTransactionSuccessful();
                 } finally {
                     ActiveAndroid.endTransaction();
+                    //the app is being launched for first time, do something
+                    Log.d("Comments", "First time, opening get to know you screen");
+
+                    Intent i = new Intent(SplashScreen.this, WelcomeActivity.class);
+                    startActivity(i);
+                    // record the fact that the app has been started at least once
+                    settings.edit().putBoolean("first_run", false).commit();
+                    // close this activity
+                    finish();
                 }
             }
         };
     }
 
-    private Response.ErrorListener errorListener(final SplashScreen splashScreen) {
+    private Response.ErrorListener errorListener() {
         return new Response.ErrorListener() {
             @Override
-            public void onErrorResponse(VolleyError error) {
-                Snackbar.make(splashScreen.getCurrentFocus(), "Kan modules niet ophalen", Snackbar.LENGTH_LONG).show();
-                Log.e("Volley error", error.getMessage());
+            public void onErrorResponse(VolleyError volleyError) {
+                if (volleyError instanceof NoConnectionError) {
+                    error = "Er is een internetverbinding nodig om de vakken op te halen.";
+                }
+                showError();
+                Log.e("Volley error", volleyError.getMessage());
             }
         };
+    }
+
+    private void showError() {
+        Snackbar.make(findViewById(R.id.splashScreenLayout), error,
+                Snackbar.LENGTH_INDEFINITE).setAction("Opnieuw", new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                handleAfterSplash();
+            }
+        }).show();
+        Log.e("Error", error);
+    }
+
+    private boolean isNetworkConnected() {
+        ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+
+        return cm.getActiveNetworkInfo() != null;
     }
 }
