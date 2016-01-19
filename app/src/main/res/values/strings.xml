@@ -45,4 +45,5 @@
     <string name="anton_steenvoorden">Anton Steenvoorden</string>
     <string name="daan_rosbergen">Daan Rosbergen</string>
     <string name="anton_website">http://antonsteenvoorden.nl</string>
+    <string name="bar_chart_label">Hoeveel punten je had kunnen halen</string>
 </resources>

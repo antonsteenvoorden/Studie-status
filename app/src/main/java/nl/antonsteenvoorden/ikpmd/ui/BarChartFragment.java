@@ -16,6 +16,7 @@ import com.github.mikephil.charting.data.CombinedData;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
+import com.github.mikephil.charting.formatter.ValueFormatter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,6 +35,11 @@ public class BarChartFragment extends Fragment {
 
     List<Entry> lineEntries;
     ArrayList<BarEntry> barEntries;
+    LineDataSet lineDataSet;
+    BarDataSet barDataSet;
+
+    BarData barData;
+    LineData lineData;
 
     public static BarChartFragment newInstance() {
         BarChartFragment fragment = new BarChartFragment();
@@ -64,65 +70,78 @@ public class BarChartFragment extends Fragment {
         super.onResume();
         getData();
     }
+
     private void initBarChart() {
         barChart.setDrawOrder(new CombinedChart.DrawOrder[]{
                 CombinedChart.DrawOrder.BAR, CombinedChart.DrawOrder.LINE
         });
         barChart.setClickable(false);
-
+        barChart.getLegend().setEnabled(false);
         barChart.getXAxis().setEnabled(false);
         barChart.getAxisLeft().setDrawAxisLine(false);
         barChart.getAxisLeft().setDrawGridLines(false);
+        barChart.getAxisLeft().setDrawLabels(true);
+        barChart.getAxisLeft().setTextColor(Color.WHITE);
         barChart.getAxisRight().setDrawAxisLine(false);
         barChart.getAxisRight().setDrawGridLines(false);
+        barChart.getAxisRight().setDrawLabels(false);
         barChart.setDrawHighlightArrow(false);
         barChart.setDrawBorders(false);
         barChart.setDrawValueAboveBar(true);
         barChart.setDescriptionColor(Color.WHITE);
         barChart.setDrawGridBackground(false);
-        barChart.setDescription("Punten gehaald per periode");
+        barChart.setDescription("");
+
     }
+
     private void getData() {
         lineEntries.clear();
         barEntries.clear();
-        for(int i = 0; i < 4; i++) {
+        for (int i = 0; i < 4; i++) {
             int ectsTmp = 0;
             int ectsReceivedTmp = 0;
-            for(Module module : Module.getPeriod(i+1)) {
-                ectsTmp += module.getEcts();
-                if(module.getGrade()>=5.5) {
-                    ectsReceivedTmp+=module.getEcts();
+            for (Module module : Module.getPeriod(i + 1)) {
+                if (module.isGradeSet() == 1) {
+                    ectsTmp += module.getEcts();
+                    if (module.getGrade() >= 5.5) {
+                        ectsReceivedTmp += module.getEcts();
+                    }
                 }
             }
-            lineEntries.add(new Entry(ectsTmp,i));
+            lineEntries.add(new Entry(ectsTmp, i));
             barEntries.add(new BarEntry(ectsReceivedTmp, i));
+            if(ectsReceivedTmp == ectsTmp) {
+                
+            }
         }
         setData();
     }
 
-    private void setData(){
+    private void setData() {
 
         // LINE DATA
-        LineData line = new LineData();
-        LineDataSet lineDataSet = new LineDataSet(lineEntries,"Line DataSet");
+        lineData = new LineData();
+        lineDataSet = new LineDataSet(lineEntries, "Line DataSet");
         lineDataSet.setColor(Color.WHITE);
         lineDataSet.setDrawHorizontalHighlightIndicator(false);
         lineDataSet.setDrawVerticalHighlightIndicator(false);
-        lineDataSet.setValueTextColor(Color.WHITE);
-        line.addDataSet(lineDataSet);
+        lineDataSet.setDrawValues(false);
+        lineDataSet.setDrawCircles(true);
+        lineData.addDataSet(lineDataSet);
 
         // BAR DATA
-        BarData bar = new BarData();
-        BarDataSet set = new BarDataSet(barEntries, "Bar DataSet");
-        set.setColor(Color.rgb(0 ,188,186));
-        set.setValueTextColor(Color.WHITE);
-        bar.addDataSet(set);
+        barData = new BarData();
+        barDataSet = new BarDataSet(barEntries, "Bar DataSet");
+        barDataSet.setColor(Color.rgb(0, 188, 186));
+        barDataSet.setValueTextColor(Color.WHITE);
+        barDataSet.setValueTextSize(15f);
+        barData.addDataSet(barDataSet);
 
         // ADD data to the chart
-        String[] xValues = {"1","2","3","4"};
+        String[] xValues = {"1", "2", "3", "4"};
         CombinedData data = new CombinedData(xValues);
-        data.setData(line);
-        data.setData(bar);
+        data.setData(lineData);
+        data.setData(barData);
 
         barChart.setData(data);
         barChart.invalidate();

@@ -9,6 +9,15 @@
     android:background="@color/colorPrimary"
     tools:context=".ui.BarChartFragment">
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/colorAccent"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="@string/bar_chart_label"
+        android:id="@+id/bar_chart_label"
+        android:layout_gravity="center_horizontal"/>
+
     <com.github.mikephil.charting.charts.CombinedChart
         android:id="@+id/chart"
         android:layout_width="match_parent"

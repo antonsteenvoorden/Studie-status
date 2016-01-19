@@ -2,18 +2,13 @@ package nl.antonsteenvoorden.ikpmd.adapter;
 
 import android.content.Context;
 import android.content.Intent;
-import android.database.Cursor;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.Animation;
-import android.view.animation.ScaleAnimation;
 import android.widget.ArrayAdapter;
-import android.widget.CursorAdapter;
 import android.widget.TextView;
 
-import java.io.Serializable;
 import java.util.List;
 
 import nl.antonsteenvoorden.ikpmd.R;
@@ -38,10 +33,10 @@ public class VakkenAdapter extends ArrayAdapter {
             view = LayoutInflater.from(getContext()).inflate(R.layout.vakken_list_item, parent, false);
         }
         TextView listName = (TextView) view.findViewById(R.id.vakken_list_item_name);
-        TextView listECTS = (TextView) view.findViewById(R.id.vakken_list_item_ects);
+        TextView listECTS = (TextView) view.findViewById(R.id.vakken_list_item_periode);
         TextView listGrade = (TextView) view.findViewById(R.id.vakken_list_item_grade);
         listName.setText(module.getName());
-        listECTS.setText("ECTS: " + Integer.toString(module.getEcts()));
+        listECTS.setText("Periode: " + Integer.toString(module.getPeriod()));
         listGrade.setText(Double.toString(module.getGrade()));
 
         view.setOnClickListener(new View.OnClickListener() {
