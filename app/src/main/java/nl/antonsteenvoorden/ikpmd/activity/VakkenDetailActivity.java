@@ -62,7 +62,7 @@ public class VakkenDetailActivity extends AppCompatActivity {
             module.setGrade(1);
             module.setGradeSet(1);
             module.update();
-        } else if (gradeText.length() < 4 && Double.parseDouble(gradeText) <= 10) {
+        } else if (gradeText.length() < 4 && Double.parseDouble(gradeText) >= 1 && Double.parseDouble(gradeText) <= 10) {
             module.setGrade(Double.parseDouble(gradeText));
             module.setGradeSet(1);
             module.update();
