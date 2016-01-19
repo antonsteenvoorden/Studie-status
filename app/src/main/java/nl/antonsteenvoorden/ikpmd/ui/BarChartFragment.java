@@ -111,7 +111,7 @@ public class BarChartFragment extends Fragment {
             lineEntries.add(new Entry(ectsTmp, i));
             barEntries.add(new BarEntry(ectsReceivedTmp, i));
             if(ectsReceivedTmp == ectsTmp) {
-                
+
             }
         }
         setData();
