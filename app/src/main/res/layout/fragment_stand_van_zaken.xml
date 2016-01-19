@@ -51,12 +51,12 @@
                     android:layout_marginTop="10dp"
                     android:layout_gravity="center_horizontal" />
 
-                <LinearLayout
+                <ListView
                     android:layout_width="wrap_content"
                     android:layout_height="0dp"
                     android:layout_weight="1"
                     android:id="@+id/stand_van_zaken_list"
-                    android:orientation="vertical" />
+                    />
             </LinearLayout>
 
         </LinearLayout>
