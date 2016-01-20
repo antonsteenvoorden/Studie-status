@@ -5,6 +5,7 @@ import android.content.SharedPreferences;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -32,8 +33,7 @@ public class WelcomeActivity extends AppCompatActivity implements
     public int nextStep() {
         if (mViewPager.getCurrentItem() == welcomeStepAdapter.getCount()-1) {
             Intent intent = new Intent(this, MainActivity.class);
-            SharedPreferences settings = getSharedPreferences(SplashScreen.PREFS_NAME, 0);
-            settings.edit().putBoolean("first_run", false).commit();
+
             startActivity(intent);
             finish();
         } else {
@@ -49,8 +49,11 @@ public class WelcomeActivity extends AppCompatActivity implements
             fragment = (SliderFragment.Saveable) welcomeStepAdapter.getItem(mViewPager.
                     getCurrentItem());
             fragment.save();
+            SharedPreferences settings = getSharedPreferences(SplashScreen.PREFS_NAME, 0);
+            settings.edit().putBoolean("first_run", false).commit();
         } catch (ClassCastException ce) {
-
+            Log.d("SAVE", "Save gone wrong! ");
+            ce.printStackTrace();
         }
     }
 }

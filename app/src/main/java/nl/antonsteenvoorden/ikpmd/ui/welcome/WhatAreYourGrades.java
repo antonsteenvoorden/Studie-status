@@ -66,7 +66,6 @@ public class WhatAreYourGrades extends Fragment implements SliderFragment.Saveab
 
         for (Module module: modules)
             scrollContainer.addView(createEditTextField(module));
-
         return view;
     }
 
@@ -111,15 +110,17 @@ public class WhatAreYourGrades extends Fragment implements SliderFragment.Saveab
             String gradeText = text.getText().toString();
             if (gradeText.equals("") || gradeText.isEmpty() || gradeText == null) {
                 module.setGrade(1);
+                module.setGradeSet(0);
                 module.save();
-            } else if (gradeText.length() < 4 && Double.parseDouble(gradeText) <= 10) {
+            } else if (gradeText.length() < 4 && Double.parseDouble(gradeText) >= 1 && Double.parseDouble(gradeText) <= 10) {
                 module.setGrade(Double.parseDouble(gradeText));
-                module.update();
+                module.setGradeSet(1);
                 module.save();
                 i++;
-            }
-            else {
-            //TODO DO NOTHING BUT GIVE SOME ERROR MESSAGE
+            } else {
+                module.setGrade(1);
+                module.setGradeSet(0);
+                module.save();
             }
         }
     }

@@ -37,12 +37,26 @@ public class Module extends Model {
     @Column(name = "period")
     private int period;
 
-    public Module(String name, int ects, double grade, int period) {
+    @Expose
+    @SerializedName("gradeset")
+    @Column(name = "gradeset")
+    private int gradeSet;
+
+    public Module(String name, int ects, double grade, int period, int gradeSet) {
         super();
+        this.gradeSet = gradeSet;
         this.name = name;
         this.ects = ects;
         this.grade = grade;
         this.period = period;
+    }
+
+    public int isGradeSet() {
+        return gradeSet;
+    }
+
+    public void setGradeSet(int gradeSet) {
+        this.gradeSet = gradeSet;
     }
 
     public Module() {
@@ -88,6 +102,7 @@ public class Module extends Model {
                 ", ects=" + ects +
                 ", grade='" + grade + '\'' +
                 ", period=" + period +
+                ", gradeSet=" +gradeSet +
                 '}';
     }
 
@@ -95,6 +110,13 @@ public class Module extends Model {
         return new Select()
                 .from(Module.class)
                 .orderBy("period ASC")
+                .execute();
+    }
+
+    public static List<Module> getPeriod(int period) {
+        return new Select()
+                .from(Module.class)
+                .where("period = ?", period)
                 .execute();
     }
 
@@ -107,6 +129,10 @@ public class Module extends Model {
     public void update() {
         new Update(Module.class)
                 .set("grade = ?", getGrade())
+                .where("id = ?",getId())
+                .execute();
+        new Update(Module.class)
+                .set("gradeSet = ?", isGradeSet())
                 .where("id = ?",getId())
                 .execute();
     }

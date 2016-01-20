@@ -29,8 +29,7 @@ public class StandVanZakenFragment extends Fragment {
     Context context;
     ListView listAandacht;
     VakkenAdapter vakkenAdapter;
-
-    private PieChart mChart;
+    private PieChart standVanZakenChart;
     private int maxECTS;
 
     ArrayList<Entry> yValues;
@@ -63,12 +62,12 @@ public class StandVanZakenFragment extends Fragment {
 
         vakkenAandacht = new ArrayList<>();
         modules = new ArrayList<>();
+        modules = Module.getAll();
+        context = rootView.getContext();
 
         calculateECTS();
         initChart();
         getData();
-
-        context = rootView.getContext();
 
         vakkenAdapter = new VakkenAdapter(context, R.layout.vakken_list_item, vakkenAandacht);
         listAandacht.setAdapter(vakkenAdapter);
@@ -80,22 +79,22 @@ public class StandVanZakenFragment extends Fragment {
     public void onResume() {
         super.onResume();
         getData();
-        mChart.animateY(1500);
+        standVanZakenChart.animateY(1500);
     }
 
     public void initChart() {
-        mChart = (PieChart) rootView.findViewById(R.id.chart);
-        mChart.setDescription("");
-        mChart.setTouchEnabled(false);
-        mChart.setDrawSliceText(true);
-        mChart.setDrawHoleEnabled(true);
-        mChart.setHoleColorTransparent(true);
-        mChart.setHoleRadius(85);
-        mChart.setCenterTextColor(Color.rgb(0,188,186));
-        mChart.setCenterText("0/0 \n Studiepunten behaald");
-        mChart.setCenterTextSize(20);
-        mChart.getLegend().setEnabled(false);
-        mChart.animateY(1500);
+        standVanZakenChart = (PieChart) rootView.findViewById(R.id.chart);
+        standVanZakenChart.setDescription("");
+        standVanZakenChart.setTouchEnabled(false);
+        standVanZakenChart.setDrawSliceText(true);
+        standVanZakenChart.setDrawHoleEnabled(true);
+        standVanZakenChart.setHoleColorTransparent(true);
+        standVanZakenChart.setHoleRadius(85);
+        standVanZakenChart.setCenterTextColor(Color.rgb(0,188,186));
+        standVanZakenChart.setCenterText("0/0 \n Studiepunten behaald");
+        standVanZakenChart.setCenterTextSize(20);
+        standVanZakenChart.getLegend().setEnabled(false);
+        standVanZakenChart.animateY(1500);
     }
     public void calculateECTS() {
         modules.clear();
@@ -114,16 +113,17 @@ public class StandVanZakenFragment extends Fragment {
             if(tmpGrade >= 5.5) {
                 tmpEcts += module.getEcts();
             }
-            else if(tmpGrade > 1.0 && tmpGrade <= 5.4){
+            else if(module.isGradeSet() == 1 && tmpGrade <= 5.4){
                 vakkenAandacht.add(module);
             }
         }
         setData(tmpEcts);
     }
 
+
     private void setData(int aantal) {
         String label = (String) getString(R.string.stand_van_zaken_data);
-        mChart.setCenterText(aantal + " / 60 \n"+ label );
+        standVanZakenChart.setCenterText(aantal + " / 60 \n"+ label );
 
         if(xValues.size() >= 2 && yValues.size() >= 2) {
             yValues.set(0, new Entry(aantal, 0));
@@ -145,9 +145,9 @@ public class StandVanZakenFragment extends Fragment {
         PieData data = new PieData(xValues, dataSet);
         data.setDrawValues(false);
         data.setValueTextSize(0.0f);
-        mChart.setData(data); // bind dataset aan chart.
+        standVanZakenChart.setData(data); // bind dataset aan chart.
 
-        mChart.invalidate();  // Aanroepen van een redraw
+        standVanZakenChart.invalidate();  // Aanroepen van een redraw
         //redraw list view
         listAandacht.invalidate();
         Log.d("aantal ects ", Integer.toString(aantal));

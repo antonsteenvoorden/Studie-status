@@ -17,6 +17,7 @@ import android.view.MenuItem;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import nl.antonsteenvoorden.ikpmd.R;
+import nl.antonsteenvoorden.ikpmd.ui.BarChartFragment;
 import nl.antonsteenvoorden.ikpmd.ui.StandVanZakenFragment;
 import nl.antonsteenvoorden.ikpmd.ui.VakkenFragment;
 
@@ -79,11 +80,6 @@ public class MainActivity extends AppCompatActivity {
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.menu_settings) {
-            Log.d("MENU","SETTINGS");
-            return true;
-        }
         if (id == R.id.menu_about) {
             Log.d("MENU","ABOuT");
             Intent intent = new Intent(MainActivity.this, AboutActivity.class);
@@ -112,6 +108,9 @@ public class MainActivity extends AppCompatActivity {
 
                 case 1:
                     return VakkenFragment.newInstance();
+
+                case 2:
+                    return BarChartFragment.newInstance();
             }
             return null;
         }
@@ -119,7 +118,7 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public int getCount() {
             // Show 3 total pages.
-            return 2;
+            return 3;
         }
 
         @Override
@@ -129,6 +128,8 @@ public class MainActivity extends AppCompatActivity {
                     return "Stand van zaken";
                 case 1:
                     return "Vakken";
+                case 2:
+                    return "Bar Chart";
             }
             return null;
         }

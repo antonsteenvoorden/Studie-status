@@ -3,12 +3,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".activity.MainActivity">
     <item
-        android:id="@+id/menu_settings"
-        android:orderInCategory="100"
-        android:name="@string/menu_settings"
-        app:showAsAction="never"
-        android:title="@string/menu_settings" />
-    <item
         android:id="@+id/menu_about"
         android:orderInCategory="100"
         android:name="@string/menu_about"
