@@ -16,7 +16,7 @@ import nl.antonsteenvoorden.ikpmd.R;
  * Use the {@link WelcomeMessage#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class WelcomeMessage extends Fragment {
+public class WelcomeMessage extends Fragment implements SliderFragment.Saveable {
 
     public WelcomeMessage() {
         // Required empty public constructor
@@ -48,7 +48,7 @@ public class WelcomeMessage extends Fragment {
         return view;
     }
 
-    // TODO: Rename method, update argument and hook method into UI event
+    // TODO: Rename method, updateGrade argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
     }
 
@@ -60,5 +60,10 @@ public class WelcomeMessage extends Fragment {
     @Override
     public void onDetach() {
         super.onDetach();
+    }
+
+    @Override
+    public void save() {
+        System.out.println(" NOTHING ");
     }
 }

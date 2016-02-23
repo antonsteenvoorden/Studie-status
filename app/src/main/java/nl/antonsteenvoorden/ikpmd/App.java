@@ -1,10 +1,8 @@
 package nl.antonsteenvoorden.ikpmd;
 
-import android.app.Application;
-
 import com.activeandroid.ActiveAndroid;
 
-import nl.antonsteenvoorden.ikpmd.model.Module;
+import nl.antonsteenvoorden.ikpmd.service.ModuleObtainer;
 import nl.antonsteenvoorden.ikpmd.service.ModuleService;
 
 /**
@@ -24,5 +22,9 @@ public class App extends com.activeandroid.app.Application {
 
     public ModuleService getModuleService() {
         return moduleService;
+    }
+
+    public ModuleObtainer getModuleObtainer(String username, String password) {
+        return new ModuleObtainer(username, password);
     }
 }

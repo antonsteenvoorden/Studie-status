@@ -16,18 +16,19 @@
     <string name="who_are_you_subtitle">Dat maakt het iets persoonlijker ;)</string>
     <string name="who_are_you_question">Wat is je naam ?</string>
     <string name="name">Naam</string>
-    <string name="who_are_you_button">Opslaan</string>
+    <string name="save">Opslaan</string>
 
 
     <!-- splash screen -->
 
     <string name="welcome_text_step2">Dat maakt alles iets persoonlijker ;)</string>
     <string name="welcome_title_step2">Wij zouden graag weten hoe je heet.</string>
-    <string name="welcome_title_step3">Welke cijfers heb je al gehaald?</string>
-    <string name="welcome_text_step3">Deze app zorgt voor  een beter inzicht in je cijfers. Daarom willen wij graag weten welke cijfers je al gehaald hebt.</string>
+    <string name="welcome_title_step3">Wat zijn je login gegevens?</string>
+    <string name="welcome_text_step3">Hiermee halen we de cijfers op vanaf osiris.
+        Ze worden nergens anders heengestuurd of opgeslagen!</string>
 
     <string name="splashWelcome">Welkom</string>
-    <string name="splashText">Anton Steenvoorden &amp; Daan Rosbergen</string>
+    <string name="splashText">Anton Steenvoorden</string>
 
 
     <!-- stand van zaken -->
@@ -40,10 +41,11 @@
     <string name="vakken_detail_button">Opslaan</string>
     <string name="vakken_detail_hint">Cijfer</string>
     <!-- about -->
-    <string name="about_title">Deze applicatie is geschreven door studenten van de Hogeschool Leiden
-        voor de module IKPMD in 2015-2016.</string>
+    <string name="about_title">Deze applicatie heeft geen verband met de Hogeschool Leiden</string>
     <string name="anton_steenvoorden">Anton Steenvoorden</string>
-    <string name="daan_rosbergen">Daan Rosbergen</string>
     <string name="anton_website">http://antonsteenvoorden.nl</string>
-    <string name="bar_chart_label">Hoeveel punten je had kunnen halen</string>
+    <string name="bar_chart_label">Punten / Max. punten</string>
+    <string name="studentnummer">Studentnummer</string>
+    <string name="osiriswachtwoord">Wachtwoord</string>
+    <string name="welcome_text_step4">Voer alleen de getallen in van je studentnummer!</string>
 </resources>

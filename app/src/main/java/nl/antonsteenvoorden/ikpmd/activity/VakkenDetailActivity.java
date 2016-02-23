@@ -1,19 +1,15 @@
 package nl.antonsteenvoorden.ikpmd.activity;
 
+import android.os.Bundle;
 import android.os.Handler;
 import android.support.design.widget.Snackbar;
-import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.AppCompatEditText;
 import android.text.InputType;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-
-import org.w3c.dom.Text;
 
 import nl.antonsteenvoorden.ikpmd.R;
 import nl.antonsteenvoorden.ikpmd.model.Module;
@@ -57,23 +53,23 @@ public class VakkenDetailActivity extends AppCompatActivity {
     }
 
     public void save() {
-        String gradeText = editText.getText().toString();
-        if (gradeText.equals("") || gradeText.isEmpty() || gradeText == null) {
-            module.setGrade(1);
-            module.setGradeSet(1);
-            module.update();
-        } else if (gradeText.length() < 4 && Double.parseDouble(gradeText) >= 1 && Double.parseDouble(gradeText) <= 10) {
-            module.setGrade(Double.parseDouble(gradeText));
-            module.setGradeSet(1);
-            module.update();
-        } else {
-            Snackbar snackbar = Snackbar
-                    .make((RelativeLayout) findViewById(R.id.vakken_detail_layout),
-                            "Het ingevoerde cijfer is niet goed gekeurd!",
-                            Snackbar.LENGTH_LONG);
-
-            snackbar.show();
-        }
+//        String gradeText = editText.getText().toString();
+//        if (gradeText.equals("") || gradeText.isEmpty() || gradeText == null) {
+//            module.setGrade(1);
+//            module.setGradeSet(1);
+//            module.updateGrade();
+//        } else if (gradeText.length() < 4 && Double.parseDouble(gradeText) >= 1 && Double.parseDouble(gradeText) <= 10) {
+//            module.setGrade(Double.parseDouble(gradeText));
+//            module.setGradeSet(1);
+//            module.updateGrade();
+//        } else {
+//            Snackbar snackbar = Snackbar
+//                    .make((RelativeLayout) findViewById(R.id.vakken_detail_layout),
+//                            "Het ingevoerde cijfer is niet goed gekeurd!",
+//                            Snackbar.LENGTH_LONG);
+//
+//            snackbar.show();
+//        }
     }
 }
 

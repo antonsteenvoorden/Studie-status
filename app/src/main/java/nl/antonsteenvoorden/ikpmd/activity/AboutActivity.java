@@ -1,7 +1,7 @@
 package nl.antonsteenvoorden.ikpmd.activity;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 
 import nl.antonsteenvoorden.ikpmd.R;
 

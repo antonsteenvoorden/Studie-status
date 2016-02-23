@@ -27,7 +27,6 @@ repositories {
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
     testCompile 'junit:junit:4.12'
-
     compile 'com.android.support:appcompat-v7:23.1.1'
     compile 'com.android.support:design:23.1.1'
     compile 'eu.the4thfloor.volley:com.android.volley:2015.05.28'
@@ -37,4 +36,5 @@ dependencies {
     compile 'com.michaelpardo:activeandroid:3.1.0-SNAPSHOT'
     compile 'com.github.PhilJay:MPAndroidChart:v2.1.4'
     compile 'com.android.support:recyclerview-v7:23.1.1'
+    compile files('src/main/java/lib/jsoup-1.8.3.jar')
 }

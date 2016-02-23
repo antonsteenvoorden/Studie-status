@@ -19,7 +19,7 @@ public class WelcomeStepAdapter extends FragmentStatePagerAdapter {
         stepFragments = new ArrayList<>();
         stepFragments.add(WelcomeMessage.newInstance());
         stepFragments.add(WhoAreYou.newInstance());
-        stepFragments.add(WhatAreYourGrades.newInstance());
+        stepFragments.add(WhatAreYourCredentials.newInstance());
     }
 
     @Override

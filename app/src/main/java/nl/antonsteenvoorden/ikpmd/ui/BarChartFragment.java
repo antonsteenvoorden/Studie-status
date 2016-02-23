@@ -16,7 +16,6 @@ import com.github.mikephil.charting.data.CombinedData;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
-import com.github.mikephil.charting.formatter.ValueFormatter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -101,12 +100,10 @@ public class BarChartFragment extends Fragment {
             int ectsTmp = 0;
             int ectsReceivedTmp = 0;
             for (Module module : Module.getPeriod(i + 1)) {
-                if (module.isGradeSet() == 1) {
                     ectsTmp += module.getEcts();
                     if (module.getGrade() >= 5.5) {
                         ectsReceivedTmp += module.getEcts();
                     }
-                }
             }
             lineEntries.add(new Entry(ectsTmp, i));
             barEntries.add(new BarEntry(ectsReceivedTmp, i));
