@@ -1,5 +1,6 @@
 package nl.antonsteenvoorden.ikpmd.model;
 
+import com.activeandroid.ActiveAndroid;
 import com.activeandroid.Model;
 import com.activeandroid.annotation.Column;
 import com.activeandroid.annotation.Table;
@@ -10,6 +11,7 @@ import com.google.gson.annotations.SerializedName;
 
 import java.sql.Date;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 /**
  * Created by Anton & Daan on 28/12/2015.
@@ -64,6 +66,11 @@ public class Module extends Model {
   private int definitief;
 
   @Expose
+  @SerializedName("handmatig")
+  @Column(name = "handmatig")
+  private int handmatig;
+
+  @Expose
   @SerializedName("toetstype")
   @Column(name = "toetstype")
   private String toetsType;
@@ -71,7 +78,10 @@ public class Module extends Model {
   public Module() {
 
   }
-  public Module(String name, String longName, int ects, double grade, int period, int jaar, Date toetsDatum, Date mutatieDatum, int definitief, String toetsType) {
+
+  public Module(String name, String longName, int ects, double grade, int period, int jaar,
+                Date toetsDatum, Date mutatieDatum, int definitief, int handmatig,
+                String toetsType) {
     this.name = name;
     this.longName = longName;
     this.ects = ects;
@@ -81,6 +91,7 @@ public class Module extends Model {
     this.toetsDatum = toetsDatum;
     this.mutatieDatum = mutatieDatum;
     this.definitief = definitief;
+    this.handmatig = handmatig;
     this.toetsType = toetsType;
   }
 
@@ -156,6 +167,14 @@ public class Module extends Model {
     this.definitief = definitief;
   }
 
+  public int getHandmatig() {
+    return handmatig;
+  }
+
+  public void setHandmatig(int handmatig) {
+    this.handmatig = handmatig;
+  }
+
   public String getToetsType() {
     return toetsType;
   }
@@ -164,20 +183,37 @@ public class Module extends Model {
     this.toetsType = toetsType;
   }
 
-  public void insertList(List<Module> modules) {
-    //TODO:CHECK IF ALREADY IN LIST
-    for (Module module : modules) {
-      for (Module storedModule : getAll()) {
-        if (module.toetsDatum == storedModule.toetsDatum && module.name.equals(storedModule.name)) {
-          if (module.grade != storedModule.grade) {
-            storedModule.setGrade(module.grade);
-            storedModule.update();
+  public static void insertList(List<Module> modules) {
+    ActiveAndroid.beginTransaction();
+    try {
+
+      for (Module newModule : modules) {
+        boolean notStored = true;
+        for (Module storedModule : getAll()) {
+          if (newModule.toetsDatum == storedModule.toetsDatum && newModule.name.equals(storedModule.name)) {
+            System.out.println("Module.insertList : " + newModule.toString() + " EQUALS " + storedModule.toString());
+            notStored = false;
+            //neem alle eigenschappen over
+            storedModule.save();
           }
-
-
+        }
+        if(notStored) {
+          System.out.println("Module.insertList SAVING :" + newModule.toString());
+          newModule.save();
         }
       }
+    } catch (Exception e) {
+      e.printStackTrace();
+
+    } finally {
+      ActiveAndroid.setTransactionSuccessful();
     }
+
+    ActiveAndroid.endTransaction();
+  }
+
+  public void insert(Module module) {
+    module.save();
   }
 
   @Override

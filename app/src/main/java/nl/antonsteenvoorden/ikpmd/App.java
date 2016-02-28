@@ -3,7 +3,6 @@ package nl.antonsteenvoorden.ikpmd;
 import com.activeandroid.ActiveAndroid;
 
 import nl.antonsteenvoorden.ikpmd.service.ModuleObtainer;
-import nl.antonsteenvoorden.ikpmd.service.ModuleService;
 
 /**
  * App bootstrap class. Handy to use as singleton class.

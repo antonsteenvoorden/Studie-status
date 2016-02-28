@@ -137,7 +137,7 @@ public class ModuleObtainer extends AsyncTask<Void, Void, Void> {
       Elements cijferRij = tabel.getElementsByTag("tr");
       //removes the first row.. no cijfers in here
       cijferRij.remove(0);
-
+      List<Module> opgehaaldeModules = new ArrayList<Module>();
       //for every row (cijfer) parse it into a "Cijfer" and add to list 'tmpCijfers'
       for (Element elementen : cijferRij) {
         Elements cijferCol = elementen.getElementsByTag("td");
@@ -171,8 +171,9 @@ public class ModuleObtainer extends AsyncTask<Void, Void, Void> {
         }
 
         System.out.println("ModuleObtainer.parseToGrade : " + module.toString());
-
+        opgehaaldeModules.add(module);
       }
+      Module.insertList(opgehaaldeModules);
     } catch (Exception e) {
       e.printStackTrace();
     }
