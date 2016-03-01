@@ -47,13 +47,13 @@ public class VakkenDetailActivity extends AppCompatActivity {
     ects.setText("ECTS: " + module.getEcts());
     cijfer.setText("Cijfer: " + module.getGrade());
 
-    editEcts.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);
-    editPeriod.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);
+    editEcts.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_CLASS_NUMBER);
+    editPeriod.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_CLASS_NUMBER);
     editGrade.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);
     button.setOnClickListener(new View.OnClickListener() {
       @Override
       public void onClick(View v) {
-        if (validate()) {
+        if (validateGrade() && validateEcts() && validatePeriod()) {
           save();
         } else {
           displayError();
@@ -77,9 +77,16 @@ public class VakkenDetailActivity extends AppCompatActivity {
     }, 750);
   }
 
-  public boolean validate() {
+  public boolean validateEcts() {
+    return true;
+  }
+  public boolean validatePeriod() {
+    return true;
+  }
+
+  public boolean validateGrade() {
     boolean valid = false;
-    String gradeText = editEcts.getText().toString();
+    String gradeText = editGrade.getText().toString();
     double tmpGrade;
     try {
       tmpGrade = Double.parseDouble(gradeText);
