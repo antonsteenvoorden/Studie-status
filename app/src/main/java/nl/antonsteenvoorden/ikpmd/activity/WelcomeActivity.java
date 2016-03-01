@@ -32,8 +32,7 @@ public class WelcomeActivity extends AppCompatActivity implements
     @Override
     public int nextStep() {
         if (mViewPager.getCurrentItem() == welcomeStepAdapter.getCount()-1) {
-            Intent intent = new Intent(this, MainActivity.class);
-
+            Intent intent = new Intent(this, SplashScreen.class);
             startActivity(intent);
             finish();
         } else {

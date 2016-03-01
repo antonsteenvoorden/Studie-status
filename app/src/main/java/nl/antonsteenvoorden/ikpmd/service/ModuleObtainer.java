@@ -18,8 +18,13 @@ import java.net.URLEncoder;
 import java.security.KeyManagementException;
 import java.security.NoSuchAlgorithmException;
 import java.security.cert.X509Certificate;
+import java.text.NumberFormat;
+import java.util.Date;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 import javax.net.ssl.HostnameVerifier;
 import javax.net.ssl.HttpsURLConnection;
@@ -136,9 +141,13 @@ public class ModuleObtainer extends AsyncTask<Void, Void, Void> {
       Element tabel = doc.getElementsByClass("OraTableContent").first();
       Elements cijferRij = tabel.getElementsByTag("tr");
       //removes the first row.. no cijfers in here
+
       cijferRij.remove(0);
       List<Module> opgehaaldeModules = new ArrayList<Module>();
       //for every row (cijfer) parse it into a "Cijfer" and add to list 'tmpCijfers'
+      DateFormat format = new SimpleDateFormat("dd-MM-yyyy");
+      NumberFormat numberFormat = NumberFormat.getInstance(Locale.GERMANY);
+
       for (Element elementen : cijferRij) {
         Elements cijferCol = elementen.getElementsByTag("td");
         String toetsDatumString = cijferCol.get(0).text();
@@ -148,26 +157,33 @@ public class ModuleObtainer extends AsyncTask<Void, Void, Void> {
         String toetsWegingString = cijferCol.get(4).text();
         String toetsResultaatString = cijferCol.get(6).text();
         String toetsMutatiedatumString = cijferCol.get(8).text();
-        Boolean isDef;
 
         Module module = new Module();
         module.setName(toetsNaamString);
+        module.setLongName(toetsNaamUitgebreidString);
+
+        Date date = format.parse(toetsDatumString);
+        module.setToetsDatum(new java.sql.Date(date.getTime()));
+        System.out.print("toets datum: " + date);
+        module.setToetsType(toetsSoortString);
+        Date mutatieDate = format.parse(toetsMutatiedatumString);
+        module.setMutatieDatum(new java.sql.Date(mutatieDate.getTime()));
         module.setEcts(0);
-        toetsResultaatString = toetsResultaatString.replaceAll(",",".");
+
         toetsResultaatString = toetsResultaatString.replaceAll("V", "10");
         toetsResultaatString = toetsResultaatString.replaceAll("O", "1");
         //Is the result a concept?
         if (toetsResultaatString.length() >= 10) {
           if (toetsResultaatString.substring(toetsResultaatString.length() - 9).equals("(concept)")) {
             toetsResultaatString = toetsResultaatString.substring(0, (toetsResultaatString.length() - 10));
-              module.setGrade(Double.parseDouble(toetsResultaatString));
-            isDef = false;
-          } else {
-            module.setGrade( Double.parseDouble(toetsResultaatString) );
-            isDef = true;
+            Number grade = numberFormat.parse(toetsResultaatString);
+            module.setGrade(grade.doubleValue());
+            module.setDefinitief(0);
           }
         } else {
-          isDef = true;
+          Number grade = numberFormat.parse(toetsResultaatString);
+          module.setGrade(grade.doubleValue());
+          module.setDefinitief(1);
         }
 
         System.out.println("ModuleObtainer.parseToGrade : " + module.toString());

@@ -59,16 +59,15 @@ public class Module extends Model {
   @Column(name = "mutatiedatum")
   private Date mutatieDatum;
 
+  @Expose
+  @SerializedName("handmatig")
+  @Column(name = "handmatig")
+  private int handmatig;
 
   @Expose
   @SerializedName("definitief")
   @Column(name = "definitief")
   private int definitief;
-
-  @Expose
-  @SerializedName("handmatig")
-  @Column(name = "handmatig")
-  private int handmatig;
 
   @Expose
   @SerializedName("toetstype")
@@ -79,9 +78,7 @@ public class Module extends Model {
 
   }
 
-  public Module(String name, String longName, int ects, double grade, int period, int jaar,
-                Date toetsDatum, Date mutatieDatum, int definitief, int handmatig,
-                String toetsType) {
+  public Module(String name, String longName, int ects, double grade, int period, int jaar, Date toetsDatum, Date mutatieDatum, int handmatig, int definitief, String toetsType) {
     this.name = name;
     this.longName = longName;
     this.ects = ects;
@@ -90,8 +87,8 @@ public class Module extends Model {
     this.jaar = jaar;
     this.toetsDatum = toetsDatum;
     this.mutatieDatum = mutatieDatum;
-    this.definitief = definitief;
     this.handmatig = handmatig;
+    this.definitief = definitief;
     this.toetsType = toetsType;
   }
 
@@ -159,20 +156,20 @@ public class Module extends Model {
     this.mutatieDatum = mutatieDatum;
   }
 
-  public int getDefinitief() {
-    return definitief;
-  }
-
-  public void setDefinitief(int definitief) {
-    this.definitief = definitief;
-  }
-
   public int getHandmatig() {
     return handmatig;
   }
 
   public void setHandmatig(int handmatig) {
     this.handmatig = handmatig;
+  }
+
+  public int getDefinitief() {
+    return definitief;
+  }
+
+  public void setDefinitief(int definitief) {
+    this.definitief = definitief;
   }
 
   public String getToetsType() {
@@ -190,9 +187,15 @@ public class Module extends Model {
       for (Module newModule : modules) {
         boolean notStored = true;
         for (Module storedModule : getAll()) {
-          if (newModule.toetsDatum == storedModule.toetsDatum && newModule.name.equals(storedModule.name)) {
+          if (newModule.toetsDatum.equals(storedModule.toetsDatum) && newModule.name.equals(storedModule.name)) {
             System.out.println("Module.insertList : " + newModule.toString() + " EQUALS " + storedModule.toString());
             notStored = false;
+            storedModule.setMutatieDatum(newModule.mutatieDatum);
+            storedModule.setGrade(newModule.grade);
+            storedModule.setDefinitief(newModule.definitief);
+            storedModule.setToetsType(newModule.toetsType);
+            storedModule.setLongName(newModule.longName);
+            storedModule.setName(newModule.name);
             //neem alle eigenschappen over
             storedModule.save();
           }
