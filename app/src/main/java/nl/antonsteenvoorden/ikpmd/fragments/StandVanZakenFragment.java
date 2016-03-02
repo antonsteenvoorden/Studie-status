@@ -1,4 +1,4 @@
-package nl.antonsteenvoorden.ikpmd.ui;
+package nl.antonsteenvoorden.ikpmd.fragments;
 
 import android.content.Context;
 import android.graphics.Color;

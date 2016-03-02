@@ -11,11 +11,8 @@ import com.google.gson.annotations.SerializedName;
 
 import java.sql.Date;
 import java.util.List;
-import java.util.concurrent.ExecutionException;
 
-/**
- * Created by Anton & Daan on 28/12/2015.
- */
+
 @Table(name = "module")
 public class Module extends Model {
 
@@ -32,22 +29,22 @@ public class Module extends Model {
   @Expose
   @SerializedName("ects")
   @Column(name = "ects")
-  private int ects;
+  private Integer ects;
 
   @Expose
   @SerializedName("grade")
   @Column(name = "grade")
-  private double grade;
+  private Double grade;
 
   @Expose
   @SerializedName("period")
   @Column(name = "period")
-  private int period;
+  private Integer period;
 
   @Expose
   @SerializedName("jaar")
   @Column(name = "jaar")
-  private int jaar;
+  private Integer jaar;
 
   @Expose
   @SerializedName("toetsdatum")
@@ -62,12 +59,12 @@ public class Module extends Model {
   @Expose
   @SerializedName("handmatig")
   @Column(name = "handmatig")
-  private int handmatig;
+  private Integer handmatig;
 
   @Expose
   @SerializedName("definitief")
   @Column(name = "definitief")
-  private int definitief;
+  private Integer definitief;
 
   @Expose
   @SerializedName("toetstype")
@@ -78,7 +75,7 @@ public class Module extends Model {
 
   }
 
-  public Module(String name, String longName, int ects, double grade, int period, int jaar, Date toetsDatum, Date mutatieDatum, int handmatig, int definitief, String toetsType) {
+  public Module(String name, String longName, Integer ects, Double grade, Integer period, Integer jaar, Date toetsDatum, Date mutatieDatum, Integer handmatig, Integer definitief, String toetsType) {
     this.name = name;
     this.longName = longName;
     this.ects = ects;
@@ -108,35 +105,35 @@ public class Module extends Model {
     this.longName = longName;
   }
 
-  public int getEcts() {
+  public Integer getEcts() {
     return ects;
   }
 
-  public void setEcts(int ects) {
+  public void setEcts(Integer ects) {
     this.ects = ects;
   }
 
-  public double getGrade() {
+  public Double getGrade() {
     return grade;
   }
 
-  public void setGrade(double grade) {
+  public void setGrade(Double grade) {
     this.grade = grade;
   }
 
-  public int getPeriod() {
+  public Integer getPeriod() {
     return period;
   }
 
-  public void setPeriod(int period) {
+  public void setPeriod(Integer period) {
     this.period = period;
   }
 
-  public int getJaar() {
+  public Integer getJaar() {
     return jaar;
   }
 
-  public void setJaar(int jaar) {
+  public void setJaar(Integer jaar) {
     this.jaar = jaar;
   }
 
@@ -156,19 +153,19 @@ public class Module extends Model {
     this.mutatieDatum = mutatieDatum;
   }
 
-  public int getHandmatig() {
+  public Integer getHandmatig() {
     return handmatig;
   }
 
-  public void setHandmatig(int handmatig) {
+  public void setHandmatig(Integer handmatig) {
     this.handmatig = handmatig;
   }
 
-  public int getDefinitief() {
+  public Integer getDefinitief() {
     return definitief;
   }
 
-  public void setDefinitief(int definitief) {
+  public void setDefinitief(Integer definitief) {
     this.definitief = definitief;
   }
 
@@ -202,6 +199,9 @@ public class Module extends Model {
         }
         if(notStored) {
           System.out.println("Module.insertList SAVING :" + newModule.toString());
+          newModule.setPeriod(0);
+          newModule.setEcts(0);
+          newModule.setJaar(0);
           newModule.save();
         }
       }
@@ -246,7 +246,6 @@ public class Module extends Model {
 
   public static Module find(long id) {
     return Module.load(Module.class, id);
-
   }
 
   public void update() {

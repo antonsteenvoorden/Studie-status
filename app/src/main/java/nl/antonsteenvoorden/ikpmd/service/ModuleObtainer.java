@@ -18,11 +18,11 @@ import java.net.URLEncoder;
 import java.security.KeyManagementException;
 import java.security.NoSuchAlgorithmException;
 import java.security.cert.X509Certificate;
-import java.text.NumberFormat;
-import java.util.Date;
 import java.text.DateFormat;
+import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
@@ -33,12 +33,14 @@ import javax.net.ssl.SSLSession;
 import javax.net.ssl.TrustManager;
 import javax.net.ssl.X509TrustManager;
 
+import nl.antonsteenvoorden.ikpmd.interfaces.Callback;
 import nl.antonsteenvoorden.ikpmd.model.Module;
 
 /**
  * Created by Anton on 17/02/2016.
+ * Credits for a lot of this file go to Lars van der Voorden
  */
-public class ModuleObtainer extends AsyncTask<Void, Void, Void> {
+public class ModuleObtainer extends AsyncTask<Void,Void,Void>  {
   private static final String URL_BASE = "https://studievolg.hsleiden.nl/student/Personalia.do";
   private static final String URL_AUTH = "https://studievolg.hsleiden.nl/student/AuthenticateUser.do";
   private static final String URL_RES = "https://studievolg.hsleiden.nl/student/ToonResultaten.do";
@@ -51,6 +53,9 @@ public class ModuleObtainer extends AsyncTask<Void, Void, Void> {
   private HttpsURLConnection conn;
   private List<String> cookies;
 
+  private Callback callBack;
+
+  private boolean loggedIn;
 
   public ModuleObtainer(String osirisUsername, String osirisPassword) {
     this.osirisUsername = osirisUsername;
@@ -65,10 +70,20 @@ public class ModuleObtainer extends AsyncTask<Void, Void, Void> {
 
     //do first request on Osiris server
     String firstOsirisReqHtml = obtainPage(URL_RES);
-    if (!checkLogin(firstOsirisReqHtml)) {
+    System.out.println("Logged in:" + loggedIn);
+    loggedIn = checkLogin(firstOsirisReqHtml);
+    System.out.println("Logged in:" + loggedIn);
+    if (!loggedIn) {
       login(obtainPage(URL_RES));
     }
     return null;
+  }
+
+  @Override
+  protected void onPostExecute(Void aVoid) {
+    if(callBack != null ) {
+      callBack.handleCallBack(loggedIn);
+    }
   }
 
   private void login(String HTML) {
@@ -84,7 +99,8 @@ public class ModuleObtainer extends AsyncTask<Void, Void, Void> {
       //try new request
       resultsHTML = obtainPage(URL_RES);
       if (Jsoup.parse(resultsHTML).title().equals("OSIRIS - Resultaten")) {
-        //yup.... you're in..
+        System.out.println("Logged in!!");
+        loggedIn = true;
         parseToGrade();
       } else {
         Log.d("THIS", Jsoup.parse(resultsHTML).title());
@@ -164,14 +180,14 @@ public class ModuleObtainer extends AsyncTask<Void, Void, Void> {
 
         Date date = format.parse(toetsDatumString);
         module.setToetsDatum(new java.sql.Date(date.getTime()));
-        System.out.print("toets datum: " + date);
+
         module.setToetsType(toetsSoortString);
         Date mutatieDate = format.parse(toetsMutatiedatumString);
         module.setMutatieDatum(new java.sql.Date(mutatieDate.getTime()));
         module.setEcts(0);
-
-        toetsResultaatString = toetsResultaatString.replaceAll("V", "10");
-        toetsResultaatString = toetsResultaatString.replaceAll("O", "1");
+        module.setPeriod(0);
+        toetsResultaatString = toetsResultaatString.replaceAll("V", "7,5");
+        toetsResultaatString = toetsResultaatString.replaceAll("O", "2,5");
         //Is the result a concept?
         if (toetsResultaatString.length() >= 10) {
           if (toetsResultaatString.substring(toetsResultaatString.length() - 9).equals("(concept)")) {
@@ -198,6 +214,7 @@ public class ModuleObtainer extends AsyncTask<Void, Void, Void> {
 
   private boolean checkLogin(String HTML) {
     if (Jsoup.parse(HTML).title().equals("OSIRIS - Resultaten")) {
+      System.out.println("Logged in");
       return true;
     } else {
       return false;
@@ -350,5 +367,15 @@ public class ModuleObtainer extends AsyncTask<Void, Void, Void> {
     this.cookies = cookies;
   }
 
+  public void setOsirisUsername(String osirisUsername) {
+    this.osirisUsername = osirisUsername;
+  }
 
+  public void setOsirisPassword(String osirisPassword) {
+    this.osirisPassword = osirisPassword;
+  }
+
+  public void setCallBack(Callback callBack) {
+    this.callBack = callBack;
+  }
 }

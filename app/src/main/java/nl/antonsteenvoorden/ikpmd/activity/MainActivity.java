@@ -18,9 +18,9 @@ import android.view.MenuItem;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import nl.antonsteenvoorden.ikpmd.R;
-import nl.antonsteenvoorden.ikpmd.ui.BarChartFragment;
-import nl.antonsteenvoorden.ikpmd.ui.StandVanZakenFragment;
-import nl.antonsteenvoorden.ikpmd.ui.VakkenFragment;
+import nl.antonsteenvoorden.ikpmd.fragments.BarChartFragment;
+import nl.antonsteenvoorden.ikpmd.fragments.StandVanZakenFragment;
+import nl.antonsteenvoorden.ikpmd.fragments.VakkenFragment;
 
 public class MainActivity extends AppCompatActivity {
 

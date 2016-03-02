@@ -1,4 +1,4 @@
-package nl.antonsteenvoorden.ikpmd.ui;
+package nl.antonsteenvoorden.ikpmd.fragments;
 
 /**
  * Created by Anton on 29/12/2015.

@@ -13,19 +13,14 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.activeandroid.ActiveAndroid;
-import com.android.volley.NoConnectionError;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-
-import java.util.List;
 
 import butterknife.Bind;
 import nl.antonsteenvoorden.ikpmd.App;
 import nl.antonsteenvoorden.ikpmd.R;
-import nl.antonsteenvoorden.ikpmd.model.Module;
+import nl.antonsteenvoorden.ikpmd.interfaces.Callback;
 import nl.antonsteenvoorden.ikpmd.service.ModuleObtainer;
 
-public class SplashScreen extends AppCompatActivity {
+public class SplashScreen extends AppCompatActivity implements Callback {
     // Splash screen timer
     private static int SPLASH_TIME_OUT = 3000;
     public static final String PREFS_NAME = "LaunchPreferences";
@@ -62,13 +57,13 @@ public class SplashScreen extends AppCompatActivity {
                 // This method will be executed once the timer is over
                 if (!settings.getBoolean("first_run", true) && isNetworkConnected()) {
 
-                    waitForModules();
+                    loadModules();
                 } else if (!settings.getBoolean("first_run", true) && !isNetworkConnected()) {
                     error = "Er is geen internetverbinding";
                     showError();
                 } else {
                     Log.d("Comments", "Opening main activity");
-                    Intent i = new Intent(SplashScreen.this, WelcomeActivity.class);
+                    Intent i = new Intent(SplashScreen.this, WhoAreYou.class);
                     startActivity(i);
                     // close this activity
                     finish();
@@ -78,20 +73,30 @@ public class SplashScreen extends AppCompatActivity {
         }, SPLASH_TIME_OUT);
     }
 
-    private void waitForModules() {
+    private void loadModules() {
         try {
         ActiveAndroid.beginTransaction();
-        ((App) getApplication()).getModuleObtainer(
+        ModuleObtainer moduleObtainer = ((App) getApplication()).getModuleObtainer(
             settings.getString("username", "None"),
             settings.getString("password", "None")
-        ).execute();
+        );
+            moduleObtainer.setCallBack(this);
+            moduleObtainer.execute();
             //hier moet de call worden gemaakt om de nieuwe cijfers op te slaan ofzo
             ActiveAndroid.setTransactionSuccessful();
         } finally {
             ActiveAndroid.endTransaction();
+
+        }
+    }
+
+    public void handleCallBack(Boolean result){
+        if(result) {
             Intent i = new Intent(SplashScreen.this, MainActivity.class);
             startActivity(i);
             finish();
+        } else {
+            showError();
         }
     }
 
