@@ -22,9 +22,6 @@ import nl.antonsteenvoorden.ikpmd.adapter.VakkenAdapter;
 import nl.antonsteenvoorden.ikpmd.model.Module;
 
 public class VakkenFragment extends Fragment {
-//    @Bind(R.id.vakken_label)
-    TextView textView;
-
     List<Module> content;
     ListView listViewItems;
     VakkenAdapter lcAdapter;
@@ -57,19 +54,22 @@ public class VakkenFragment extends Fragment {
         listViewItems = (ListView) rootView.findViewById(R.id.vakken_list);
         content = Module.getAll();
         lcAdapter = new VakkenAdapter(context, R.layout.vakken_list_item, content);
-
+      System.out.println("Create vakken fragments");
         return rootView;
     }
 
     @Override
     public void onResume() {
         super.onResume();
+        content = Module.getAll();
+        lcAdapter = new VakkenAdapter(context, R.layout.vakken_list_item, content);
         listViewItems.invalidateViews();
     }
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+
         listViewItems.setAdapter(lcAdapter);
 
     }

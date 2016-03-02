@@ -21,10 +21,12 @@ import nl.antonsteenvoorden.ikpmd.model.Module;
 public class VakkenAdapter extends ArrayAdapter {
     Context context;
     Module module;
+
     public VakkenAdapter(Context context, int resource, List objects) {
         super(context, resource, objects);
         this.context = context;
     }
+
 
     @Override
     public View getView(int position, View view, final ViewGroup parent) {

@@ -6,6 +6,7 @@ import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.text.InputType;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -36,6 +37,7 @@ public class VakkenActivity extends AppCompatActivity {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_vakken);
     module = Module.find(getIntent().getLongExtra("module_id", 0));
+    System.out.println("Vak opgehaald: " + getIntent().getLongExtra("module_id", 0)  + module.toString());
     getTextFields();
     fillTextFields();
     setTextFieldProperties();
@@ -91,7 +93,7 @@ public class VakkenActivity extends AppCompatActivity {
 
   private void fillTextFields() {
     try {
-      System.out.println(module.toString());
+
       if (!module.getName().isEmpty()) name.setText(module.getName());
       if (!module.getLongName().isEmpty()) omschrijving.setText(module.getLongName());
       if (module.getToetsDatum() != null) toetsdatum.setText(module.getToetsDatum().toString());
@@ -166,5 +168,11 @@ public class VakkenActivity extends AppCompatActivity {
             Snackbar.LENGTH_LONG);
 
     snackbar.show();
+  }
+
+  @Override
+  public void onBackPressed() {
+    super.onBackPressed();
+    finish();
   }
 }
