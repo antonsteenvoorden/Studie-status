@@ -61,7 +61,10 @@
                     android:textColor="@color/white"
                     android:textColorHint="@color/white"
                     android:textColorHighlight="@color/white"
-                    android:hint="@string/who_are_you_question"/>
+                    android:hint="@string/who_are_you_question"
+                    android:textColorLink="@color/white"
+                    android:textIsSelectable="false"
+                    />
 
             </android.support.design.widget.TextInputLayout>
 
