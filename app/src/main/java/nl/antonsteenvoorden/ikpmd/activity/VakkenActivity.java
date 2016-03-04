@@ -58,10 +58,8 @@ public class VakkenActivity extends AppCompatActivity implements AdapterView.OnI
     if(id != -1) {
       module = Module.find(id);
       fillTextFields();
-      if(module.getHandmatig() != null) {
-        if(module.getHandmatig() != 1) {
+      if(module.getHandmatig() == null || module.getHandmatig() != 1) {
           disableTextFields();
-        }
       }
     } else {
       module = new Module();

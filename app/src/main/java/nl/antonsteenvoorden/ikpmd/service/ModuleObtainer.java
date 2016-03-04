@@ -177,15 +177,12 @@ public class ModuleObtainer extends AsyncTask<Void,Void,Void>  {
         Module module = new Module();
         module.setName(toetsNaamString);
         module.setLongName(toetsNaamUitgebreidString);
-        module.setHandmatig(0);
         Date date = format.parse(toetsDatumString);
         module.setToetsDatum(new java.sql.Date(date.getTime()));
 
         module.setToetsType(toetsSoortString);
         Date mutatieDate = format.parse(toetsMutatiedatumString);
         module.setMutatieDatum(new java.sql.Date(mutatieDate.getTime()));
-        module.setEcts(0);
-        module.setPeriod(0);
         toetsResultaatString = toetsResultaatString.replaceAll("V", "7,5");
         toetsResultaatString = toetsResultaatString.replaceAll("O", "2,5");
         //Is the result a concept?

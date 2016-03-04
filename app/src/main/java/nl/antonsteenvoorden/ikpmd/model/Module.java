@@ -206,6 +206,7 @@ public class Module extends Model {
           newModule.setPeriod(0);
           newModule.setEcts(0);
           newModule.setJaar(0);
+          newModule.setHandmatig(0);
           newModule.save();
 
         }
@@ -231,6 +232,9 @@ public class Module extends Model {
         ", ects=" + ects +
         ", grade='" + grade + '\'' +
         ", period=" + period +
+        ", omschrijving= "+ longName +
+        ", handmatig =" + handmatig +
+
         '}';
   }
 
