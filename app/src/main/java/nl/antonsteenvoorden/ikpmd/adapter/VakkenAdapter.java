@@ -19,39 +19,57 @@ import nl.antonsteenvoorden.ikpmd.model.Module;
  * Created by Anton on 03/01/2016.
  */
 public class VakkenAdapter extends ArrayAdapter {
-    Context context;
-    Module module;
+  Context context;
+  Module module;
+  TextView listName;
+  TextView listDate;
+  TextView listGrade;
 
-    public VakkenAdapter(Context context, int resource, List objects) {
-        super(context, resource, objects);
-        this.context = context;
+  public VakkenAdapter(Context context, int resource, List objects) {
+    super(context, resource, objects);
+    this.context = context;
+  }
+
+
+  @Override
+  public View getView(int position, View view, final ViewGroup parent) {
+    module = (Module) getItem(position);
+
+    if (view == null) {
+      view = LayoutInflater.from(getContext()).inflate(R.layout.vakken_list_item, parent, false);
     }
+    listName = (TextView) view.findViewById(R.id.vakken_list_item_name);
+    listDate = (TextView) view.findViewById(R.id.vakken_list_item_date);
+    listGrade = (TextView) view.findViewById(R.id.vakken_list_item_grade);
+    listName.setText(module.getName());
+    listDate.setText(module.getToetsDatum().toString());
+    listGrade.setText(Double.toString(module.getGrade()));
 
+//    view.setOnClickListener(new View.OnClickListener() {
+//      @Override
+//      public void onClick(View v) {
+//        Log.d("Vak selected", module.toString());
+//        Intent intent = new Intent(context, VakkenActivity.class);
+//        Log.d("ID", module.getId() + "");
+//        intent.putExtra("module_id", module.getId());
+//        context.startActivity(intent);
+//      }
+//    });
+    return view;
+  }
 
-    @Override
-    public View getView(int position, View view, final ViewGroup parent) {
-        module = (Module) getItem(position);
+  @Override
+  public int getCount() {
+    return super.getCount();
+  }
 
-        if(view == null) {
-            view = LayoutInflater.from(getContext()).inflate(R.layout.vakken_list_item, parent, false);
-        }
-        TextView listName = (TextView) view.findViewById(R.id.vakken_list_item_name);
-        TextView listDate = (TextView) view.findViewById(R.id.vakken_list_item_date);
-        TextView listGrade = (TextView) view.findViewById(R.id.vakken_list_item_grade);
-        listName.setText(module.getName());
-        listDate.setText(module.getToetsDatum().toString());
-        listGrade.setText(Double.toString(module.getGrade()));
+  @Override
+  public Object getItem(int position) {
+    return super.getItem(position);
+  }
 
-        view.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Log.d("Vak selected", module.toString());
-                Intent intent = new Intent(context, VakkenActivity.class);
-                Log.d("ID", module.getId()+"");
-                intent.putExtra("module_id",module.getId());
-                context.startActivity(intent);
-            }
-        });
-        return view;
-    }
+  @Override
+  public long getItemId(int position) {
+    return super.getItemId(position);
+  }
 }
