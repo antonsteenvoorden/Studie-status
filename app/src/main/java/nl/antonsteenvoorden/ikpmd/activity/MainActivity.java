@@ -136,7 +136,7 @@ public class MainActivity extends AppCompatActivity {
                 case 1:
                     return "Vakken";
                 case 2:
-                    return "Bar Chart";
+                    return "Verhouding";
             }
             return null;
         }

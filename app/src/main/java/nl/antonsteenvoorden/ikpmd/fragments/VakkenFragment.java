@@ -48,6 +48,11 @@ public class VakkenFragment extends Fragment {
     return fragment;
   }
 
+  @Override
+  public void onHiddenChanged(boolean hidden) {
+    super.onHiddenChanged(hidden);
+    lcAdapter.notifyDataSetChanged();
+  }
 
   @Override
   public View onCreateView(LayoutInflater inflater, ViewGroup container,

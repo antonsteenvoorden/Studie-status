@@ -2,18 +2,18 @@ package nl.antonsteenvoorden.ikpmd.activity;
 
 import android.os.Bundle;
 import android.os.Handler;
-import android.os.SystemClock;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.text.InputType;
-import android.text.format.Time;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.Spinner;
+import android.widget.Switch;
 
 import nl.antonsteenvoorden.ikpmd.R;
 import nl.antonsteenvoorden.ikpmd.model.Module;
@@ -28,7 +28,7 @@ public class VakkenActivity extends AppCompatActivity implements AdapterView.OnI
   EditText ects;
   Spinner period;
   Spinner jaar;
-  EditText definitief;
+  Switch definitief;
   EditText grade;
   Button button;
 
@@ -39,15 +39,20 @@ public class VakkenActivity extends AppCompatActivity implements AdapterView.OnI
   int currentPeriod;
   int currentYear;
 
+  private RadioGroup periodGroup;
+  private RadioGroup yearGroup;
+
+  private RadioButton periodButton;
+  private RadioButton yearButton;
+
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_vakken);
     getFields();
     setUpTextFieldProperties();
-    ArrayAdapter<CharSequence> spinnerAdapter = ArrayAdapter.createFromResource(this, R.array.period_year,
-        android.R.layout.simple_spinner_item);
-    spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+
     int id = (int) getIntent().getLongExtra("module_id", -1);
 
     if(id != -1) {
@@ -66,6 +71,7 @@ public class VakkenActivity extends AppCompatActivity implements AdapterView.OnI
     button.setOnClickListener(new View.OnClickListener() {
       @Override
       public void onClick(View v) {
+
         save();
       }
     });
@@ -74,8 +80,6 @@ public class VakkenActivity extends AppCompatActivity implements AdapterView.OnI
   private void setUpTextFieldProperties() {
     ects.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_CLASS_NUMBER);
     grade.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);
-    period.setOnItemSelectedListener(this);
-    jaar.setOnItemSelectedListener(this);
   }
 
   private void getFields() {
@@ -85,12 +89,11 @@ public class VakkenActivity extends AppCompatActivity implements AdapterView.OnI
     mutatiedatum = (EditText) findViewById(R.id.vakken_detail_mutatiedatum);
     toetstype = (EditText) findViewById(R.id.vakken_detail_toetstype);
     ects = (EditText) findViewById(R.id.vakken_detail_ects);
-    period = (Spinner) findViewById(R.id.vakken_detail_period);
-    jaar = (Spinner) findViewById(R.id.vakken_detail_jaar);
-    definitief = (EditText) findViewById(R.id.vakken_detail_definitief);
+    definitief = (Switch) findViewById(R.id.vakken_detail_definitief);
     grade = (EditText) findViewById(R.id.vakken_detail_grade);
     button = (Button) findViewById(R.id.vakken_detail_button);
-
+    yearGroup = (RadioGroup) findViewById(R.id.vakken_detail_jaar);
+    periodGroup = (RadioGroup) findViewById(R.id.vakken_detail_period);
   }
 
   private void disableTextFields() {
@@ -110,14 +113,13 @@ public class VakkenActivity extends AppCompatActivity implements AdapterView.OnI
       if (module.getToetsDatum() != null) toetsdatum.setText(module.getToetsDatum().toString());
       if (module.getMutatieDatum() != null)
         mutatiedatum.setText(module.getMutatieDatum().toString());
-      if (!module.getToetsType().isEmpty()) toetstype.setText(module.getToetsType());
+      if (module.getToetsType() != null ) toetstype.setText(module.getToetsType());
       if (module.getGrade() != null) grade.setText(String.valueOf(module.getGrade()));
       if (module.getEcts() != null) ects.setText(String.valueOf(module.getEcts()));
-      if (module.getPeriod() != null) period.setSelection(module.getPeriod());  //period.setText(String.valueOf(module.getPeriod()));
-      if (module.getJaar() != null) jaar.setSelection(module.getJaar()); //jaar.setText(String.valueOf(module.getJaar()));
+      if (module.getPeriod() != null) periodGroup.check(periodGroup.getChildAt(module.getPeriod()).getId()-1);  //period.setText(String.valueOf(module.getPeriod()));
+      if (module.getJaar() != null)  yearGroup.check(yearGroup.getChildAt(module.getJaar()).getId()-1); //jaar.setText(String.valueOf(module.getJaar()));
       if (module.getDefinitief() != null)
-        definitief.setText(String.valueOf(module.getDefinitief()));
-
+        definitief.setChecked(module.getDefinitief() == 1 );
     } catch (Exception e) {
       e.printStackTrace();
       System.out.println("VakkenActivity.fillTextFields EMPTY FIELD DETECTED");
@@ -128,10 +130,17 @@ public class VakkenActivity extends AppCompatActivity implements AdapterView.OnI
     if(validateGrade()) {
       validate();
       module.setName(name.getText().toString());
-      module.setGrade(newGrade);
-      if(ects.getText().toString().isEmpty()) {
-        module.setEcts(0);
+      module.setLongName(omschrijving.getText().toString());
+//      module.setToetsDatum(new Date(toetsdatum.getText());
+//      module.setMutatieDatum();
+      if(definitief.isEnabled()) {
+        module.setDefinitief(1);
+      } else {
+        module.setDefinitief(0);
       }
+
+      module.setGrade(newGrade);
+      module.setEcts(Integer.valueOf(ects.getText().toString()));
       module.save();
 
       Snackbar snackbar = Snackbar
@@ -150,11 +159,18 @@ public class VakkenActivity extends AppCompatActivity implements AdapterView.OnI
   }
 
   public void validate() {
+    setPeriodYear();
     if(name.getText().toString().isEmpty()) module.setName("Undefined");
     if(omschrijving.getText().toString().isEmpty()) module.setLongName("Undefined");
     if(toetstype.getText().toString().isEmpty()) module.setName("Undefined");
   }
 
+  public void setPeriodYear() {
+    yearButton = (RadioButton) findViewById(yearGroup.getCheckedRadioButtonId());
+    periodButton = (RadioButton) findViewById(periodGroup.getCheckedRadioButtonId());
+    module.setJaar(Integer.valueOf(yearButton.getText().toString()));
+    module.setPeriod(Integer.valueOf(periodButton.getText().toString()));
+  }
 
   public boolean validateGrade() {
     boolean valid = false;
@@ -166,7 +182,7 @@ public class VakkenActivity extends AppCompatActivity implements AdapterView.OnI
       return false;
     }
 
-    if (gradeText.length() < 4) {
+    if (gradeText.length() < 4 || tmpGrade == 10.0) {
       valid = true;
     }
     if (gradeText.equals("") || gradeText.isEmpty() || gradeText == null) {
