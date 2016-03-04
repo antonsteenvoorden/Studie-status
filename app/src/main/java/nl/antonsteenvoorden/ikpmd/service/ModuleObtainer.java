@@ -177,7 +177,7 @@ public class ModuleObtainer extends AsyncTask<Void,Void,Void>  {
         Module module = new Module();
         module.setName(toetsNaamString);
         module.setLongName(toetsNaamUitgebreidString);
-
+        module.setHandmatig(0);
         Date date = format.parse(toetsDatumString);
         module.setToetsDatum(new java.sql.Date(date.getTime()));
 
