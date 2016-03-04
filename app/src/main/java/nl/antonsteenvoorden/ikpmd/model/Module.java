@@ -237,7 +237,7 @@ public class Module extends Model {
   public static List<Module> getAll() {
     return new Select()
         .from(Module.class)
-        .orderBy("period ASC")
+        .orderBy("period DESC")
         .execute();
   }
 

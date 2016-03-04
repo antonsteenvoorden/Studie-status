@@ -29,13 +29,12 @@ public class BarChartFragment extends Fragment {
   Context context;
 
 
-  ArrayList<BarEntry> barTotaalEntries;
   ArrayList<BarEntry> barObtainedEntries;
-  BarDataSet lineDataSet;
+
   BarDataSet barDataSet;
 
   BarData barObtained;
-  BarData barTotaal;
+  int[] colors;
 
   public static BarChartFragment newInstance() {
     BarChartFragment fragment = new BarChartFragment();
@@ -51,8 +50,8 @@ public class BarChartFragment extends Fragment {
     super.onCreate(savedInstanceState);
 
     context = rootView.getContext();
-    barTotaalEntries = new ArrayList<BarEntry>();
     barObtainedEntries = new ArrayList<BarEntry>();
+    colors = new int[2];
 
     barChart = (CombinedChart) rootView.findViewById(R.id.chart);
     initBarChart();
@@ -91,23 +90,24 @@ public class BarChartFragment extends Fragment {
     barChart.setDescriptionColor(Color.WHITE);
     barChart.setDrawGridBackground(false);
     barChart.setDescription("");
-
+    int color1 = Color.rgb(0, 255, 0);
+    int color2 = Color.rgb(255,0,0);
+    colors[0] = color1;
+    colors[1] = color2;
   }
 
   private void getData() {
-    barTotaalEntries.clear();
     barObtainedEntries.clear();
     for (int i = 0; i < 4; i++) {
-      int ectsTmp = 0;
-      int ectsReceivedTmp = 0;
+      float ectsTmp = 0;
+      float ectsReceivedTmp = 0;
       for (Module module : Module.getPeriod(i + 1)) {
         ectsTmp += module.getEcts();
         if (module.getGrade() >= 5.5) {
           ectsReceivedTmp += module.getEcts();
         }
       }
-      barTotaalEntries.add(new BarEntry(ectsTmp, i));
-      barObtainedEntries.add(new BarEntry(ectsReceivedTmp, i));
+      barObtainedEntries.add(new BarEntry(new float[]{ectsReceivedTmp, (ectsTmp - ectsReceivedTmp)}, i));
       if (ectsReceivedTmp == ectsTmp) {
 
       }
@@ -117,19 +117,11 @@ public class BarChartFragment extends Fragment {
 
   private void setData() {
 
-    // KUNNEN HALEN
-    barTotaal = new BarData();
-    lineDataSet = new BarDataSet(barTotaalEntries, "Bar DataSet");
-    lineDataSet.setColor(Color.rgb(255, 255, 255));
-    lineDataSet.setValueTextColor(Color.WHITE);
-    lineDataSet.setValueTextSize(15f);
-    barTotaal.addDataSet(lineDataSet);
-
-
     // BAR DATA GEHAALD
     barObtained = new BarData();
     barDataSet = new BarDataSet(barObtainedEntries, "Bar DataSet");
-    barDataSet.setColor(Color.rgb(0, 188, 186));
+
+    barDataSet.setColors(colors);
     barDataSet.setValueTextColor(Color.WHITE);
     barDataSet.setValueTextSize(15f);
     barObtained.addDataSet(barDataSet);
@@ -137,7 +129,6 @@ public class BarChartFragment extends Fragment {
     // ADD data to the chart
     String[] xValues = {"1", "2", "3", "4"};
     CombinedData data = new CombinedData(xValues);
-    data.setData(barTotaal);
     data.setData(barObtained);
 
     barChart.setData(data);
