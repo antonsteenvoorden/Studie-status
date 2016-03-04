@@ -12,6 +12,8 @@ import com.google.gson.annotations.SerializedName;
 import java.sql.Date;
 import java.util.List;
 
+import nl.antonsteenvoorden.ikpmd.service.NotificationHandler;
+
 
 @Table(name = "module")
 public class Module extends Model {
@@ -198,11 +200,14 @@ public class Module extends Model {
           }
         }
         if(notStored) {
+          NotificationHandler notificatioNHandler = new NotificationHandler();
+          notificatioNHandler.sendNotification();
           System.out.println("Module.insertList SAVING :" + newModule.toString());
           newModule.setPeriod(0);
           newModule.setEcts(0);
           newModule.setJaar(0);
           newModule.save();
+
         }
       }
     } catch (Exception e) {
