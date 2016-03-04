@@ -58,8 +58,10 @@ public class VakkenActivity extends AppCompatActivity implements AdapterView.OnI
     if(id != -1) {
       module = Module.find(id);
       fillTextFields();
-      if(module.getHandmatig() != 1) {
-        disableTextFields();
+      if(module.getHandmatig() != null) {
+        if(module.getHandmatig() != 1) {
+          disableTextFields();
+        }
       }
     } else {
       module = new Module();
@@ -120,6 +122,7 @@ public class VakkenActivity extends AppCompatActivity implements AdapterView.OnI
       if (module.getJaar() != null)  yearGroup.check(yearGroup.getChildAt(module.getJaar()).getId()-1); //jaar.setText(String.valueOf(module.getJaar()));
       if (module.getDefinitief() != null)
         definitief.setChecked(module.getDefinitief() == 1 );
+
     } catch (Exception e) {
       e.printStackTrace();
       System.out.println("VakkenActivity.fillTextFields EMPTY FIELD DETECTED");
