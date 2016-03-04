@@ -41,8 +41,12 @@ public class VakkenAdapter extends ArrayAdapter {
     listName = (TextView) view.findViewById(R.id.vakken_list_item_name);
     listDate = (TextView) view.findViewById(R.id.vakken_list_item_date);
     listGrade = (TextView) view.findViewById(R.id.vakken_list_item_grade);
+    if(module.getToetsDatum() != null) {
+      listDate.setText(module.getToetsDatum().toString());
+    } else {
+      listDate.setText("Geen datum beschikbaar");
+    }
     listName.setText(module.getName());
-    listDate.setText(module.getToetsDatum().toString());
     listGrade.setText(Double.toString(module.getGrade()));
 
 //    view.setOnClickListener(new View.OnClickListener() {

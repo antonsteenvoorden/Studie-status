@@ -200,8 +200,8 @@ public class Module extends Model {
           }
         }
         if(notStored) {
-          NotificationHandler notificatioNHandler = new NotificationHandler();
-          notificatioNHandler.sendNotification();
+//          NotificationHandler notificatioNHandler = new NotificationHandler();
+//          notificatioNHandler.sendNotification();
           System.out.println("Module.insertList SAVING :" + newModule.toString());
           newModule.setPeriod(0);
           newModule.setEcts(0);
