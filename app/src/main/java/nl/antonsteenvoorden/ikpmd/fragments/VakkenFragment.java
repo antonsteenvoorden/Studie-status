@@ -80,6 +80,7 @@ public class VakkenFragment extends Fragment {
     super.onResume();
     content = Module.getAll();
     listViewItems.invalidateViews();
+    lcAdapter.notifyDataSetChanged();
   }
 
   @Override

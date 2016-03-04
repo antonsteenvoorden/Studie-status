@@ -42,11 +42,6 @@
             android:name="AA_DB_VERSION"
             android:value="5"/>
 
-        <activity
-            android:name=".activity.esttest"
-            android:label="@string/title_activity_esttest"
-            android:theme="@style/AppTheme">
-        </activity>
     </application>
 
 </manifest>

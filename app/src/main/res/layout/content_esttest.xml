@@ -13,4 +13,11 @@
     tools:context="nl.antonsteenvoorden.ikpmd.activity.esttest"
     tools:showIn="@layout/activity_esttest">
 
+    <Spinner
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/spinner"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"/>
 </RelativeLayout>
