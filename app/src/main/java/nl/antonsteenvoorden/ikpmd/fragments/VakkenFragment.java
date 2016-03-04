@@ -7,6 +7,8 @@ package nl.antonsteenvoorden.ikpmd.fragments;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -69,6 +71,7 @@ public class VakkenFragment extends Fragment {
         context.startActivity(intent);
       }
     });
+    listViewItems.invalidateViews();
     return rootView;
   }
 

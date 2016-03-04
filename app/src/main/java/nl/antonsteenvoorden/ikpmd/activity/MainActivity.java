@@ -87,6 +87,12 @@ public class MainActivity extends AppCompatActivity {
             startActivity(intent);
         }
 
+        if (id == R.id.menu_add) {
+            Log.d("MENU","Add");
+            Intent intent = new Intent(MainActivity.this, VakkenActivity.class);
+            startActivity(intent);
+        }
+
         return super.onOptionsItemSelected(item);
 	}
 

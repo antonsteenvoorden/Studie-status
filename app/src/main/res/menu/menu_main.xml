@@ -8,5 +8,12 @@
         android:name="@string/menu_about"
         app:showAsAction="never"
         android:title="@string/menu_about" />
+    <item
+        android:id="@+id/menu_add"
+        android:orderInCategory="100"
+        android:name="Module toevoegen"
+        app:showAsAction="never"
+        android:title="Module toevoegen" />
+
 
 </menu>

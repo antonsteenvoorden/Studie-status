@@ -6,7 +6,6 @@ import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.text.InputType;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -36,20 +35,19 @@ public class VakkenActivity extends AppCompatActivity {
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_vakken);
-    module = Module.find(getIntent().getLongExtra("module_id", 0));
-    System.out.println("Vak opgehaald: " + getIntent().getLongExtra("module_id", 0)  + module.toString());
     getTextFields();
-    fillTextFields();
-    setTextFieldProperties();
 
-//    FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-//    fab.setOnClickListener(new View.OnClickListener() {
-//      @Override
-//      public void onClick(View view) {
-//        Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-//            .setAction("Action", null).show();
-//      }
-//    });
+    int id = (int) getIntent().getLongExtra("module_id", -1);
+
+    if(id != -1) {
+      module = Module.find(id);
+      fillTextFields();
+      disableTextFields();
+    } else {
+      module = new Module();
+    }
+    System.out.println("Vak opgehaald: " + getIntent().getLongExtra("module_id", 0)  + module.toString());
+
 
     ects.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_CLASS_NUMBER);
     period.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_CLASS_NUMBER);
@@ -81,7 +79,7 @@ public class VakkenActivity extends AppCompatActivity {
 
   }
 
-  private void setTextFieldProperties() {
+  private void disableTextFields() {
     name.setEnabled(false);
     omschrijving.setEnabled(false);
     toetsdatum.setEnabled(false);
@@ -93,7 +91,6 @@ public class VakkenActivity extends AppCompatActivity {
 
   private void fillTextFields() {
     try {
-
       if (!module.getName().isEmpty()) name.setText(module.getName());
       if (!module.getLongName().isEmpty()) omschrijving.setText(module.getLongName());
       if (module.getToetsDatum() != null) toetsdatum.setText(module.getToetsDatum().toString());
@@ -114,18 +111,25 @@ public class VakkenActivity extends AppCompatActivity {
   }
 
   public void save() {
-    module.setGrade(newGrade);
-    module.save();
-    Snackbar snackbar = Snackbar
-        .make((CoordinatorLayout) findViewById(R.id.vakken_detail_layout), "Opgeslagen", Snackbar.LENGTH_LONG);
-    snackbar.show();
-    final Handler handler = new Handler();
-    handler.postDelayed(new Runnable() {
-      @Override
-      public void run() {
-        finish();
+    if(validateGrade()) {
+      module.setName(name.getText().toString());
+      module.setGrade(newGrade);
+      if(ects.getText().toString().isEmpty()) {
+        module.setEcts(0);
       }
-    }, 750);
+      module.save();
+
+      Snackbar snackbar = Snackbar
+          .make((CoordinatorLayout) findViewById(R.id.vakken_detail_layout), "Opgeslagen", Snackbar.LENGTH_LONG);
+      snackbar.show();
+      final Handler handler = new Handler();
+      handler.postDelayed(new Runnable() {
+        @Override
+        public void run() {
+          finish();
+        }
+      }, 750);
+    }
   }
 
   public boolean validateEcts() {
@@ -157,7 +161,10 @@ public class VakkenActivity extends AppCompatActivity {
     }
     if (valid) {
       newGrade = tmpGrade;
+    } else {
+      newGrade = 0.0;
     }
+
     return valid;
   }
 
