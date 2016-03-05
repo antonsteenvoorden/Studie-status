@@ -130,7 +130,7 @@ public class StandVanZakenFragment extends Fragment {
 
   private void setData(int aantal) {
     String label = (String) getString(R.string.stand_van_zaken_data);
-    standVanZakenChart.setCenterText(aantal + " / 60 \n" + label);
+    standVanZakenChart.setCenterText(aantal + " / " + maxECTS  +"\n" + label);
 
     if (xValues.size() >= 2 && yValues.size() >= 2) {
       yValues.set(0, new Entry(aantal, 0));
