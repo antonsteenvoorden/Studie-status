@@ -104,6 +104,7 @@ public class StandVanZakenFragment extends Fragment {
   }
 
   public void calculateECTS() {
+    maxECTS = 0;
     modules.clear();
     modules = Module.getAll();
     for (Module module : modules) {
