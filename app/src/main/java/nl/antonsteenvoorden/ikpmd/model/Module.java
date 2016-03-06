@@ -1,5 +1,7 @@
 package nl.antonsteenvoorden.ikpmd.model;
 
+import android.view.View;
+
 import com.activeandroid.ActiveAndroid;
 import com.activeandroid.Model;
 import com.activeandroid.annotation.Column;
@@ -200,8 +202,7 @@ public class Module extends Model {
           }
         }
         if(notStored) {
-//          NotificationHandler notificatioNHandler = new NotificationHandler();
-//          notificatioNHandler.sendNotification();
+//          new NotificationHandler("NotificationHandler").showNotification();
           System.out.println("Module.insertList SAVING :" + newModule.toString());
           newModule.setPeriod(0);
           newModule.setEcts(0);
