@@ -1,4 +1,5 @@
 apply plugin: 'com.android.application'
+apply plugin: 'me.tatarka.retrolambda'
 
 android {
     compileSdkVersion 23
@@ -16,6 +17,11 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
+    }
+    compileOptions {
+        encoding "UTF-8"
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
     }
 }
 
@@ -36,7 +42,7 @@ dependencies {
     compile 'com.michaelpardo:activeandroid:3.1.0-SNAPSHOT'
     compile 'com.github.PhilJay:MPAndroidChart:v2.1.4'
     compile 'com.android.support:recyclerview-v7:23.1.1'
-
     compile 'za.co.riggaroo:materialhelptutorial:1.0.3'
+    compile 'com.innahema:collections-query:0.2.9'
     compile files('src/main/java/lib/jsoup-1.8.3.jar')
 }

@@ -13,8 +13,11 @@ import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
 import com.github.mikephil.charting.data.CombinedData;
+import com.innahema.collections.query.queriables.Queryable;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 
 import butterknife.ButterKnife;
 import nl.antonsteenvoorden.ikpmd.R;
@@ -29,8 +32,9 @@ public class BarChartFragment extends Fragment {
   Context context;
 
 
-  ArrayList<BarEntry> barObtainedEntries;
-
+  List<BarEntry> barObtainedEntries;
+  Collection<BarEntry> jaar1;
+  Collection<Module> modules;
   BarDataSet barDataSet;
 
   BarData barObtained;
@@ -50,7 +54,9 @@ public class BarChartFragment extends Fragment {
     super.onCreate(savedInstanceState);
 
     context = rootView.getContext();
-    barObtainedEntries = new ArrayList<BarEntry>();
+    barObtainedEntries = new ArrayList<>();
+    jaar1 = new ArrayList<>();
+
     colors = new int[2];
 
     barChart = (CombinedChart) rootView.findViewById(R.id.chart);
@@ -86,7 +92,7 @@ public class BarChartFragment extends Fragment {
     barChart.getAxisRight().setDrawLabels(false);
     barChart.setDrawHighlightArrow(false);
     barChart.setDrawBorders(false);
-    barChart.setDrawValueAboveBar(true);
+    barChart.setDrawValueAboveBar(false);
     barChart.setDescriptionColor(Color.WHITE);
     barChart.setDrawGridBackground(false);
     barChart.setDescription("");
@@ -101,6 +107,8 @@ public class BarChartFragment extends Fragment {
     for (int i = 0; i < 4; i++) {
       float ectsTmp = 0;
       float ectsReceivedTmp = 0;
+      modules = Module.getAll();
+//      jaar1 = Queryable.from(modules).filter(module->module.getJaar()==1).map(new BarEntry(10,10)).toList();
       for (Module module : Module.getPeriod(i + 1)) {
         ectsTmp += module.getEcts();
         if (module.getGrade() >= 5.5) {
@@ -108,9 +116,7 @@ public class BarChartFragment extends Fragment {
         }
       }
       barObtainedEntries.add(new BarEntry(new float[]{ectsReceivedTmp, (ectsTmp - ectsReceivedTmp)}, i));
-      if (ectsReceivedTmp == ectsTmp) {
 
-      }
     }
     setData();
   }
