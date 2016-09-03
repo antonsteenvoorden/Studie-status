@@ -122,9 +122,9 @@ public class ModuleObtainer extends AsyncTask<Void,Void,Void>  {
         String key = inputElement.attr("name");
         String value = inputElement.attr("value");
 
-        if (key.equals("gebruikersNaam"))
+        if (key.equals("VB_gebruikersNaam"))
           value = osirisUsername;
-        else if (key.equals("wachtWoord"))
+        else if (key.equals("VB_wachtWoord"))
           value = osirisPassword;
         paramList.add(key + "=" + URLEncoder.encode(value, "UTF-8"));
       }
